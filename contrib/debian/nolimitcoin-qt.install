@@ -1,0 +1,5 @@
+NoLimitCoin-qt usr/bin
+share/pixmaps/bitcoin32.xpm usr/share/pixmaps
+share/pixmaps/bitcoin80.xpm usr/share/pixmaps
+debian/NoLimitCoin-qt.desktop usr/share/applications
+debian/NoLimitCoin-qt.protocol usr/share/kde4/services/

@@ -1,0 +1,2 @@
+debian/bin/NoLimitCoind usr/bin
+src/NoLimitCoind usr/lib/NoLimitCoin

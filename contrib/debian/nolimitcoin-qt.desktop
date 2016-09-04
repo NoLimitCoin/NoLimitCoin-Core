@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=NoLimitCoin
+Comment=NoLimitCoin P2P Cryptocurrency
+Comment[fr]=NoLimitCoin, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=NoLimitCoin, eşten eşe kriptografik sanal para birimi
+Exec=/usr/bin/NoLimitCoin-qt
+Terminal=false
+Type=Application
+Icon=/usr/share/pixmaps/bitcoin80.xpm
+MimeType=x-scheme-handler/NoLimitCoin;
+Categories=Office;
