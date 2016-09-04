@@ -9,7 +9,7 @@ Copyright © 2016 The NoLimitCoin developers
 
 -----
 
-
+```
 Algorithm: SHA256d
 Block Time: 2 Minutes
 PoS APR: 2%
@@ -19,7 +19,7 @@ testnet rpc: 16520
 testnet p2p port: 16521
 PUBKEY_ADDRESS = 53 (0x35)
 SCRIPT_ADDRESS = 92 (0x5c)
-
+```
 
 
 
