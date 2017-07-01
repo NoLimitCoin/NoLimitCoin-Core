@@ -152,6 +152,7 @@ case "$TARGET_OS" in
         COMMON_FLAGS="-fno-builtin-memcmp -D_REENTRANT -DOS_WINDOWS -DLEVELDB_PLATFORM_WINDOWS -DWINVER=0x0500 -D__USE_MINGW_ANSI_STDIO=1"
         PLATFORM_SOURCES="util/env_win.cc"
         PLATFORM_LIBS="-lshlwapi"
+		PLATFORM_EXTRALIBS="-lboost_system-mgw49-mt-s-1_57 -lboost_filesystem-mgw49-mt-s-1_57 -lboost_thread-mgw49-mt-s-1_57 -lboost_chrono-mgw49-mt-s-1_57"
         PORT_FILE=port/port_win.cc
         CROSS_COMPILE=true
         ;;

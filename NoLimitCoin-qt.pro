@@ -369,10 +369,10 @@ OTHER_FILES += \
 isEmpty(BOOST_LIB_SUFFIX) {
     macx:BOOST_LIB_SUFFIX = -mt
     windows:BOOST_LIB_SUFFIX = -mgw49-mt-s-1_57
-	windows:BOOST_INCLUDE_PATH=C:/deps/boost_1_57_0
+	windows:BOOST_INCLUDE_PATH=C:/deps/boost_1_57_0/
 	windows:BOOST_LIB_PATH=C:/deps/boost_1_57_0/stage/lib
-	windows:OPENSSL_INCLUDE_PATH=C:/deps/openssl-1.0.1j/include
-    windows:OPENSSL_LIB_PATH=C:/deps/openssl-1.0.1j
+	windows:OPENSSL_INCLUDE_PATH=C:/deps/openssl-1.0.1p/include
+    windows:OPENSSL_LIB_PATH=C:/deps/openssl-1.0.1p/
 	windows:BDB_INCLUDE_PATH=C:/deps/db-4.8.30.NC/build_unix
     windows:BDB_LIB_PATH=C:/deps/db-4.8.30.NC/build_unix
 	windows:QRENCODE_INCLUDE_PATH=C:/deps/qrencode-3.4.4

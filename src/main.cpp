@@ -987,47 +987,11 @@ int64_t GetProofOfWorkReward(int64_t nFees)
  
     if(pindexBest->nHeight+1 == 1)
     {
-        nSubsidy = 1420000000 * COIN;
+        nSubsidy = 200000000 * COIN;
     }
-	    else if(pindexBest->nHeight+1 >= 2 && pindexBest->nHeight+1 <= 25)
+	    else if(pindexBest->nHeight+1 >= 2 && pindexBest->nHeight+1 <= 1000)
     {
         nSubsidy = 0 * COIN;
-    }
-        else if(pindexBest->nHeight+1 >= 26 && pindexBest->nHeight+1 <= 259226)
-    {
-        nSubsidy = 82.175 * COIN;
-    }
-		else if(pindexBest->nHeight+1 >= 259227 && pindexBest->nHeight+1 <= 518426)
-    {
-        nSubsidy = 73.95 * COIN;
-    }
-        else if(pindexBest->nHeight+1 >= 518427 && pindexBest->nHeight+1 <= 777653)
-    {
-        nSubsidy = 66.56 * COIN;
-    }
-        else if(pindexBest->nHeight+1 >= 777654 && pindexBest->nHeight+1 <= 1036880)
-    {
-        nSubsidy = 59.9 * COIN;
-	}   
-		else if(pindexBest->nHeight+1 >= 1036881 && pindexBest->nHeight+1 <= 1296106)
-	{
-		nSubsidy = 53.91 * COIN;
-	}	
-		else if(pindexBest->nHeight+1 >= 1296107 && pindexBest->nHeight+1 <= 1555332)
-	{
-		nSubsidy = 48.52 * COIN;
-	}
-		else if(pindexBest->nHeight+1 >= 1555333 && pindexBest->nHeight+1 <= 1814559)
-	{
-		nSubsidy = 43.67 * COIN;
-	}
-		else if(pindexBest->nHeight+1 >= 1814560 && pindexBest->nHeight+1 <= 2073759)
-	{
-		nSubsidy = 39.3 * COIN;
-	}
-		else if(pindexBest->nHeight+1 >= 2073760 && pindexBest->nHeight+1 <= 100000000)
-	{
-		nSubsidy = 35.37 * COIN;
 }
     
     if (fDebug && GetBoolArg("-printcreation"))
@@ -2568,7 +2532,7 @@ bool LoadBlockIndex(bool fAllowNew)
 
 
 
-        const char* pszTimestamp = "NoLimitCoin August of 2016";
+        const char* pszTimestamp = "NoLimitCoin November-2016";
         CTransaction txNew;
         txNew.nTime = 1464466500;
         txNew.vin.resize(1);
@@ -2582,7 +2546,7 @@ bool LoadBlockIndex(bool fAllowNew)
         block.nVersion = 1;
         block.nTime    = 1464466500;
         block.nBits    = bnProofOfWorkLimit.GetCompact();
-        block.nNonce   = 6641933;
+        block.nNonce   = 15360013;
 		if(fTestNet)
         {
             block.nNonce   = 21863;
@@ -2612,7 +2576,7 @@ bool LoadBlockIndex(bool fAllowNew)
         printf("block.nTime = %u \n", block.nTime);
         printf("block.nNonce = %u \n", block.nNonce);
 
-        assert(block.hashMerkleRoot == uint256("0x3b70744ab73862fa09379e62a9ebb0f29934cc0670619e0022dd679629fa8284"));
+        assert(block.hashMerkleRoot == uint256("0xd61776591a374a9b20a237d725011083d7724503d4bead19b79670ad7c2fc7c6"));
 
 
 	    block.print();

@@ -10,9 +10,9 @@ Copyright © 2016 The NoLimitCoin developers
 -----
 
 ```
-Algorithm: SHA256d
+Algorithm: SHA256d/PoS 
 Block Time: 2 Minutes
-PoS APR: 2%
+PoS APR: 4%
 rpc port: 6520
 p2p port: 6521
 testnet rpc: 16520

@@ -30,7 +30,7 @@ class CInv;
 class CRequestTracker;
 class CNode;
 
-static const int LAST_POW_BLOCK = 100000000;
+static const int LAST_POW_BLOCK = 1000;
 
 static const unsigned int MAX_BLOCK_SIZE = 20000000;
 static const unsigned int MAX_BLOCK_SIZE_GEN = MAX_BLOCK_SIZE/2;
@@ -39,10 +39,10 @@ static const unsigned int MAX_ORPHAN_TRANSACTIONS = MAX_BLOCK_SIZE/100;
 static const unsigned int MAX_INV_SZ = 50000;
 static const int64_t MIN_TX_FEE =  10000;
 static const int64_t MIN_RELAY_TX_FEE = MIN_TX_FEE;
-static const int64_t MAX_MONEY = 10000000000 * COIN;
-static const int64_t COIN_YEAR_REWARD = 2 * CENT; 
+static const int64_t MAX_MONEY = 1000000000 * COIN;
+static const int64_t COIN_YEAR_REWARD = 4 * CENT; 
 
-static const int MODIFIER_INTERVAL_SWITCH = 20000;
+static const int MODIFIER_INTERVAL_SWITCH = 25;
 
 
 inline bool MoneyRange(int64_t nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
@@ -54,7 +54,7 @@ static const int fHaveUPnP = true;
 #else
 static const int fHaveUPnP = false;
 #endif
-static const uint256 hashGenesisBlock("0x000000ff98438a8fd929e704aa25b6edc86edd9f2e525ed4208b2a2f32aa3780");
+static const uint256 hashGenesisBlock("0x000000c97e5317f440753bb4b0155badbce95fa893cb65d677385df2f07f7a2e");
 static const uint256 hashGenesisBlockTestNet("0x0000834807c7b0f6e8772e7bee9b7cd3524e1211c196386f41b3fc20243b0dfa");
 
 inline int64_t PastDrift(int64_t nTime)   { return nTime - 5 * 60; } // up to 5 minutes from the past   - down from 10 for security

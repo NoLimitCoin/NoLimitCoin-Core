@@ -1009,7 +1009,7 @@ boost::filesystem::path GetDefaultDataDir()
     // Unix: ~/.NoLimitCoin
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "NoLimitCoin";
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "NoLimitCoin2";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -1021,10 +1021,10 @@ boost::filesystem::path GetDefaultDataDir()
     // Mac
     pathRet /= "Library/Application Support";
     fs::create_directory(pathRet);
-    return pathRet / "NoLimitCoin";
+    return pathRet / "NoLimitCoin2";
 #else
     // Unix
-    return pathRet / ".NoLimitCoin";
+    return pathRet / ".NoLimitCoin2";
 #endif
 #endif
 }
