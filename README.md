@@ -1,4 +1,4 @@
-NoLimitCoin (NLC)
+NoLimitCoin2 (NLC2)
 ===================
 Distributed under the MIT/X11 software license.
 
