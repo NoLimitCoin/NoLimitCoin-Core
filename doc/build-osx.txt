@@ -27,7 +27,7 @@ but you can get the current version from http://developer.apple.com
 
 1.  Clone the github tree to get the source code:
 
-git clone git@github.com:rat4/NoLimitCoin.git NoLimitCoin
+git clone git@github.com:NoLimitCoin/Nolimitcoin-Core.git NoLimitCoin
 
 2.  Download and install MacPorts from http://www.macports.org/
 
@@ -52,3 +52,33 @@ Run
   ./NoLimitCoind -daemon # to start the NoLimitCoin daemon.
 Run
   ./NoLimitCoind help # When the daemon is running, to get a list of RPC commands
+
+
+
+Static Building
+---------------
+the following steps needs to be taken in order to build the QT wallet statically, so that the libraries are linked statically to the application. The wallet can be successfully built with version 5.4.2 of QT
+Refer: https://download.qt.io/archive/qt/5.4/5.4.2/
+
+1. Download QT from source
+2. Build the QT Library
+	# ./configure -release -opensource -confirm-license -static -no-sql-sqlite -no-opengl -qt-zlib -no-gif -qt-libpng -qt-libjpeg -no-openssl -no-dbus -no-audio-backend -nomake examples
+3. Make QT
+	# make -j 4
+	where 4 is the number of cores your system has.
+4. Use MacDeployQT to buid a .dmg bundle of your wallet
+	# cd Qt5.4.2/5.4/clang_64/bin
+	# ./macdeployqt ~/nlc/Nolimitcoin-Blockchain/release/NoLimitCoin-Qt.app -dmg
+
+Refer: https://dragly.org/2012/01/13/deploy-qt-applications-for-mac-os-x/
+
+
+Troubleshooting
+---------------
+Troubleshoot some of the errors you might face.
+
+Error: ld: symbol(s) not found for architecture x86_64 
+Solution:
+	* Uninstall boost from macports 
+	* Install boost from homebrew
+
