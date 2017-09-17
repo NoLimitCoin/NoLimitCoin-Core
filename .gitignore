@@ -4,6 +4,7 @@
 release/
 build/
 NoLimitCoin-qt
+Makefile
 
 # Windows image file caches
 Thumbs.db
