@@ -2,6 +2,8 @@
 
 ####### Releases ##########
 release/
+build/
+NoLimitCoin-qt
 
 # Windows image file caches
 Thumbs.db
