@@ -6,6 +6,14 @@ build/
 NoLimitCoin-qt
 Makefile
 
+####### Build Files ######
+src/obj/zerocoin/*.P
+src/obj/zerocoin/*.o
+src/obj/*.P
+src/obj/*.o
+.qmake.stash
+test
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db

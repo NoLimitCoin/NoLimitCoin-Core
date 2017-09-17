@@ -9,7 +9,8 @@ DEFINES += QT_STATIC_BUILD
 CONFIG += no_include_pwd
 CONFIG += thread
 CONFIG += static
-QMAKE_CXXFLAGS = -fpermissive
+QMAKE_CXXFLAGS = -fpermissive -stdlib=libc++ -std=c++11
+#QMAKE_CXXFLAGS = -fpermissive -stdlib=libstdc++
 greaterThan(QT_MAJOR_VERSION, 4) {
     QT += widgets
     DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0
@@ -419,8 +420,8 @@ windows:!contains(MINGW_THREAD_BUGFIX, 0) {
     QMAKE_LIBS_QT_ENTRY = -lmingwthrd $$QMAKE_LIBS_QT_ENTRY
 }
 
-macx:HEADERS += src/qt/macdockiconhandler.h
-macx:OBJECTIVE_SOURCES += src/qt/macdockiconhandler.mm
+macx:HEADERS += src/qt/macdockiconhandler.h src/qt/macnotificationhandler.h
+macx:OBJECTIVE_SOURCES += src/qt/macdockiconhandler.mm src/qt/macnotificationhandler.mm
 macx:LIBS += -framework Foundation -framework ApplicationServices -framework AppKit
 macx:DEFINES += MAC_OSX MSG_NOSIGNAL=0
 macx:ICON = src/qt/res/icons/nlc2.icns

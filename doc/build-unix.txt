@@ -61,11 +61,7 @@ Versions used in this release:
 
 Dependency Build Instructions: Ubuntu & Debian
 ----------------------------------------------
-sudo apt-get install build-essential
-sudo apt-get install libssl-dev
-sudo apt-get install libdb++-dev
-sudo apt-get install libboost-all-dev
-sudo apt-get install libqrencode-dev
+sudo apt-get install build-essential libssl-dev libdb++-dev libboost-all-dev libqrencode-dev
 
 If using Boost 1.37, append -mt to the boost libraries in the makefile.
 
@@ -151,3 +147,16 @@ exploit even if a vulnerability is found, you can take the following measures:
     RW- R-- RW-
 
     The STK RW- means that the stack is readable and writeable but not executable.
+
+
+Troubleshooting
+---------------
+
+Error:
+g++: error: /home/sambhav/nlc/Nolimitcoin-Blockchain/src/leveldb/libleveldb.a: No such file or directory
+g++: error: /home/sambhav/nlc/Nolimitcoin-Blockchain/src/leveldb/libmemenv.a: No such file or directory
+
+Solution:
+$ cd leveldb
+$ chmod 755 *
+
