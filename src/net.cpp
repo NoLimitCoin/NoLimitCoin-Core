@@ -1238,8 +1238,7 @@ void MapPort()
 static const char *strDNSSeed[][2] = {
     {"seed1", "seed1.nlc2.info"},
 	{"seed2", "seed2.nlc2.info"},
-	{"seed3", "seed3.nlc2.info"},
-
+	{"seed3", "seed3.nlc2.info"}
 };
 
 void ThreadDNSAddressSeed(void* parg)
