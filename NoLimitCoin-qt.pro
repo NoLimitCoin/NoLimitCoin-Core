@@ -9,7 +9,13 @@ DEFINES += QT_STATIC_BUILD
 CONFIG += no_include_pwd
 CONFIG += thread
 CONFIG += static
-QMAKE_CXXFLAGS = -fpermissive
+windows {
+    QMAKE_CXXFLAGS = -fpermissive
+} else {
+    QMAKE_CXXFLAGS = -fpermissive -stdlib=libc++ -std=c++11
+}
+# QMAKE_CXXFLAGS = -fpermissive -stdlib=libc++ -std=c++11
+#QMAKE_CXXFLAGS = -fpermissive -stdlib=libstdc++
 greaterThan(QT_MAJOR_VERSION, 4) {
     QT += widgets
     DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0
@@ -369,9 +375,9 @@ OTHER_FILES += \
 # platform specific defaults, if not overridden on command line
 isEmpty(BOOST_LIB_SUFFIX) {
     macx:BOOST_LIB_SUFFIX = -mt
-    windows:BOOST_LIB_SUFFIX = -mgw49-mt-s-1_57
-	windows:BOOST_INCLUDE_PATH=C:/deps/boost_1_57_0/
-	windows:BOOST_LIB_PATH=C:/deps/boost_1_57_0/stage/lib
+    windows:BOOST_LIB_SUFFIX = -mgw48-mt-s-1_55
+        windows:BOOST_INCLUDE_PATH=C:/deps/boost_1_55_0/
+        windows:BOOST_LIB_PATH=C:/deps/boost_1_55_0/stage/lib
 	windows:OPENSSL_INCLUDE_PATH=C:/deps/openssl-1.0.1p/include
     windows:OPENSSL_LIB_PATH=C:/deps/openssl-1.0.1p/
 	windows:BDB_INCLUDE_PATH=C:/deps/db-4.8.30.NC/build_unix
@@ -420,8 +426,8 @@ windows:!contains(MINGW_THREAD_BUGFIX, 0) {
     QMAKE_LIBS_QT_ENTRY = -lmingwthrd $$QMAKE_LIBS_QT_ENTRY
 }
 
-macx:HEADERS += src/qt/macdockiconhandler.h
-macx:OBJECTIVE_SOURCES += src/qt/macdockiconhandler.mm
+macx:HEADERS += src/qt/macdockiconhandler.h src/qt/macnotificationhandler.h
+macx:OBJECTIVE_SOURCES += src/qt/macdockiconhandler.mm src/qt/macnotificationhandler.mm
 macx:LIBS += -framework Foundation -framework ApplicationServices -framework AppKit
 macx:DEFINES += MAC_OSX MSG_NOSIGNAL=0
 macx:ICON = src/qt/res/icons/nlc2.icns

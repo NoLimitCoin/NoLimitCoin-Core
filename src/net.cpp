@@ -1237,8 +1237,9 @@ void MapPort()
 // The second name should resolve to a list of seed addresses.
 static const char *strDNSSeed[][2] = {
     {"seed1", "seed1.nlc2.info"},
-	{"seed2", "seed2.nlc2.info"},
-	{"seed3", "seed3.nlc2.info"}
+    {"seed2", "seed2.nlc2.info"},
+    {"seed3", "seed3.nlc2.info"},
+
 };
 
 void ThreadDNSAddressSeed(void* parg)
@@ -1319,7 +1320,7 @@ void DumpAddresses()
     CAddrDB adb;
     adb.Write(addrman);
 
-    printf("Flushed %d addresses to peers.dat  %"PRId64"ms\n",
+    printf("Flushed %d addresses to peers.dat  %" PRId64"ms\n",
            addrman.size(), GetTimeMillis() - nStart);
 }
 
