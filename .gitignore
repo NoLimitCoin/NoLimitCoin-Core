@@ -6,6 +6,12 @@ build/
 NoLimitCoin-qt
 Makefile
 
+# windows release files
+Makefile.Debug
+Makefile.Release
+object_script.NoLimitCoin-qt.Debug
+object_script.NoLimitCoin-qt.Release
+
 ###### Build Files #######
 test
 src/obj/*.o
