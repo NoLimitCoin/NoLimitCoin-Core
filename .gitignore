@@ -20,6 +20,9 @@ src/obj/zerocoin/*.o
 src/obj/zerocoin/*.P
 .qmake.stash
 
+###### Debug Files #######
+debug/
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
