@@ -1,10 +1,10 @@
-NoLimitCoin (NLC)
+NoLimitCoin (NLC2)
 ===================
 Distributed under the MIT/X11 software license.
 
-Copyright © 2009-2016 The Bitcoin developers
+Copyright © 2009-2017 The Bitcoin developers
 
-Copyright © 2016 The NoLimitCoin developers
+Copyright © 2017 The NoLimitCoin developers
 
 
 -----

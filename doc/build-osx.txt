@@ -52,3 +52,27 @@ Run
   ./NoLimitCoind -daemon # to start the NoLimitCoin daemon.
 Run
   ./NoLimitCoind help # When the daemon is running, to get a list of RPC commands
+
+
+Static Builds
+-------------
+
+./configure -release -opensource -confirm-license -static -no-sql-sqlite -no-opengl -qt-zlib -no-gif -qt-libpng -qt-libjpeg -no-openssl -no-dbus -no-audio-backend -nomake examples
+
+
+Troubleshooting
+---------------
+
+ld: symbol(s) not found for architecture x86_64 
+* Uninstall boost from macports 
+* Install boost from homebrew
+
+
+find /usr -name "boost"
+
+
+Statically build wallet
+./macdeployqt ~/nlc/Nolimitcoin-Blockchain/release/NoLimitCoin-Qt.app -dmg
+https://dragly.org/2012/01/13/deploy-qt-applications-for-mac-os-x/
+
+
