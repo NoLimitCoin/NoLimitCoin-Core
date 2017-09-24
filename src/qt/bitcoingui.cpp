@@ -80,6 +80,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     rpcConsole(0),
     nWeight(0)
 {
+    setMinimumSize(970,500);
     resize(970,500);
 
 	QFontDatabase::addApplicationFont(":/fonts/Bebas");
