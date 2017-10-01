@@ -9,13 +9,13 @@ DEFINES += QT_STATIC_BUILD
 CONFIG += no_include_pwd
 CONFIG += thread
 CONFIG += static
-windows {
-    QMAKE_CXXFLAGS = -fpermissive
-} else {
+macx {
     QMAKE_CXXFLAGS = -fpermissive -stdlib=libc++ -std=c++11
+
+} else {
+    QMAKE_CXXFLAGS = -fpermissive
 }
-# QMAKE_CXXFLAGS = -fpermissive -stdlib=libc++ -std=c++11
-#QMAKE_CXXFLAGS = -fpermissive -stdlib=libstdc++
+
 greaterThan(QT_MAJOR_VERSION, 4) {
     QT += widgets
     DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0
