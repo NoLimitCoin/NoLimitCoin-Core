@@ -153,12 +153,12 @@ Troubleshooting
 ---------------
 
 Error:
-g++: error: /home/sambhav/nlc/Nolimitcoin-Blockchain/src/leveldb/libleveldb.a: No such file or directory
-g++: error: /home/sambhav/nlc/Nolimitcoin-Blockchain/src/leveldb/libmemenv.a: No such file or directory
+g++: error: {path-to-nlc-source}/src/leveldb/libleveldb.a: No such file or directory
+g++: error: {path-to-nlc-source}/src/leveldb/libmemenv.a: No such file or directory
 
 Solution:
 $ cd leveldb
-$ chmod 755 *
+$ chmod 755 build_detect_platform
 
 
 Static Build
@@ -170,7 +170,7 @@ Static Build
     $ make -j 4 install    
 
 2. Set path to new qt built in terminal and make NoLimitCoin-qt
-    $ PATH=/home/sambhav/Qt/qt-src-5.3.2/qtbase/bin/:$PATH
+    $ PATH= ~/Qt/qt-src-5.3.2/qtbase/bin/:$PATH
     $ qmake USE_DBUS=0 RELEASE=1
     $ make -j 4
 
