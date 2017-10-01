@@ -12,6 +12,12 @@ Makefile.Release
 object_script.NoLimitCoin-qt.Debug
 object_script.NoLimitCoin-qt.Release
 
+# linux build files
+nolimitcoin-qt_plugin_import.cpp
+qdbusxml2cpp_wrapper.sh
+qrc_bitcoin.cpp
+uic_wrapper.sh
+
 ###### Build Files #######
 test
 src/obj/*.o
