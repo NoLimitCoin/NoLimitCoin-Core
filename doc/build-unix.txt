@@ -165,7 +165,7 @@ Static Build
 -------------
 
 1. Build Qt from source (successfully built qt-5.3.2 on Ubuntu 14.04)
-    $ ./configure -confirm-license -static -release -opensource -openssl-linked -system-sqlite -no-rpath -nomake tests -nomake examples -qt-xcb -skip qtwebkit -no-icu
+    $ ./configure -confirm-license -static -release -opensource -openssl-linked -system-sqlite -no-rpath -nomake tests -no-openssl -no-dbus -nomake examples -qt-xcb -skip qtwebkit -no-icu
     $ make -j 4
     $ make -j 4 install    
 
