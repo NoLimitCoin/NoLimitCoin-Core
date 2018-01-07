@@ -5,6 +5,7 @@ release/
 build/
 NoLimitCoin-qt
 Makefile
+src/NoLimitCoind
 
 # windows release files
 Makefile.Debug
