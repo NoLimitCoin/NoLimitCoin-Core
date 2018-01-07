@@ -697,7 +697,32 @@ bool AppInit2()
     uiInterface.InitMessage(_("Loading block index..."));
     printf("Loading block index...\n");
     nStart = GetTimeMillis();
-    if (!LoadBlockIndex())
+
+    // blkindex file number
+    unsigned int nFile = 1;
+    boost::filesystem::path blkIndexLocation = GetDataDir() / strprintf("blk%04u.dat", nFile);
+    boost::filesystem::path blkIndexBackupLocation = GetDataDir() / strprintf("blk%04u.dat.bak", nFile);
+    bool isBlkIndexLoaded = true;
+
+    if (!LoadBlockIndex()){
+        // if a backup of blkindex exists, use that as the main blkindex
+        if ( boost::filesystem::exists( blkIndexBackupLocation ) ) {
+          copy_file(blkIndexBackupLocation, blkIndexLocation, boost::filesystem::copy_option::overwrite_if_exists);
+
+          // Try loading blkindex again and throw error if it still fails
+          if (!LoadBlockIndex()){
+              isBlkIndexLoaded = false;
+          }
+        } else {
+            isBlkIndexLoaded = false;
+        }
+    } else {
+        // Once blkindex is successfully loaded, make a backup of the working blkindex file.
+        copy_file(blkIndexLocation, blkIndexBackupLocation, boost::filesystem::copy_option::overwrite_if_exists);
+    }
+
+    // Return with error if blkindex could not be loaded.
+    if (!isBlkIndexLoaded)
         return InitError(_("Error loading blkindex.dat"));
 
 
