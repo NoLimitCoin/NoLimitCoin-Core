@@ -2487,7 +2487,14 @@ FILE* AppendBlockFile(unsigned int& nFileRet)
     }
 }
 
-bool LoadBlockIndex(bool fAllowNew, bool reload)
+// Clear the blockindex. DB, block index map and set of stakes seen
+void clearBlockIndex(){
+    CTxDB().Close();
+    mapBlockIndex.clear();
+    setStakeSeen.clear();
+}
+
+bool LoadBlockIndex(bool fAllowNew)
 {
     CBigNum bnTrustedModulus;
 
@@ -2512,13 +2519,6 @@ bool LoadBlockIndex(bool fAllowNew, bool reload)
     // Set up the Zerocoin Params object
     ZCParams = new libzerocoin::Params(bnTrustedModulus);
 #endif
-
-    // If reload blockchain is specified, we clear the txDB, mapBlockIndex and setStakeSeen
-    if(reload){
-        CTxDB().Close();
-        mapBlockIndex.clear();
-        setStakeSeen.clear();
-    }
 
     //
     // Load block index

@@ -747,12 +747,14 @@ bool AppInit2()
         bool isBlkIndexLoaded = false;
 
         if (!LoadBlockIndex() && boost::filesystem::exists( blkIndexBackupLocation )){
+            clearBlockIndex();
+
             // if a backup of blkindex exists, use that as the main blkindex
             restoreBlockchainData();
 
             // Try loading blkindex again and throw error if it still fails
             // Explicitly mentioning to reload blockindex
-            isBlkIndexLoaded = LoadBlockIndex(true, true);
+            isBlkIndexLoaded = LoadBlockIndex();
         } else {
             isBlkIndexLoaded = true;
             backupBlockchainData();
