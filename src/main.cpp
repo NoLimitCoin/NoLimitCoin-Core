@@ -2487,6 +2487,13 @@ FILE* AppendBlockFile(unsigned int& nFileRet)
     }
 }
 
+// Clear the blockindex. DB, block index map and set of stakes seen
+void clearBlockIndex(){
+    CTxDB().Close();
+    mapBlockIndex.clear();
+    setStakeSeen.clear();
+}
+
 bool LoadBlockIndex(bool fAllowNew)
 {
     CBigNum bnTrustedModulus;

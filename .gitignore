@@ -50,6 +50,9 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Locale files
+# src/qt/locale/*.qm
+
 # =========================
 # Operating System Files
 # =========================
