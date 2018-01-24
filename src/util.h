@@ -58,7 +58,6 @@ static const int64_t CENT = 1000000;
 void LogStackTrace();
 #endif
 
-
 /* Format characters for (s)size_t and ptrdiff_t */
 #if defined(_MSC_VER) || defined(__MSVCRT__)
   /* (s)size_t and ptrdiff_t have the same size specifier in MSVC:
@@ -110,11 +109,11 @@ T* alignup(T* p)
 
 inline void MilliSleep(int64_t n)
 {
-#if BOOST_VERSION >= 105000
-    boost::this_thread::sleep_for(boost::chrono::milliseconds(n));
-#else
-    boost::this_thread::sleep(boost::posix_time::milliseconds(n));
-#endif
+    #if BOOST_VERSION >= 105000
+        boost::this_thread::sleep_for(boost::chrono::milliseconds(n));
+    #else
+        boost::this_thread::sleep(boost::posix_time::milliseconds(n));
+    #endif
 }
 
 /* This GNU C extension enables the compiler to check the format string against the parameters provided.
@@ -153,6 +152,7 @@ extern bool fReopenDebugLog;
 
 void RandAddSeed();
 void RandAddSeedPerfmon();
+bool copyDir(boost::filesystem::path const & source, boost::filesystem::path const & destination);
 int ATTR_WARN_PRINTF(1,2) OutputDebugStringF(const char* pszFormat, ...);
 
 /*
