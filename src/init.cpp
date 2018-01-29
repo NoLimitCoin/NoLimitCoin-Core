@@ -202,15 +202,6 @@ int main(int argc, char* argv[])
 {
     bool fRet = false;
 
-    // Initializing blkindex and and data original and backup files
-    blkIndexLocation = GetDataDir() / strprintf("blk%04u.dat", nFile);
-    databaseLocation = GetDataDir() / "database";
-    txLevelDBLocation = GetDataDir() / "txleveldb";    
- 
-    blkIndexBackupLocation = GetDataDir() / strprintf("blk%04u.dat.bak", nFile);
-    databaseBackupLocation = GetDataDir() / "database.bak";
-    txLevelDBBackupLocation = GetDataDir() / "txleveldb.bak";
-
     // Connect bitcoind signal handlers
     noui_connect();
 
@@ -344,27 +335,34 @@ std::string HelpMessage()
  *  Backsup blockchain data including blkindex file and db files
  */
 void backupBlockchainData() {
-
+    printf("\nbacking up blkindex file: %s", blkIndexLocation.c_str());
     // make a backup of the working blkindex file and other database directories.
-    // copy_file(blkIndexLocation, blkIndexBackupLocation, fs::copy_option::overwrite_if_exists);
+    copy_file(blkIndexLocation, blkIndexBackupLocation, fs::copy_option::overwrite_if_exists);
 
-    // // remove backup data directories and copy the new ones as backup
-    // fs::remove_all(databaseBackupLocation);
-    // fs::remove_all(txLevelDBBackupLocation);
-    // copyDir(databaseLocation, databaseBackupLocation);
-    // copyDir(txLevelDBLocation, txLevelDBBackupLocation);
+    // remove backup data directories and copy the new ones as backup
+    fs::remove_all(databaseBackupLocation);
+    fs::remove_all(txLevelDBBackupLocation);
+
+    printf("\nbacking up database log directory: %s", databaseLocation.c_str());
+    copyDir(databaseLocation, databaseBackupLocation);
+    printf("\nbacking up txleveldb directory: %s", txLevelDBLocation.c_str());
+    copyDir(txLevelDBLocation, txLevelDBBackupLocation);
 }
 
 /** 
  *  Restores blockchain data including blkindex file and db files
  */
 void restoreBlockchainData() {
+    printf("\nrestoring blkindex file: %s", blkIndexBackupLocation.c_str());
     copy_file(blkIndexBackupLocation, blkIndexLocation, fs::copy_option::overwrite_if_exists);
 
     // remove data directories and then restore them from backup
     fs::remove_all(databaseLocation);
     fs::remove_all(txLevelDBLocation);
+
+    printf("\nrestoring database log directory: %s", databaseBackupLocation.c_str());
     copyDir(databaseBackupLocation, databaseLocation);
+    printf("\nrestoring txleveldb directory: %s", txLevelDBBackupLocation.c_str());
     copyDir(txLevelDBBackupLocation, txLevelDBLocation);
 }
 
@@ -374,6 +372,15 @@ void restoreBlockchainData() {
  */
 bool AppInit2()
 {
+        // Initializing blkindex and and data original and backup files
+    blkIndexLocation = GetDataDir() / strprintf("blk%04u.dat", nFile);
+    databaseLocation = GetDataDir() / "database";
+    txLevelDBLocation = GetDataDir() / "txleveldb";    
+ 
+    blkIndexBackupLocation = GetDataDir() / strprintf("blk%04u.dat.bak", nFile);
+    databaseBackupLocation = GetDataDir() / "database.bak";
+    txLevelDBBackupLocation = GetDataDir() / "txleveldb.bak";
+
     // ********************************************************* Step 1: setup
     #ifdef _MSC_VER
         // Turn off Microsoft heap dump noise
