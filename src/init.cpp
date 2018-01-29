@@ -37,20 +37,19 @@ unsigned int nMinerSleep;
 bool fUseFastIndex;
 enum Checkpoints::CPMode CheckpointsMode;
 
-
 // Backup Directories to save correct/restore from corrupt blockchain
 // Original
 // blkindex file number
 unsigned int nFile = 1;
-fs::path blkIndexLocation = GetDataDir() / strprintf("blk%04u.dat", nFile);
-fs::path databaseLocation = GetDataDir() / "database";
-fs::path txLevelDBLocation = GetDataDir() / "txleveldb";    
+
+fs::path blkIndexLocation;
+fs::path databaseLocation;
+fs::path txLevelDBLocation;
 
 // Backup 
-fs::path blkIndexBackupLocation = GetDataDir() / strprintf("blk%04u.dat.bak", nFile);
-fs::path databaseBackupLocation = GetDataDir() / "database.bak";
-fs::path txLevelDBBackupLocation = GetDataDir() / "txleveldb.bak";
-
+fs::path blkIndexBackupLocation;
+fs::path databaseBackupLocation;
+fs::path txLevelDBBackupLocation;
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -203,6 +202,15 @@ int main(int argc, char* argv[])
 {
     bool fRet = false;
 
+    // Initializing blkindex and and data original and backup files
+    blkIndexLocation = GetDataDir() / strprintf("blk%04u.dat", nFile);
+    databaseLocation = GetDataDir() / "database";
+    txLevelDBLocation = GetDataDir() / "txleveldb";    
+ 
+    blkIndexBackupLocation = GetDataDir() / strprintf("blk%04u.dat.bak", nFile);
+    databaseBackupLocation = GetDataDir() / "database.bak";
+    txLevelDBBackupLocation = GetDataDir() / "txleveldb.bak";
+
     // Connect bitcoind signal handlers
     noui_connect();
 
@@ -338,13 +346,13 @@ std::string HelpMessage()
 void backupBlockchainData() {
 
     // make a backup of the working blkindex file and other database directories.
-    copy_file(blkIndexLocation, blkIndexBackupLocation, fs::copy_option::overwrite_if_exists);
+    // copy_file(blkIndexLocation, blkIndexBackupLocation, fs::copy_option::overwrite_if_exists);
 
-    // remove backup data directories and copy the new ones as backup
-    fs::remove_all(databaseBackupLocation);
-    fs::remove_all(txLevelDBBackupLocation);
-    copyDir(databaseLocation, databaseBackupLocation);
-    copyDir(txLevelDBLocation, txLevelDBBackupLocation);
+    // // remove backup data directories and copy the new ones as backup
+    // fs::remove_all(databaseBackupLocation);
+    // fs::remove_all(txLevelDBBackupLocation);
+    // copyDir(databaseLocation, databaseBackupLocation);
+    // copyDir(txLevelDBLocation, txLevelDBBackupLocation);
 }
 
 /** 
