@@ -154,7 +154,10 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 
     // Create tabs
     overviewPage = new OverviewPage();
+    
     loadingBlockchain = new LoadingBlockchain();
+    connect(loadingBlockchain, SIGNAL(blockchainLoaded()), this, SLOT(gotoOverviewPage()));
+    
     blockBrowser = new BlockBrowser(this);	
 
     transactionsPage = new QWidget(this);
@@ -235,7 +238,6 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     // Clicking on "Sign Message" in the receive coins page sends you to the sign message tab
     connect(receiveCoinsPage, SIGNAL(signMessage(QString)), this, SLOT(gotoSignMessageTab(QString)));
 
-    //gotoOverviewPage();
     gotoLoadingBlockchain();
 }
 
@@ -1051,4 +1053,8 @@ void BitcoinGUI::updateStakingIcon()
         else
             labelStakingIcon->setToolTip(tr("Not staking"));
     }
+}
+
+void BitcoinGUI::movetoOverviewPage(){
+    //gotoOverviewPage();
 }

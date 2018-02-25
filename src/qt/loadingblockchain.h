@@ -28,6 +28,9 @@ private:
 
     private slots:
     void updateProgress();
+
+signals:
+	void blockchainLoaded();    
 };
 
 #endif // LOADINGBLOCKCHAIN_H

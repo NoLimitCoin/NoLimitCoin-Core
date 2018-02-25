@@ -146,6 +146,8 @@ public slots:
     void askFee(qint64 nFeeRequired, bool *payFee);
     void handleURI(QString strURI);
 
+    void movetoOverviewPage();
+
 private slots:
     /** Switch to overview (home) page */
     void gotoOverviewPage();
