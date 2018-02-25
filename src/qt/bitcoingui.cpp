@@ -157,6 +157,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     
     loadingBlockchain = new LoadingBlockchain();
     connect(loadingBlockchain, SIGNAL(blockchainLoaded()), this, SLOT(gotoOverviewPage()));
+    connect(loadingBlockchain, SIGNAL(blockchainLoaded()), this, SLOT(addToolbar()));
     
     blockBrowser = new BlockBrowser(this);	
 
@@ -385,22 +386,10 @@ void BitcoinGUI::createMenuBar()
 
 void BitcoinGUI::createToolBars()
 {
-    QToolBar *toolbar = addToolBar(tr("Tabs toolbar"));
+    toolbar = addToolBar(tr("Tabs toolbar"));
     toolbar->setObjectName("toolbar");
     addToolBar(Qt::LeftToolBarArea,toolbar);
-    toolbar->setOrientation(Qt::Vertical);
-    toolbar->setMovable( false );
-    toolbar->setToolButtonStyle(Qt::ToolButtonTextOnly);
-	QLabel *l = new QLabel(this);
-    l->setPixmap(QPixmap(":/images/spacer"));
-    toolbar->addWidget(l);
-    toolbar->addAction(overviewAction);
-    toolbar->addAction(sendCoinsAction);
-    toolbar->addAction(receiveCoinsAction);
-    toolbar->addAction(historyAction);
-    toolbar->addAction(addressBookAction);
-    toolbar->addAction(blockAction);	
-	toolbar->setStyleSheet("#toolbar { border:1px;height:100%;padding-top:100px; background: transparent; text-align: center; color: black;min-width:200px;max-width:200px;} QToolBar QToolButton:hover {background-image: url(:images/toolbtnh); background-color: transparent;} QToolBar QToolButton:selected {background-color: transparent;} QToolBar QToolButton:checked {background-image: url(:images/toolbtns); background-color: transparent;} QToolBar QToolButton:pressed {background-color: transparent;} QToolBar QToolButton { margin: 2px; background-image:url(:images/toolbtn); font-family:'Bebas'; font-size:14px; min-width:160px;max-width:160px; min-height:40px;max-height:40px; color: white; text-align: center; }");
+	toolbar->setStyleSheet("#toolbar { border:1px; background: transparent; }");    
 }
 
 void BitcoinGUI::setClientModel(ClientModel *clientModel)
@@ -772,11 +761,8 @@ void BitcoinGUI::gotoOverviewPage()
 
 void BitcoinGUI::gotoLoadingBlockchain()
 {
-    overviewAction->setChecked(true);
     centralWidget->setCurrentWidget(loadingBlockchain);
-
-    exportAction->setEnabled(false);
-    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
+    //removeToolBar(toolbar);
 }
 
 void BitcoinGUI::gotoHistoryPage()
@@ -1055,6 +1041,18 @@ void BitcoinGUI::updateStakingIcon()
     }
 }
 
-void BitcoinGUI::movetoOverviewPage(){
-    //gotoOverviewPage();
+void BitcoinGUI::addToolbar(){
+    toolbar->setOrientation(Qt::Vertical);
+    toolbar->setMovable( false );
+    toolbar->setToolButtonStyle(Qt::ToolButtonTextOnly);
+    QLabel *l = new QLabel(this);
+    l->setPixmap(QPixmap(":/images/spacer"));
+    toolbar->addWidget(l);
+    toolbar->addAction(overviewAction);
+    toolbar->addAction(sendCoinsAction);
+    toolbar->addAction(receiveCoinsAction);
+    toolbar->addAction(historyAction);
+    toolbar->addAction(addressBookAction);
+    toolbar->addAction(blockAction);    
+    toolbar->setStyleSheet("#toolbar { border:1px;height:100%;padding-top:100px; background: transparent; text-align: center; color: black;min-width:200px;max-width:200px;} QToolBar QToolButton:hover {background-image: url(:images/toolbtnh); background-color: transparent;} QToolBar QToolButton:selected {background-color: transparent;} QToolBar QToolButton:checked {background-image: url(:images/toolbtns); background-color: transparent;} QToolBar QToolButton:pressed {background-color: transparent;} QToolBar QToolButton { margin: 2px; background-image:url(:images/toolbtn); font-family:'Bebas'; font-size:14px; min-width:160px;max-width:160px; min-height:40px;max-height:40px; color: white; text-align: center; }");
 }

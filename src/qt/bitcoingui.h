@@ -111,6 +111,8 @@ private:
 
     QMovie *syncIconMovie;
 
+    QToolBar *toolbar;
+
     uint64_t nWeight;
 
     /** Create the main UI actions. */
@@ -121,6 +123,7 @@ private:
     void createToolBars();
     /** Create system tray (notification) icon */
     void createTrayIcon();
+
 
 public slots:
     /** Set number of connections shown in the UI */
@@ -145,8 +148,6 @@ public slots:
     */
     void askFee(qint64 nFeeRequired, bool *payFee);
     void handleURI(QString strURI);
-
-    void movetoOverviewPage();
 
 private slots:
     /** Switch to overview (home) page */
@@ -174,6 +175,8 @@ private slots:
 
     /** Show about dialog */
     void aboutClicked();
+
+    void addToolbar();
 	
 #ifndef Q_OS_MAC
     /** Handle tray icon clicked */
