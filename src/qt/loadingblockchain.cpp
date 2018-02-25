@@ -21,11 +21,10 @@ void LoadingBlockchain::setModel(ClientModel *model) {
 }
 
 void LoadingBlockchain::updateProgress() {
-	if (this->model)
+	if (this->model && !loadedBlockchain)
     {	
     	int numBlocks = this->model->getNumBlocks();
     	int totalBlocks = this->model->getNumBlocksOfPeers();
-    	bool loaded = false;
     	QString percentageText = "";
 
     	if(numBlocks < totalBlocks){
@@ -33,12 +32,13 @@ void LoadingBlockchain::updateProgress() {
     		percentageText = QString::number(nPercentageDone) + "%";
     	} else if( (numBlocks == totalBlocks) || (numBlocks - totalBlocks < 10)) {
     		percentageText = "100%";
-    		loaded = true;
+    		loadedBlockchain = true;
     	}
 
         ui->loadingText->setText("Syncing the blockchain... " + percentageText);
 
-        if(loaded){
+        loadedBlockchain = true;
+        if(loadedBlockchain){
 		    emit blockchainLoaded();
         }
     }

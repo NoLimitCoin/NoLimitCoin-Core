@@ -25,6 +25,7 @@ public:
 private:
     Ui::LoadingBlockchain *ui;
     ClientModel *model;
+    bool loadedBlockchain = false;
 
     private slots:
     void updateProgress();
