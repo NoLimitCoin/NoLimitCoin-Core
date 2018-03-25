@@ -11,6 +11,7 @@
 
 #include <QAbstractItemDelegate>
 #include <QPainter>
+#include <QTableView>
 
 #define DECORATION_SIZE 64
 #define NUM_ITEMS 6
@@ -27,56 +28,57 @@ public:
     inline void paint(QPainter *painter, const QStyleOptionViewItem &option,
                       const QModelIndex &index ) const
     {
-        painter->save();
 
-        QIcon icon = qvariant_cast<QIcon>(index.data(Qt::DecorationRole));
-        QRect mainRect = option.rect;
-        QRect decorationRect(mainRect.topLeft(), QSize(DECORATION_SIZE, DECORATION_SIZE));
-        int xspace = DECORATION_SIZE + 8;
-        int ypad = 6;
-        int halfheight = (mainRect.height() - 2*ypad)/2;
-        QRect amountRect(mainRect.left() + xspace, mainRect.top()+ypad, mainRect.width() - xspace, halfheight);
-        QRect addressRect(mainRect.left() + xspace, mainRect.top()+ypad+halfheight, mainRect.width() - xspace, halfheight);
-        icon.paint(painter, decorationRect);
+        // painter->save();
 
-        QDateTime date = index.data(TransactionTableModel::DateRole).toDateTime();
-        QString address = index.data(Qt::DisplayRole).toString();
-        qint64 amount = index.data(TransactionTableModel::AmountRole).toLongLong();
-        bool confirmed = index.data(TransactionTableModel::ConfirmedRole).toBool();
-        QVariant value = index.data(Qt::ForegroundRole);
-        QColor foreground = option.palette.color(QPalette::Text);
-        if(qVariantCanConvert<QColor>(value))
-        {
-            foreground = qvariant_cast<QColor>(value);
-        }
+        // QIcon icon = qvariant_cast<QIcon>(index.data(Qt::DecorationRole));
+        // QRect mainRect = option.rect;
+        // QRect decorationRect(mainRect.topLeft(), QSize(DECORATION_SIZE, DECORATION_SIZE));
+        // int xspace = DECORATION_SIZE + 8;
+        // int ypad = 6;
+        // int halfheight = (mainRect.height() - 2*ypad)/2;
+        // QRect amountRect(mainRect.left() + xspace, mainRect.top()+ypad, mainRect.width() - xspace, halfheight);
+        // QRect addressRect(mainRect.left() + xspace, mainRect.top()+ypad+halfheight, mainRect.width() - xspace, halfheight);
+        // icon.paint(painter, decorationRect);
 
-        painter->setPen(foreground);
-        painter->drawText(addressRect, Qt::AlignLeft|Qt::AlignVCenter, address);
+        // QDateTime date = index.data(TransactionTableModel::DateRole).toDateTime();
+        // QString address = index.data(Qt::DisplayRole).toString();
+        // qint64 amount = index.data(TransactionTableModel::AmountRole).toLongLong();
+        // bool confirmed = index.data(TransactionTableModel::ConfirmedRole).toBool();
+        // QVariant value = index.data(Qt::ForegroundRole);
+        // QColor foreground = option.palette.color(QPalette::Text);
+        // if(qVariantCanConvert<QColor>(value))
+        // {
+        //     foreground = qvariant_cast<QColor>(value);
+        // }
 
-        if(amount < 0)
-        {
-            foreground = COLOR_NEGATIVE;
-        }
-        else if(!confirmed)
-        {
-            foreground = COLOR_UNCONFIRMED;
-        }
-        else
-        {
-            foreground = option.palette.color(QPalette::Text);
-        }
-        painter->setPen(foreground);
-        QString amountText = BitcoinUnits::formatWithUnit(unit, amount, true);
-        if(!confirmed)
-        {
-            amountText = QString("[") + amountText + QString("]");
-        }
-        painter->drawText(amountRect, Qt::AlignRight|Qt::AlignVCenter, amountText);
+        // painter->setPen(foreground);
+        // painter->drawText(addressRect, Qt::AlignLeft|Qt::AlignVCenter, address);
 
-        painter->setPen(option.palette.color(QPalette::Text));
-        painter->drawText(amountRect, Qt::AlignLeft|Qt::AlignVCenter, GUIUtil::dateTimeStr(date));
+        // if(amount < 0)
+        // {
+        //     foreground = COLOR_NEGATIVE;
+        // }
+        // else if(!confirmed)
+        // {
+        //     foreground = COLOR_UNCONFIRMED;
+        // }
+        // else
+        // {
+        //     foreground = option.palette.color(QPalette::Text);
+        // }
+        // painter->setPen(foreground);
+        // QString amountText = BitcoinUnits::formatWithUnit(unit, amount, true);
+        // if(!confirmed)
+        // {
+        //     amountText = QString("[") + amountText + QString("]");
+        // }
+        // painter->drawText(amountRect, Qt::AlignRight|Qt::AlignVCenter, amountText);
 
-        painter->restore();
+        // painter->setPen(option.palette.color(QPalette::Text));
+        // painter->drawText(amountRect, Qt::AlignLeft|Qt::AlignVCenter, GUIUtil::dateTimeStr(date));
+
+        // painter->restore();
     }
 
     inline QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
@@ -102,10 +104,10 @@ OverviewPage::OverviewPage(QWidget *parent) :
     ui->setupUi(this);
 
     // Recent transactions
-    ui->listTransactions->setItemDelegate(txdelegate);
-    ui->listTransactions->setIconSize(QSize(DECORATION_SIZE, DECORATION_SIZE));
+    //ui->listTransactions->setItemDelegate(txdelegate);
+    //ui->listTransactions->setIconSize(QSize(DECORATION_SIZE, DECORATION_SIZE));
     ui->listTransactions->setMinimumHeight(NUM_ITEMS * (DECORATION_SIZE + 2));
-    ui->listTransactions->setAttribute(Qt::WA_MacShowFocusRect, false);
+    //ui->listTransactions->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     connect(ui->listTransactions, SIGNAL(clicked(QModelIndex)), this, SLOT(handleTransactionClicked(QModelIndex)));
 }
@@ -155,8 +157,15 @@ void OverviewPage::setModel(WalletModel *model)
         filter->setShowInactive(false);
         filter->sort(TransactionTableModel::Status, Qt::DescendingOrder);
 
+        // QStringList labelList;
+        // labelList << "Alarm Name" << "Time" << "Enabled";
+        filter->setHeaderData(0, Qt::Horizontal, tr("Name"));
+        filter->setHeaderData(1, Qt::Horizontal, tr("Salary"));
+
         ui->listTransactions->setModel(filter);
-        ui->listTransactions->setModelColumn(TransactionTableModel::ToAddress);
+        ui->listTransactions->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+        //ui->listTransactions->setModelColumn(TransactionTableModel::ToAddress);
 
         // Keep up to date with wallet
         setBalance(model->getBalance(), model->getStake(), model->getUnconfirmedBalance(), model->getImmatureBalance());
