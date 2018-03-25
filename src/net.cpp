@@ -1240,7 +1240,6 @@ static const char *strDNSSeed[][2] = {
     {"seed1", "seed1.nlc2.info"},
     {"seed2", "seed2.nlc2.info"},
     {"seed3", "seed3.nlc2.info"},
-
 };
 
 void ThreadDNSAddressSeed(void* parg)
@@ -1473,7 +1472,7 @@ void ThreadOpenConnections2(void* parg)
                 addr.nTime = GetTime()-GetRand(nOneWeek)-nOneWeek;
                 vAdd.push_back(addr);
             }
-            addrman.Add(vAdd, CNetAddr("127.0.0.1"));
+            addrman.Add(vAdd, CNetAddr("127.0.0.1")); // Adding localhost
         }
 
         //
