@@ -586,10 +586,11 @@ bool CNode::IsBanned(CNetAddr ip)
 
 bool CNode::Misbehaving(int howmuch)
 {
+    bool misbehaving = false;
     if (addr.IsLocal())
     {
         printf("Warning: Local node %s misbehaving (delta: %d)!\n", addrName.c_str(), howmuch);
-        return false;
+        return misbehaving;
     }
 
     nMisbehavior += howmuch;
@@ -603,10 +604,10 @@ bool CNode::Misbehaving(int howmuch)
                 setBanned[addr] = banTime;
         }
         CloseSocketDisconnect();
-        return true;
+        misbehaving = true;
     } else
         printf("Misbehaving: %s (%d -> %d)\n", addr.ToString().c_str(), nMisbehavior-howmuch, nMisbehavior);
-    return false;
+    return misbehaving;
 }
 
 #undef X
