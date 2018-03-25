@@ -613,11 +613,9 @@ void BitcoinGUI::error(const QString &title, const QString &message, bool modal)
 {
     // Report errors from network/worker thread
     if(modal)
-    {
         QMessageBox::critical(this, title, message, QMessageBox::Ok, QMessageBox::Ok);
-    } else {
+    else 
         notificator->notify(Notificator::Critical, title, message);
-    }
 }
 
 void BitcoinGUI::changeEvent(QEvent *e)
@@ -646,9 +644,7 @@ void BitcoinGUI::closeEvent(QCloseEvent *event)
 #ifndef Q_OS_MAC // Ignored on Mac
         if(!clientModel->getOptionsModel()->getMinimizeToTray() &&
            !clientModel->getOptionsModel()->getMinimizeOnClose())
-        {
             qApp->quit();
-        }
 #endif
     }
     QMainWindow::closeEvent(event);
@@ -961,21 +957,13 @@ void BitcoinGUI::updateStakingIcon()
 
         QString text;
         if (nEstimateTime < 60)
-        {
             text = tr("%n second(s)", "", nEstimateTime);
-        }
         else if (nEstimateTime < 60*60)
-        {
             text = tr("%n minute(s)", "", nEstimateTime/60);
-        }
         else if (nEstimateTime < 24*60*60)
-        {
             text = tr("%n hour(s)", "", nEstimateTime/(60*60));
-        }
         else
-        {
             text = tr("%n day(s)", "", nEstimateTime/(60*60*24));
-        }
 
         labelStakingIcon->setPixmap(QIcon(":/icons/staking_on").pixmap(28,54));
         labelStakingIcon->setToolTip(tr("Staking.<br>Your weight is %1<br>Network weight is %2<br>Expected time to earn reward is %3").arg(nWeight).arg(nNetworkWeight).arg(text));
