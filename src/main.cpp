@@ -1007,14 +1007,14 @@ int64_t GetProofOfStakeReward(int64_t nCoinAge, int64_t nFees)
     
     int64_t nSubsidy = nCoinAge * COIN_YEAR_REWARD * 33 / (365 * 33 + 8); 
 
-        if(pindexBest->nHeight+1 >= 26 && pindexBest->nHeight+1 <= 2592161)
-    {
-        nSubsidy = nCoinAge * COIN_YEAR_REWARD * 33 / (365 * 33 + 8);
-    }
-        else if(pindexBest->nHeight+1 >= 2592162)
-    {
-        nSubsidy = nCoinAge * COIN_YEAR_REWARD * 33 / (365 * 33 + 8); 
-    }    
+    //     if(pindexBest->nHeight+1 >= 26 && pindexBest->nHeight+1 <= 2592161)
+    // {
+    //     nSubsidy = nCoinAge * COIN_YEAR_REWARD * 33 / (365 * 33 + 8);
+    // }
+    //     else if(pindexBest->nHeight+1 >= 2592162)
+    // {
+    //     nSubsidy = nCoinAge * COIN_YEAR_REWARD * 33 / (365 * 33 + 8); 
+    // }    
     
 
     if (fDebug && GetBoolArg("-printcreation"))
