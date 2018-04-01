@@ -1101,6 +1101,9 @@ void BitcoinGUI::addToolbar(){
         QToolButton#sendcoin{ background-image: url(:images/send); } \
         QToolButton#sendcoin:hover{ background-image: url(:images/send2); } \
         QToolButton#sendcoin:checked{ background-image: url(:images/send2); } \
+        ToolButton#receivecoin{ background-image: url(:images/receive); } \
+        QToolButton#receivecoin:hover{ background-image: url(:images/receive2); } \
+        QToolButton#receivecoin:checked{ background-image: url(:images/receive2); } \
         QToolButton#addressbook{ background-image: url(:images/address); } \
         QToolButton#addressbook:hover{ background-image: url(:images/address2); } \
         QToolButton#addressbook:checked{ background-image: url(:images/address2); }"
