@@ -255,19 +255,19 @@ void BitcoinGUI::createActions()
 {
     QActionGroup *tabGroup = new QActionGroup(this);
 
-    overviewAction = new QAction(QIcon(":/icons/overview"), tr("&Overview"), this);
+    overviewAction = new QAction(QIcon(":/icons/overview"), tr("&Wallet"), this);
     overviewAction->setToolTip(tr("Show general overview of wallet"));
     overviewAction->setCheckable(true);
     overviewAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_1));
     tabGroup->addAction(overviewAction);
 
-    sendCoinsAction = new QAction(QIcon(":/icons/send"), tr("&Send coins"), this);
+    sendCoinsAction = new QAction(QIcon(":/icons/send"), tr("&Send Coins"), this);
     sendCoinsAction->setToolTip(tr("Send coins to a NoLimitCoin address"));
     sendCoinsAction->setCheckable(true);
     sendCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_2));
     tabGroup->addAction(sendCoinsAction);
 
-    receiveCoinsAction = new QAction(QIcon(":/icons/receiving_addresses"), tr("&Receive coins"), this);
+    receiveCoinsAction = new QAction(QIcon(":/icons/receiving_addresses"), tr("&Receive Coins"), this);
     receiveCoinsAction->setToolTip(tr("Show the list of addresses for receiving payments"));
     receiveCoinsAction->setCheckable(true);
     receiveCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_3));
@@ -279,13 +279,13 @@ void BitcoinGUI::createActions()
     historyAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_4));
     tabGroup->addAction(historyAction);
 
-    addressBookAction = new QAction(QIcon(":/icons/address-book"), tr("&Address Book"), this);
+    addressBookAction = new QAction(QIcon(":/icons/address-book"), tr("&Addressbook"), this);
     addressBookAction->setToolTip(tr("Edit the list of stored addresses and labels"));
     addressBookAction->setCheckable(true);
     addressBookAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_5));
     tabGroup->addAction(addressBookAction);
 	
-	blockAction = new QAction(QIcon(":/icons/block"), tr("&Blockchain"), this);
+	blockAction = new QAction(QIcon(":/icons/block"), tr("&Explorer"), this);
     blockAction->setToolTip(tr("Explore the BlockChain"));
     blockAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_6));
     blockAction->setCheckable(true);
@@ -1053,6 +1053,49 @@ void BitcoinGUI::addToolbar(){
     toolbar->addAction(receiveCoinsAction);
     toolbar->addAction(historyAction);
     toolbar->addAction(addressBookAction);
-    toolbar->addAction(blockAction);    
-    toolbar->setStyleSheet("#toolbar { border:1px;height:100%;padding-top:100px; background: transparent; text-align: center; color: black;min-width:200px;max-width:200px;} QToolBar QToolButton:hover {background-image: url(:images/toolbtnh); background-color: transparent;} QToolBar QToolButton:selected {background-color: transparent;} QToolBar QToolButton:checked {background-image: url(:images/toolbtns); background-color: transparent;} QToolBar QToolButton:pressed {background-color: transparent;} QToolBar QToolButton { margin: 2px; background-image:url(:images/toolbtn); font-family:'Bebas'; font-size:14px; min-width:160px;max-width:160px; min-height:40px;max-height:40px; color: white; text-align: center; }");
+    toolbar->addAction(blockAction);
+
+    toolbar->widgetForAction(overviewAction)->setObjectName("overview");
+    toolbar->widgetForAction(sendCoinsAction)->setObjectName("sendcoin");
+    toolbar->widgetForAction(receiveCoinsAction)->setObjectName("receivecoin");
+    toolbar->widgetForAction(historyAction)->setObjectName("history");
+    toolbar->widgetForAction(addressBookAction)->setObjectName("addressbook");
+    toolbar->widgetForAction(blockAction)->setObjectName("block");
+
+
+    toolbar->setStyleSheet("#toolbar { \
+        border: 1px; \
+        height: 100%; \
+        padding-top: 100px; \
+        background: transparent; \
+        text-align: left; \
+        color: black; \
+        min-width:200px; \
+        max-width:200px; \
+    } \
+    QToolBar QToolButton:hover {  \
+        background-image: url(:images/toolbtnh);  \
+        background-color: transparent; \
+    }  \
+    QToolBar QToolButton:selected { \
+        background-color: transparent; \
+    }  \
+    QToolBar QToolButton:checked { \
+        background-image: url(:images/toolbtns);  \
+        background-color: transparent; \
+    } QToolBar QToolButton:pressed { \
+        background-color: transparent; \
+    } \
+    QToolBar QToolButton {  \
+        margin: 2px;  \
+        background-image:url(:images/toolbtn);  \
+        font-size:14px;  \
+        min-width:160px; \
+        max-width:160px;  \
+        min-height:40px; \
+        max-height:40px;  \
+        color: white;  \
+        text-align: left; } \
+      "
+    );
 }
