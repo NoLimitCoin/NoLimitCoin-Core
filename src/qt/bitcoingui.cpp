@@ -1096,6 +1096,9 @@ void BitcoinGUI::addToolbar(){
         max-height:40px;  \
         color: white;  \
         text-align: left; } \
+        QToolButton#overview{ background-image: url(:images/overview); } \
+        QToolButton#overview:hover{ background-image: url(:images/overview2); } \
+        QToolButton#overview:checked{ background-image: url(:images/overview2); } \
         QToolButton#addressbook{ background-image: url(:images/address); } \
         QToolButton#addressbook:hover{ background-image: url(:images/address2); } \
         QToolButton#addressbook:checked{ background-image: url(:images/address2); }"
