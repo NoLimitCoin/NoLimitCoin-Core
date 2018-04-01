@@ -637,10 +637,10 @@ background: transparent;</string>
 opacity: 0.85;
 border-radius: 6px;
 
-background: rgba(10, 60, 255, 155);</string>
+background: #028cd6;</string>
        </property>
        <property name="frameShape">
-        <enum>QFrame::StyledPanel</enum>
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="frameShadow">
         <enum>QFrame::Raised</enum>
