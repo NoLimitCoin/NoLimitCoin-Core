@@ -58,7 +58,18 @@
 		<file alias="spacer">res/images/spacer.png</file>
         <file alias="address">res/images/address.png</file>
         <file alias="address2">res/images/address2.png</file>
-
+        <file alias="overview">res/images/overview.png</file>
+        <file alias="overview2">res/images/overview2.png</file>
+        <file alias="transaction">res/images/transaction.png</file>
+        <file alias="transaction2">res/images/transaction2.png</file>
+        <file alias="explorer">res/images/explorer.png</file>
+        <file alias="explorer2">res/images/explorer2.png</file>
+        <file alias="receive">res/images/receive.png</file>
+        <file alias="receive2">res/images/receive2.png</file>
+        <file alias="send">res/images/send.png</file>
+        <file alias="send2">res/images/send2.png</file>
+        <file alias="save">res/images/save.png</file>
+        <file alias="save">res/images/save2.png</file>
     </qresource>
     <qresource prefix="/movies">
         <file alias="update_spinner">res/movies/update_spinner.mng</file>
