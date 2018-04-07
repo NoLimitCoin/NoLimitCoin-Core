@@ -163,7 +163,14 @@ void OverviewPage::setModel(WalletModel *model)
         filter->setHeaderData(1, Qt::Horizontal, tr("Salary"));
 
         ui->listTransactions->setModel(filter);
-        ui->listTransactions->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+        #ifdef _WIN32
+            ui->listTransactions->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents); 
+            //horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+        #else
+            ui->listTransactions->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+        #endif
+        
 
         //ui->listTransactions->setModelColumn(TransactionTableModel::ToAddress);
 

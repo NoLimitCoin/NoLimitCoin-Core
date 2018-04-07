@@ -10,8 +10,8 @@ src/NoLimitCoind
 # windows release files
 Makefile.Debug
 Makefile.Release
-object_script.NoLimitCoin-qt.Debug
-object_script.NoLimitCoin-qt.Release
+object_script.NoLimitCoin-wallet.Debug
+object_script.NoLimitCoin-wallet.Release
 
 # linux build files
 nolimitcoin-qt_plugin_import.cpp

@@ -1,5 +1,5 @@
 TEMPLATE = app
-TARGET = NoLimitCoin-qt
+TARGET = NoLimitCoin-wallet
 VERSION = 1.0.0.0
 INCLUDEPATH += src src/json src/qt
 QT += core gui network printsupport
@@ -439,6 +439,11 @@ macx:TARGET = "NoLimitCoin-Wallet"
 macx:QMAKE_CFLAGS_THREAD += -pthread
 macx:QMAKE_LFLAGS_THREAD += -pthread
 macx:QMAKE_CXXFLAGS_THREAD += -pthread
+
+# Icons
+macx:ICON = src/qt/res/icons/nlc2-logo.icns
+windows:ICON = src/qt/res/icons/nlc2-logo.png
+linux:ICON = src/qt/res/icons/nlc2-logo.png
 
 # Set libraries and includes at end, to use platform-defined defaults if not overridden
 INCLUDEPATH += $$BOOST_INCLUDE_PATH $$BDB_INCLUDE_PATH $$OPENSSL_INCLUDE_PATH $$QRENCODE_INCLUDE_PATH
