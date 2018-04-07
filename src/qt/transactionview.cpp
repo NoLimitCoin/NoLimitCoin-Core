@@ -36,6 +36,15 @@ TransactionView::TransactionView(QWidget *parent) :
     // Build filter row
     setContentsMargins(0,0,0,0);
 
+    QHBoxLayout *parentLayout = new QHBoxLayout(this);
+    parent->setLayout(parentLayout);
+
+    QWidget *container = new QWidget();
+    container->setContentsMargins(10,10,10,10);
+    container->setStyleSheet("background-color: #252525; color: white; border-radius: 5px;");
+
+    parentLayout->addWidget(container);
+
     QHBoxLayout *hlayout = new QHBoxLayout();
     hlayout->setContentsMargins(0,0,0,0);
 #ifdef Q_OS_MAC
@@ -80,15 +89,18 @@ TransactionView::TransactionView(QWidget *parent) :
     hlayout->addWidget(typeWidget);
 
     addressWidget = new QLineEdit(this);
+
+// Amount Widget is no longer required.
+
 #if QT_VERSION >= 0x040700
-    /* Do not move this to the XML file, Qt before 4.7 will choke on it */
+     // Do not move this to the XML file, Qt before 4.7 will choke on it 
     addressWidget->setPlaceholderText(tr("Enter address or label to search"));
 #endif
     hlayout->addWidget(addressWidget);
 
     amountWidget = new QLineEdit(this);
 #if QT_VERSION >= 0x040700
-    /* Do not move this to the XML file, Qt before 4.7 will choke on it */
+     // Do not move this to the XML file, Qt before 4.7 will choke on it 
     amountWidget->setPlaceholderText(tr("Min amount"));
 #endif
 #ifdef Q_OS_MAC
@@ -102,6 +114,12 @@ TransactionView::TransactionView(QWidget *parent) :
     QVBoxLayout *vlayout = new QVBoxLayout(this);
     vlayout->setContentsMargins(0,0,0,0);
     vlayout->setSpacing(0);
+
+    QLabel *heading = new QLabel(this);
+    heading->setText("Transactions");
+    heading->setStyleSheet("font-size: 25px;");
+    heading->setMargin(10);
+    vlayout->addWidget(heading);
 
     QTableView *view = new QTableView(this);
     vlayout->addLayout(hlayout);
@@ -153,6 +171,8 @@ TransactionView::TransactionView(QWidget *parent) :
     connect(copyTxIDAction, SIGNAL(triggered()), this, SLOT(copyTxID()));
     connect(editLabelAction, SIGNAL(triggered()), this, SLOT(editLabel()));
     connect(showDetailsAction, SIGNAL(triggered()), this, SLOT(showDetails()));
+
+    container->setLayout(vlayout);
 }
 
 void TransactionView::setModel(WalletModel *model)
