@@ -165,8 +165,7 @@ void OverviewPage::setModel(WalletModel *model)
         ui->listTransactions->setModel(filter);
 
         #ifdef _WIN32
-            ui->listTransactions->horizontalHeader()->setResizeMode(QHeaderView::ResizeToContents); 
-            //horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+            ui->listTransactions->horizontalHeader()->setResizeMode(QHeaderView::Stretch); 
         #else
             ui->listTransactions->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
         #endif
