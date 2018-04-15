@@ -25,7 +25,7 @@ background: transparent;
 color: white;</string>
      </property>
      <property name="text">
-      <string>Send Coins</string>
+      <string>Send NLC2</string>
      </property>
     </widget>
    </item>
