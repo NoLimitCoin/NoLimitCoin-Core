@@ -145,7 +145,15 @@ TransactionView::TransactionView(QWidget *parent) :
     heading->setMargin(0);
     vlayout->addWidget(heading);
 
+
+    this->setStyleSheet("QTableWidget {background-color: transparent;}"
+              "QHeaderView::section {background-color: transparent;}"
+              "QHeaderView {background-color: transparent;}"
+              "QTableCornerButton::section {background-color: transparent;}");
+
     QTableView *view = new QTableView(this);
+    view->setGridStyle(Qt::NoPen);
+
     vlayout->addLayout(hlayout);
     vlayout->addWidget(createDateRangeWidget());
     vlayout->addWidget(view);
