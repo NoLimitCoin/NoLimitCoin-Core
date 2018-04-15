@@ -169,6 +169,7 @@ TransactionView::TransactionView(QWidget *parent) :
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     view->setTabKeyNavigation(false);
     view->setContextMenuPolicy(Qt::CustomContextMenu);
+    view->setStyleSheet("alternate-background-color: #393939;background-color: #252525;");
 
     transactionView = view;
 
