@@ -6,12 +6,17 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>729</width>
+    <width>636</width>
     <height>136</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">color: white;
+background: #028cd6;
+border-radius: 6px;</string>
   </property>
   <property name="frameShape">
    <enum>QFrame::StyledPanel</enum>
