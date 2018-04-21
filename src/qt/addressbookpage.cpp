@@ -89,11 +89,11 @@ AddressBookPage::AddressBookPage(Mode mode, Tabs tab, QWidget *parent) :
     }
 
     // Stylesheet for table
-    //ui->setStyleSheet("QTableView {background-color: transparent;}")
-    // this->setStyleSheet("QTableView {background-color: transparent;}"
-    //           "QHeaderView::section {background-color: transparent;}"
-    //           "QHeaderView {background-color: transparent;}"
-    //           "QTableCornerButton::section {background-color: transparent;}");
+    //this->setStyleSheet("QHeaderView {background-color: transparent;}");
+    this->setStyleSheet("QTableView {background-color: transparent;}"
+              "QHeaderView::section {background-color: transparent;}"
+              "QHeaderView {background-color: transparent;}"
+              "QTableCornerButton::section {background-color: transparent;}");
 
     // Connect signals for context menu actions
     connect(copyAddressAction, SIGNAL(triggered()), this, SLOT(on_copyToClipboard_clicked()));

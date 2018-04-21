@@ -119,22 +119,6 @@ TransactionView::TransactionView(QWidget *parent) :
 #endif
     hlayout->addWidget(addressWidget);
 
-    //QSpacerItem *hSpacer = new QSpacerItem(0,0, QSizePolicy::Expanding, QSizePolicy::Expanding);
-     //hlayout->addItem(hSpacer);
-
-//     amountWidget = new QLineEdit(this);
-// #if QT_VERSION >= 0x040700
-//      // Do not move this to the XML file, Qt before 4.7 will choke on it 
-//     amountWidget->setPlaceholderText(tr("Min amount"));
-// #endif
-// #ifdef Q_OS_MAC
-//     amountWidget->setFixedWidth(97);
-// #else
-//     amountWidget->setFixedWidth(100);
-// #endif
-//     amountWidget->setValidator(new QDoubleValidator(0, 1e20, 8, this));
-    //hlayout->addWidget(amountWidget);
-
     QVBoxLayout *vlayout = new QVBoxLayout(this);
     vlayout->setContentsMargins(0,0,0,0);
     vlayout->setSpacing(0);
