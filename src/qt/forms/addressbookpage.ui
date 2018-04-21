@@ -134,19 +134,23 @@ border-radius: 6px;
       <widget class="QPushButton" name="signMessage">
        <property name="minimumSize">
         <size>
-         <width>0</width>
+         <width>130</width>
          <height>30</height>
         </size>
        </property>
        <property name="toolTip">
         <string>Sign a message to prove you own a NoLimitCoin address</string>
        </property>
-       <property name="text">
-        <string>Sign</string>
+       <property name="styleSheet">
+        <string notr="true">font-size: 16px;
+color: white;
+background-color: #9c9e9a;
+border-radius: 6px;
+
+</string>
        </property>
-       <property name="icon">
-        <iconset resource="../bitcoin.qrc">
-         <normaloff>:/icons/edit</normaloff>:/icons/edit</iconset>
+       <property name="text">
+        <string>Sign Message</string>
        </property>
       </widget>
      </item>
