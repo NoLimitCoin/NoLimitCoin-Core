@@ -107,7 +107,9 @@ color: white;</string>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: #028cd6;
-color: white;</string>
+color: white;
+opacity: 0.85;
+border-radius: 6px;</string>
       </property>
       <layout class="QGridLayout" name="gridLayout_3" rowstretch="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" columnstretch="0,0,0">
        <property name="sizeConstraint">
