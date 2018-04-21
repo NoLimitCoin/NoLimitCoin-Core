@@ -6,18 +6,26 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>760</width>
+    <width>976</width>
     <height>380</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Address Book</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">color: white;
+border-radius: 6px;
+background-color: #252525;</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QLabel" name="labelExplanation">
+     <property name="styleSheet">
+      <string notr="true">font-size: 25px;</string>
+     </property>
      <property name="text">
-      <string>These are your NoLimitCoin addresses for receiving payments. You may want to give a different one to each person/place that sends you coins, so you can keep track of who is sending you payments.</string>
+      <string>Address book</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -59,36 +67,62 @@
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="newAddressButton">
+       <property name="minimumSize">
+        <size>
+         <width>170</width>
+         <height>30</height>
+        </size>
+       </property>
        <property name="toolTip">
         <string>Create a new address</string>
        </property>
-       <property name="text">
-        <string>&amp;New Address</string>
+       <property name="styleSheet">
+        <string notr="true">font-size: 16px;
+color: white;
+background-color: #eb9a0d;
+border-radius: 6px;
+
+</string>
        </property>
-       <property name="icon">
-        <iconset resource="../bitcoin.qrc">
-         <normaloff>:/icons/add</normaloff>:/icons/add</iconset>
+       <property name="text">
+        <string>Add New Address</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="copyToClipboard">
+       <property name="minimumSize">
+        <size>
+         <width>140</width>
+         <height>30</height>
+        </size>
+       </property>
        <property name="toolTip">
         <string>Copy the currently selected address to the system clipboard</string>
        </property>
+       <property name="styleSheet">
+        <string notr="true">font-size: 16px;
+color: white;
+background-color: #32cfcf;
+border-radius: 6px;
+
+</string>
+       </property>
        <property name="text">
         <string>&amp;Copy Address</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../bitcoin.qrc">
-         <normaloff>:/icons/editcopy</normaloff>:/icons/editcopy</iconset>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="showQRCode">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>30</height>
+        </size>
+       </property>
        <property name="text">
-        <string>Show &amp;QR Code</string>
+        <string>QR</string>
        </property>
        <property name="icon">
         <iconset resource="../bitcoin.qrc">
@@ -98,11 +132,17 @@
      </item>
      <item>
       <widget class="QPushButton" name="signMessage">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>30</height>
+        </size>
+       </property>
        <property name="toolTip">
         <string>Sign a message to prove you own a NoLimitCoin address</string>
        </property>
        <property name="text">
-        <string>Sign &amp;Message</string>
+        <string>Sign</string>
        </property>
        <property name="icon">
         <iconset resource="../bitcoin.qrc">
@@ -112,29 +152,49 @@
      </item>
      <item>
       <widget class="QPushButton" name="verifyMessage">
+       <property name="minimumSize">
+        <size>
+         <width>140</width>
+         <height>30</height>
+        </size>
+       </property>
        <property name="toolTip">
         <string>Verify a message to ensure it was signed with a specified NoLimitCoin address</string>
        </property>
+       <property name="styleSheet">
+        <string notr="true">font-size: 16px;
+color: white;
+background-color: #9c9e9a;
+border-radius: 6px;
+
+</string>
+       </property>
        <property name="text">
         <string>&amp;Verify Message</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../bitcoin.qrc">
-         <normaloff>:/icons/transaction_0</normaloff>:/icons/transaction_0</iconset>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="deleteButton">
+       <property name="minimumSize">
+        <size>
+         <width>80</width>
+         <height>30</height>
+        </size>
+       </property>
        <property name="toolTip">
         <string>Delete the currently selected address from the list</string>
        </property>
+       <property name="styleSheet">
+        <string notr="true">font-size: 16px;
+color: white;
+background-color: #cf3232;
+border-radius: 6px;
+
+</string>
+       </property>
        <property name="text">
         <string>&amp;Delete</string>
-       </property>
-       <property name="icon">
-        <iconset resource="../bitcoin.qrc">
-         <normaloff>:/icons/remove</normaloff>:/icons/remove</iconset>
        </property>
       </widget>
      </item>
