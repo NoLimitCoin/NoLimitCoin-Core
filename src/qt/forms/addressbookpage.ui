@@ -15,8 +15,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">color: white;
-border-radius: 6px;
-background-color: #252525;</string>
+border-radius: 6px;</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -42,6 +41,11 @@ background-color: #252525;</string>
      </property>
      <property name="toolTip">
       <string>Double-click to edit address or label</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: white;
+border-radius: 6px;
+background-color: #252525;</string>
      </property>
      <property name="tabKeyNavigation">
       <bool>false</bool>
