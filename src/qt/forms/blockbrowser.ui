@@ -231,7 +231,7 @@ border-radius: 6px;</string>
          <property name="styleSheet">
           <string notr="true">background: white;
 color: black;
-border-radius: 0;</string>
+border-radius: 5;</string>
          </property>
          <property name="maximum">
           <number>99999999</number>
@@ -416,6 +416,11 @@ border-radius: 6px;</string>
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: white;
+color: black;
+border-radius: 5;</string>
          </property>
          <property name="inputMask">
           <string comment="Transaction id" extracomment="Transaction id"/>
