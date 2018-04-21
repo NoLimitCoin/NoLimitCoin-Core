@@ -80,9 +80,6 @@ AddressBookPage::AddressBookPage(Mode mode, Tabs tab, QWidget *parent) :
     contextMenu->addSeparator();
     contextMenu->addAction(showQRCodeAction);
 
-    // QLabel *headerLabel = new QLabel(this);
-    // headerLabel->setFrameStyle(QFrame::Panel | QFrame::Sunken);
-
     if(tab == ReceivingTab){
         ui->labelExplanation->setText("Receive NLC2");
         contextMenu->addAction(signMessageAction);
@@ -92,6 +89,7 @@ AddressBookPage::AddressBookPage(Mode mode, Tabs tab, QWidget *parent) :
     }
 
     // Stylesheet for table
+    //ui->setStyleSheet("QTableView {background-color: transparent;}")
     // this->setStyleSheet("QTableView {background-color: transparent;}"
     //           "QHeaderView::section {background-color: transparent;}"
     //           "QHeaderView {background-color: transparent;}"
