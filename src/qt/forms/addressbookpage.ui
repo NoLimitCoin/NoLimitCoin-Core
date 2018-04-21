@@ -90,6 +90,30 @@ border-radius: 6px;
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="copyToClipboard">
+       <property name="minimumSize">
+        <size>
+         <width>140</width>
+         <height>30</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>Copy the currently selected address to the system clipboard</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font-size: 16px;
+color: white;
+background-color: #32cfcf;
+border-radius: 6px;
+
+</string>
+       </property>
+       <property name="text">
+        <string>&amp;Copy Address</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="showQRCode">
        <property name="minimumSize">
         <size>
