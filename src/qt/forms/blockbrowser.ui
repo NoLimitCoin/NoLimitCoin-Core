@@ -228,6 +228,11 @@ border-radius: 6px;</string>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="styleSheet">
+          <string notr="true">background: white;
+color: black;
+border-radius: 0;</string>
+         </property>
          <property name="maximum">
           <number>99999999</number>
          </property>
