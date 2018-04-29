@@ -209,11 +209,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     addToolBarBreak(Qt::LeftToolBarArea);
     QToolBar *toolbar2 = addToolBar(tr("Tabs toolbar"));
     addToolBar(Qt::BottomToolBarArea,toolbar2);
-    // // insertToolBarBreak(toolbar);
-    // // insertToolBar(toolbar, toolbar2);
-    // insertToolBarBreak(toolbar2);
-    // insertToolBar(toolbar, toolbar2);
-
+    
     toolbar2->setOrientation(Qt::Horizontal);
     toolbar2->setMovable( false );
     toolbar2->setObjectName("toolbar2");
@@ -224,7 +220,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 	toolbar2->addWidget(labelStakingIcon);
     toolbar2->addWidget(labelConnectionsIcon);
     toolbar2->addWidget(labelBlocksIcon);
-	toolbar2->setStyleSheet("#toolbar2 {background-color: transparent;} #toolbar2 "\
+	toolbar2->setStyleSheet("#toolbar2 {background-color: green;} #toolbar2 "\
         "QToolButton { background: transparent;border:none;padding:0px;margin:0px;height:54px;width:28px; }");
 	
     syncIconMovie = new QMovie(":/icons/sync", "png", this);
