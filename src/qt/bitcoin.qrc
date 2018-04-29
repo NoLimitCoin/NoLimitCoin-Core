@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/icons">
+        <file alias="nlc2-logo">res/icons/nlc2-logo.png</file>
         <file alias="bitcoin">res/icons/nlc2-logo.png</file>		
         <file alias="address-book">res/icons/address-book.png</file>
         <file alias="quit">res/icons/quit.png</file>

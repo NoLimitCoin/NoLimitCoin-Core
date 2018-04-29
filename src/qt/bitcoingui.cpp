@@ -1045,8 +1045,11 @@ void BitcoinGUI::addToolbar(){
     toolbar->setOrientation(Qt::Vertical);
     toolbar->setMovable( false );
     toolbar->setToolButtonStyle(Qt::ToolButtonTextOnly);
+    
     QLabel *l = new QLabel(this);
-    l->setPixmap(QPixmap(":/images/spacer"));
+    l->setPixmap(QPixmap(":/icons/nlc2-logo"));
+    l->setStyleSheet("margin-bottom: 15px; margin-left: 20px;");
+
     toolbar->addWidget(l);
     toolbar->addAction(overviewAction);
     toolbar->addAction(sendCoinsAction);
@@ -1066,6 +1069,7 @@ void BitcoinGUI::addToolbar(){
     toolbar->setStyleSheet("#toolbar { \
         border: 1px; \
         height: 100%; \
+        margin-top: 15px; \
         padding-top: 100px; \
         background: transparent; \
         text-align: left; \
