@@ -8,6 +8,8 @@
 #include "transactionfilterproxy.h"
 #include "guiutil.h"
 #include "guiconstants.h"
+#include "askpassphrasedialog.h"
+#include "wallet.h"
 
 #include <QAbstractItemDelegate>
 #include <QPainter>
@@ -15,6 +17,9 @@
 
 #define DECORATION_SIZE 64
 #define NUM_ITEMS 6
+
+extern CWallet* pwalletMain;
+extern int64_t nLastCoinStakeSearchInterval;
 
 class TxViewDelegate : public QAbstractItemDelegate
 {
@@ -47,7 +52,8 @@ OverviewPage::OverviewPage(QWidget *parent) :
     currentUnconfirmedBalance(-1),
     currentImmatureBalance(-1),
     txdelegate(new TxViewDelegate()),
-    filter(0)
+    filter(0),
+    nWeight(0)
 {
     ui->setupUi(this);
 
@@ -68,6 +74,9 @@ OverviewPage::OverviewPage(QWidget *parent) :
     ui->listTransactions->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
 
     connect(ui->listTransactions, SIGNAL(clicked(QModelIndex)), this, SLOT(handleTransactionClicked(QModelIndex)));
+
+    updateStakingIcon();
+    connect(ui->stakingSwitch, SIGNAL(clicked()), this, SLOT(switchStakingStatus()));
 }
 
 void OverviewPage::handleTransactionClicked(const QModelIndex &index)
@@ -160,4 +169,39 @@ void OverviewPage::showOutOfSyncWarning(bool fShow)
 {
     // ui->labelWalletStatus->setVisible(fShow);
     // ui->labelTransactionsStatus->setVisible(fShow);
+}
+
+void OverviewPage::updateStakingSwitchToOn(){
+     ui->stakingSwitch->setIcon(QIcon(":/icons/staking_on").pixmap(21,40));
+}
+
+void OverviewPage::updateStakingSwitchToOff(){
+     ui->stakingSwitch->setIcon(QIcon(":/icons/staking_off").pixmap(21,40));
+}
+
+void OverviewPage::updateStakingIcon()
+{
+    if (nLastCoinStakeSearchInterval && nWeight)
+        updateStakingSwitchToOn();
+    else 
+       updateStakingSwitchToOff();
+}
+
+
+void OverviewPage::switchStakingStatus() {
+    if(!model)
+        return;
+    // Unlock wallet when requested by wallet model
+    if(model->getEncryptionStatus() == WalletModel::Locked)
+    {
+        AskPassphraseDialog::Mode mode = AskPassphraseDialog::UnlockStaking ;
+        AskPassphraseDialog dlg(mode, this);
+        dlg.setModel(model);
+        connect(&dlg, SIGNAL(accepted()), this, SLOT(updateStakingSwitchToOn()));
+
+        dlg.exec();
+    } else {
+        model->setWalletLocked(true);
+        updateStakingSwitchToOff();
+    }
 }

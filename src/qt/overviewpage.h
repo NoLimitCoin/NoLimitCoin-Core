@@ -43,9 +43,19 @@ private:
     TxViewDelegate *txdelegate;
     TransactionFilterProxy *filter;
 
+    uint64_t nWeight;
+
+    void updateStakingIcon();
+
 private slots:
     void updateDisplayUnit();
     void handleTransactionClicked(const QModelIndex &index);
+
+    void updateStakingSwitchToOn();
+    void updateStakingSwitchToOff();
+
+    /** Ask for passphrase to unlock wallet temporarily */
+    void switchStakingStatus();
 };
 
 #endif // OVERVIEWPAGE_H
