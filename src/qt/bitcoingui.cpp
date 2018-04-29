@@ -81,7 +81,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     rpcConsole(0),
     nWeight(0)
 {
-    setMinimumSize(970,500);
+    setMinimumSize(970,550);
     resize(970,500);
 
 	QFontDatabase::addApplicationFont(":/fonts/Bebas");
@@ -208,17 +208,24 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     progressBar = new QProgressBar();
     addToolBarBreak(Qt::LeftToolBarArea);
     QToolBar *toolbar2 = addToolBar(tr("Tabs toolbar"));
-    addToolBar(Qt::LeftToolBarArea,toolbar2);
-    toolbar2->setOrientation(Qt::Vertical);
+    addToolBar(Qt::BottomToolBarArea,toolbar2);
+    // // insertToolBarBreak(toolbar);
+    // // insertToolBar(toolbar, toolbar2);
+    // insertToolBarBreak(toolbar2);
+    // insertToolBar(toolbar, toolbar2);
+
+    toolbar2->setOrientation(Qt::Horizontal);
     toolbar2->setMovable( false );
     toolbar2->setObjectName("toolbar2");
-    toolbar2->setFixedWidth(28);
+    toolbar2->setFixedWidth(180);
+    toolbar2->setFixedHeight(54);
     toolbar2->setIconSize(QSize(28,54));
 	toolbar2->addWidget(labelEncryptionIcon);
 	toolbar2->addWidget(labelStakingIcon);
     toolbar2->addWidget(labelConnectionsIcon);
     toolbar2->addWidget(labelBlocksIcon);
-	toolbar2->setStyleSheet("#toolbar2 QToolButton { background: transparent;border:none;padding:0px;margin:0px;height:54px;width:28px; }");
+	toolbar2->setStyleSheet("#toolbar2 {background-color: transparent;} #toolbar2 "\
+        "QToolButton { background: transparent;border:none;padding:0px;margin:0px;height:54px;width:28px; }");
 	
     syncIconMovie = new QMovie(":/icons/sync", "png", this);
 
@@ -762,7 +769,6 @@ void BitcoinGUI::gotoOverviewPage()
 void BitcoinGUI::gotoLoadingBlockchain()
 {
     centralWidget->setCurrentWidget(loadingBlockchain);
-    //removeToolBar(toolbar);
 }
 
 void BitcoinGUI::gotoHistoryPage()
@@ -1074,22 +1080,22 @@ void BitcoinGUI::addToolbar(){
         background: transparent; \
         text-align: left; \
         color: black; \
-        min-width:200px; \
-        max-width:200px; \
-    } \
-    QToolBar QToolButton:hover {  \
-        background-color: transparent; \
-    }  \
-    QToolBar QToolButton:selected { \
-        background-color: transparent; \
-    }  \
-    QToolBar QToolButton:checked { \
-        background-image: url(:images/toolbtns);  \
-        background-color: transparent; \
-    } QToolBar QToolButton:pressed { \
-        background-color: transparent; \
-    } \
-    QToolBar QToolButton {  \
+        min-width:180px; \
+        max-width:180px; \
+        } \
+        QToolBar QToolButton:hover {  \
+            background-color: transparent; \
+        }  \
+        QToolBar QToolButton:selected { \
+            background-color: transparent; \
+        }  \
+        QToolBar QToolButton:checked { \
+            background-image: url(:images/toolbtns);  \
+            background-color: transparent; \
+        } QToolBar QToolButton:pressed { \
+            background-color: transparent; \
+        } \
+        QToolBar QToolButton {  \
         margin: 2px;  \
         background-image:url(:images/toolbtn);  \
         font-size:14px;  \
