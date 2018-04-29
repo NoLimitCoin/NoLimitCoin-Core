@@ -51,7 +51,6 @@
 #include <QProgressBar>
 #include <QStackedWidget>
 #include <QDateTime>
-#include <QMovie>
 #include <QFileDialog>
 #include <QDesktopServices>
 #include <QTimer>
@@ -84,7 +83,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     setMinimumSize(970,550);
     resize(970,500);
 
-	QFontDatabase::addApplicationFont(":/fonts/Bebas");
+    QFontDatabase::addApplicationFont(":/fonts/Bebas");
     setWindowTitle(tr("NoLimitCoin") + " - " + tr("Wallet"));
 
     qApp->setStyleSheet("\
@@ -159,7 +158,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     connect(loadingBlockchain, SIGNAL(blockchainLoaded()), this, SLOT(gotoOverviewPage()));
     connect(loadingBlockchain, SIGNAL(blockchainLoaded()), this, SLOT(addToolbar()));
     
-    blockBrowser = new BlockBrowser(this);	
+    blockBrowser = new BlockBrowser(this);  
 
     transactionsPage = new QWidget(this);
     QVBoxLayout *vbox = new QVBoxLayout();
@@ -182,7 +181,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     centralWidget->addWidget(addressBookPage);
     centralWidget->addWidget(receiveCoinsPage);
     centralWidget->addWidget(sendCoinsPage);
-    centralWidget->addWidget(blockBrowser);	
+    centralWidget->addWidget(blockBrowser); 
     setCentralWidget(centralWidget);
 
     // Create status bar
@@ -190,11 +189,11 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 
     // Status bar notification icons
     labelEncryptionIcon = new QLabel();
-	labelStakingIcon = new QLabel();
+    labelStakingIcon = new QLabel();
     labelConnectionsIcon = new QLabel();
     labelBlocksIcon = new QLabel();
-	
-	if (GetBoolArg("-staking", true))
+    
+    if (GetBoolArg("-staking", true))
     {
         QTimer *timerStakingIcon = new QTimer(labelStakingIcon);
         connect(timerStakingIcon, SIGNAL(timeout()), this, SLOT(updateStakingIcon()));
@@ -216,14 +215,14 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     toolbar2->setFixedWidth(180);
     toolbar2->setFixedHeight(50);
     toolbar2->setIconSize(QSize(21,40));
-	toolbar2->addWidget(labelEncryptionIcon);
-	toolbar2->addWidget(labelStakingIcon);
+    toolbar2->addWidget(labelEncryptionIcon);
+    toolbar2->addWidget(labelStakingIcon);
     toolbar2->addWidget(labelConnectionsIcon);
     toolbar2->addWidget(labelBlocksIcon);
-	toolbar2->setStyleSheet("#toolbar2 {padding-left: 10px;} #toolbar2 "\
-        "QLabel { background: transparent; margin-left: 10px; border:none; height:50px; width:21px; }");
-	
-    syncIconMovie = new QMovie(":/icons/sync", "png", this);
+    toolbar2->setStyleSheet("#toolbar2 {min-height: 15px; } #toolbar2 "\
+        "QLabel { background: transparent; margin-left: 10px; border:none; }");
+
+    labelEncryptionIcon->setStyleSheet("margin-left: 25px;");
 
     // Clicking on a transaction on the overview page simply sends you to transaction history page
     connect(overviewPage, SIGNAL(transactionClicked(QModelIndex)), this, SLOT(gotoHistoryPage()));
@@ -234,8 +233,6 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 
     rpcConsole = new RPCConsole(this);
     connect(openRPCConsoleAction, SIGNAL(triggered()), rpcConsole, SLOT(show()));
-	
-	
 
     // Clicking on "Verify Message" in the address book sends you to the verify message tab
     connect(addressBookPage, SIGNAL(verifyMessage(QString)), this, SLOT(gotoVerifyMessageTab(QString)));
@@ -287,14 +284,14 @@ void BitcoinGUI::createActions()
     addressBookAction->setCheckable(true);
     addressBookAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_5));
     tabGroup->addAction(addressBookAction);
-	
-	blockAction = new QAction(QIcon(":/icons/block"), tr("&Explorer"), this);
+    
+    blockAction = new QAction(QIcon(":/icons/block"), tr("&Explorer"), this);
     blockAction->setToolTip(tr("Explore the BlockChain"));
     blockAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_6));
     blockAction->setCheckable(true);
     tabGroup->addAction(blockAction);
-	
-	connect(blockAction, SIGNAL(triggered()), this, SLOT(gotoBlockBrowser()));
+    
+    connect(blockAction, SIGNAL(triggered()), this, SLOT(gotoBlockBrowser()));
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(gotoOverviewPage()));
     connect(sendCoinsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
@@ -339,7 +336,7 @@ void BitcoinGUI::createActions()
     openRPCConsoleAction = new QAction(QIcon(":/icons/debugwindow"), tr("&Debug Console"), this);
     openRPCConsoleAction->setToolTip(tr("Open debugging and diagnostic console"));
 
-    connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));	
+    connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));   
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(aboutClicked()));
     connect(aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
     connect(optionsAction, SIGNAL(triggered()), this, SLOT(optionsClicked()));
@@ -392,7 +389,7 @@ void BitcoinGUI::createToolBars()
     toolbar = addToolBar(tr("Tabs toolbar"));
     toolbar->setObjectName("toolbar");
     addToolBar(Qt::LeftToolBarArea,toolbar);
-	toolbar->setStyleSheet("#toolbar { border:1px; background: transparent; }");    
+    toolbar->setStyleSheet("#toolbar { border:1px; background: transparent; }");    
 }
 
 void BitcoinGUI::setClientModel(ClientModel *clientModel)
@@ -453,7 +450,7 @@ void BitcoinGUI::setWalletModel(WalletModel *walletModel)
         receiveCoinsPage->setModel(walletModel->getAddressTableModel());
         sendCoinsPage->setModel(walletModel);
         signVerifyMessageDialog->setModel(walletModel);
-		blockBrowser->setModel(clientModel);
+        blockBrowser->setModel(clientModel);
         setEncryptionStatus(walletModel->getEncryptionStatus());
         connect(walletModel, SIGNAL(encryptionStatusChanged(int)), this, SLOT(setEncryptionStatus(int)));
 
@@ -631,9 +628,7 @@ void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
     else
     {
         tooltip = tr("Catching up...") + QString("<br>") + tooltip;
-        labelBlocksIcon->setMovie(syncIconMovie);
-        syncIconMovie->start();
-
+        labelBlocksIcon->setPixmap(QIcon(":/icons/sync").pixmap(21,40));
         overviewPage->showOutOfSyncWarning(true);
     }
 

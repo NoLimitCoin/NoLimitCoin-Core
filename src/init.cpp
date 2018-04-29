@@ -745,23 +745,23 @@ bool AppInit2()
         nStart = GetTimeMillis();
 
         // REMOVE THIS AND UNCOMMENT FOLLOWING LINE
-        bool isBlkIndexLoaded = true;
+        //bool isBlkIndexLoaded = true;
 
-        // bool isBlkIndexLoaded = false;
-        
-        // if (!LoadBlockIndex() && boost::filesystem::exists( blkIndexBackupLocation )){
-        //     clearBlockIndex();
+        bool isBlkIndexLoaded = false;
 
-        //     // if a backup of blkindex exists, use that as the main blkindex
-        //     restoreBlockchainData();
+        if (!LoadBlockIndex() && boost::filesystem::exists( blkIndexBackupLocation )){
+            clearBlockIndex();
 
-        //     // Try loading blkindex again and throw error if it still fails
-        //     // Explicitly mentioning to reload blockindex
-        //     isBlkIndexLoaded = LoadBlockIndex();
-        // } else {
-        //     isBlkIndexLoaded = true;
-        //     backupBlockchainData();
-        // }
+            // if a backup of blkindex exists, use that as the main blkindex
+            restoreBlockchainData();
+
+            // Try loading blkindex again and throw error if it still fails
+            // Explicitly mentioning to reload blockindex
+            isBlkIndexLoaded = LoadBlockIndex();
+        } else {
+            isBlkIndexLoaded = true;
+            backupBlockchainData();
+        }
 
         // Return with error if blkindex could not be loaded.
         if (!isBlkIndexLoaded)
