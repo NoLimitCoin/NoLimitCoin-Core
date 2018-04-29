@@ -209,19 +209,19 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     addToolBarBreak(Qt::LeftToolBarArea);
     QToolBar *toolbar2 = addToolBar(tr("Tabs toolbar"));
     addToolBar(Qt::BottomToolBarArea,toolbar2);
-    
+
     toolbar2->setOrientation(Qt::Horizontal);
     toolbar2->setMovable( false );
     toolbar2->setObjectName("toolbar2");
     toolbar2->setFixedWidth(180);
-    toolbar2->setFixedHeight(54);
-    toolbar2->setIconSize(QSize(28,54));
+    toolbar2->setFixedHeight(50);
+    toolbar2->setIconSize(QSize(21,40));
 	toolbar2->addWidget(labelEncryptionIcon);
 	toolbar2->addWidget(labelStakingIcon);
     toolbar2->addWidget(labelConnectionsIcon);
     toolbar2->addWidget(labelBlocksIcon);
-	toolbar2->setStyleSheet("#toolbar2 {background-color: green;} #toolbar2 "\
-        "QToolButton { background: transparent;border:none;padding:0px;margin:0px;height:54px;width:28px; }");
+	toolbar2->setStyleSheet("#toolbar2 {padding-left: 10px;} #toolbar2 "\
+        "QLabel { background: transparent; margin-left: 10px; border:none; height:50px; width:21px; }");
 	
     syncIconMovie = new QMovie(":/icons/sync", "png", this);
 
@@ -542,7 +542,7 @@ void BitcoinGUI::setNumConnections(int count)
     case 7: case 8: case 9: icon = ":/icons/connect_3"; break;
     default: icon = ":/icons/connect_4"; break;
     }
-    labelConnectionsIcon->setPixmap(QIcon(icon).pixmap(28,54));
+    labelConnectionsIcon->setPixmap(QIcon(icon).pixmap(21,40));
     labelConnectionsIcon->setToolTip(tr("%n active connection(s) to NoLimitCoin network", "", count));
 }
 
@@ -624,7 +624,7 @@ void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
     if(secs < 90*60 && count >= nTotalBlocks)
     {
         tooltip = tr("Up to date") + QString(".<br>") + tooltip;
-        labelBlocksIcon->setPixmap(QIcon(":/icons/synced").pixmap(28,54));
+        labelBlocksIcon->setPixmap(QIcon(":/icons/synced").pixmap(21,40));
 
         overviewPage->showOutOfSyncWarning(false);
     }
@@ -879,7 +879,7 @@ void BitcoinGUI::setEncryptionStatus(int status)
         break;
     case WalletModel::Unlocked:
         labelEncryptionIcon->show();
-        labelEncryptionIcon->setPixmap(QIcon(":/icons/lock_open").pixmap(28,54));
+        labelEncryptionIcon->setPixmap(QIcon(":/icons/lock_open").pixmap(21,40));
         labelEncryptionIcon->setToolTip(tr("Wallet is <b>encrypted</b> and currently <b>unlocked</b>"));
         encryptWalletAction->setChecked(true);
         changePassphraseAction->setEnabled(true);
@@ -889,7 +889,7 @@ void BitcoinGUI::setEncryptionStatus(int status)
         break;
     case WalletModel::Locked:
         labelEncryptionIcon->show();
-        labelEncryptionIcon->setPixmap(QIcon(":/icons/lock_closed").pixmap(28,54));
+        labelEncryptionIcon->setPixmap(QIcon(":/icons/lock_closed").pixmap(21,40));
         labelEncryptionIcon->setToolTip(tr("Wallet is <b>encrypted</b> and currently <b>locked</b>"));
         encryptWalletAction->setChecked(true);
         changePassphraseAction->setEnabled(true);
@@ -1024,12 +1024,12 @@ void BitcoinGUI::updateStakingIcon()
             text = tr("%n day(s)", "", nEstimateTime/(60*60*24));
         }
 
-        labelStakingIcon->setPixmap(QIcon(":/icons/staking_on").pixmap(28,54));
+        labelStakingIcon->setPixmap(QIcon(":/icons/staking_on").pixmap(21,40));
         labelStakingIcon->setToolTip(tr("Staking.<br>Your weight is %1<br>Network weight is %2<br>Expected time to earn reward is %3").arg(nWeight).arg(nNetworkWeight).arg(text));
     }
     else
     {
-        labelStakingIcon->setPixmap(QIcon(":/icons/staking_off").pixmap(28,54));
+        labelStakingIcon->setPixmap(QIcon(":/icons/staking_off").pixmap(21,40));
         if (pwalletMain && pwalletMain->IsLocked())
             labelStakingIcon->setToolTip(tr("Not staking because wallet is locked"));
         else if (vNodes.empty())
