@@ -748,7 +748,7 @@ bool AppInit2()
         //bool isBlkIndexLoaded = true;
 
         bool isBlkIndexLoaded = false;
-
+        
         if (!LoadBlockIndex() && boost::filesystem::exists( blkIndexBackupLocation )){
             clearBlockIndex();
 

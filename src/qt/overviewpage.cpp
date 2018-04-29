@@ -173,10 +173,12 @@ void OverviewPage::showOutOfSyncWarning(bool fShow)
 
 void OverviewPage::updateStakingSwitchToOn(){
      ui->stakingSwitch->setIcon(QIcon(":/icons/staking_on").pixmap(21,40));
+     ui->stakingStatusLabel->setText("On");
 }
 
 void OverviewPage::updateStakingSwitchToOff(){
      ui->stakingSwitch->setIcon(QIcon(":/icons/staking_off").pixmap(21,40));
+     ui->stakingStatusLabel->setText("Off");
 }
 
 void OverviewPage::updateStakingIcon()
