@@ -651,7 +651,7 @@ background: transparent;</string>
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QLabel" name="label_10">
+           <widget class="QLabel" name="stakingWeightText">
             <property name="text">
              <string>123344566666</string>
             </property>
@@ -665,7 +665,7 @@ background: transparent;</string>
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QLabel" name="label_12">
+           <widget class="QLabel" name="networkWeightText">
             <property name="text">
              <string>1122345567778</string>
             </property>

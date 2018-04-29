@@ -56,6 +56,7 @@ private slots:
 
     /** Ask for passphrase to unlock wallet temporarily */
     void switchStakingStatus();
+    void updateStakingWeights();
 };
 
 #endif // OVERVIEWPAGE_H

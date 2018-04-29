@@ -14,12 +14,14 @@
 #include <QAbstractItemDelegate>
 #include <QPainter>
 #include <QTableView>
+#include <QTimer>
 
 #define DECORATION_SIZE 64
 #define NUM_ITEMS 6
 
 extern CWallet* pwalletMain;
 extern int64_t nLastCoinStakeSearchInterval;
+double GetPoSKernelPS();
 
 class TxViewDelegate : public QAbstractItemDelegate
 {
@@ -74,9 +76,14 @@ OverviewPage::OverviewPage(QWidget *parent) :
     ui->listTransactions->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
 
     connect(ui->listTransactions, SIGNAL(clicked(QModelIndex)), this, SLOT(handleTransactionClicked(QModelIndex)));
+    connect(ui->stakingSwitch, SIGNAL(clicked()), this, SLOT(switchStakingStatus()));
+
+    QTimer *timerStakingIcon = new QTimer(ui->stakingStatusLabel);
+    connect(timerStakingIcon, SIGNAL(timeout()), this, SLOT(updateStakingWeights()));
+    timerStakingIcon->start(30 * 1000);
 
     updateStakingIcon();
-    connect(ui->stakingSwitch, SIGNAL(clicked()), this, SLOT(switchStakingStatus()));
+    updateStakingWeights();
 }
 
 void OverviewPage::handleTransactionClicked(const QModelIndex &index)
@@ -206,4 +213,11 @@ void OverviewPage::switchStakingStatus() {
         model->setWalletLocked(true);
         updateStakingSwitchToOff();
     }
+}
+
+void OverviewPage::updateStakingWeights() {
+    uint64_t nNetworkWeight = GetPoSKernelPS();
+
+    ui->stakingWeightText->setText(QString::number(nWeight));
+    ui->networkWeightText->setText(QString::number(nNetworkWeight));
 }
