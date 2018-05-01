@@ -379,7 +379,7 @@ QVariant TransactionTableModel::txAddressDecoration(const TransactionRecord *wtx
     // default:
     //     return QIcon(":/icons/tx_inout");
     // }
-    // return QVariant();
+    return QVariant();
 }
 
 QString TransactionTableModel::formatTxToAddress(const TransactionRecord *wtx, bool tooltip) const
@@ -424,7 +424,7 @@ QVariant TransactionTableModel::addressColor(const TransactionRecord *wtx) const
 QString TransactionTableModel::formatTxAmount(const TransactionRecord *wtx, bool showUnconfirmed) const
 {
     QString str = BitcoinUnits::format(walletModel->getOptionsModel()->getDisplayUnit(), wtx->credit + wtx->debit);
-    str = str + " NLC2";
+    str = str + QString(" NLC2");
     if(showUnconfirmed)
     {
         if(!wtx->status.countsForBalance)
