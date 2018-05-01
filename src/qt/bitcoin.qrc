@@ -47,6 +47,8 @@
         <file alias="debugwindow">res/icons/debugwindow.png</file>
         <file alias="staking_off">res/icons/staking_off.png</file>
         <file alias="staking_on">res/icons/staking_on.png</file>
+        <file alias="staking_switch_off">res/icons/staking_switch_off.png</file>
+        <file alias="staking_switch_on">res/icons/staking_switch_on.png</file>
         <file alias="sync">res/icons/sync.png</file>		
     </qresource>
     <qresource prefix="/images">

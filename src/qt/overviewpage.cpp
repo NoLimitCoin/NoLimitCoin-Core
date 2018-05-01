@@ -82,6 +82,8 @@ OverviewPage::OverviewPage(QWidget *parent) :
     connect(timerStakingIcon, SIGNAL(timeout()), this, SLOT(updateStakingWeights()));
     timerStakingIcon->start(30 * 1000);
 
+    //ui->stakingSwitchLayout->setSpacing(0);
+    //ui->stakingSwitch->setIconSize(QSize(30, 20));
     updateStakingIcon();
     updateStakingWeights();
 }
@@ -179,12 +181,12 @@ void OverviewPage::showOutOfSyncWarning(bool fShow)
 }
 
 void OverviewPage::updateStakingSwitchToOn(){
-     ui->stakingSwitch->setIcon(QIcon(":/icons/staking_on").pixmap(21,40));
+     ui->stakingSwitch->setIcon(QIcon(":/icons/staking_switch_on"));
      ui->stakingStatusLabel->setText("On");
 }
 
 void OverviewPage::updateStakingSwitchToOff(){
-     ui->stakingSwitch->setIcon(QIcon(":/icons/staking_off").pixmap(21,40));
+     ui->stakingSwitch->setIcon(QIcon(":/icons/staking_switch_off"));
      ui->stakingStatusLabel->setText("Off");
 }
 
