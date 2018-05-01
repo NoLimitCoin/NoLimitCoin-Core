@@ -18,6 +18,7 @@
 #include <QIcon>
 #include <QDateTime>
 #include <QtAlgorithms>
+#include <QPainter>  
 
 // Amount column is right-aligned it contains numbers
 static int column_alignments[] = {
@@ -468,22 +469,31 @@ QVariant TransactionTableModel::txStatusDecoration(const TransactionRecord *wtx)
     //         return QIcon(":/icons/transaction_0");
     // }
 
+    QString iconString;
     switch(wtx->type) {
+        // border-left: 1px solid red
         case TransactionRecord::RecvWithAddress:
-            return QIcon(":/icons/receive_tx");
+            iconString = ":/icons/receive_tx";
+            break;
         case TransactionRecord::RecvFromOther:
-            return QIcon(":/icons/receive_tx");
+            iconString = ":/icons/receive_tx";
+            break;
         case TransactionRecord::SendToAddress:
-            return QIcon(":/icons/send_tx");
+            iconString = ":/icons/send_tx";
+            break;
         case TransactionRecord::SendToOther:
-            return QIcon(":/icons/send_tx");
+            iconString = ":/icons/send_tx";
+            break;
         case TransactionRecord::SendToSelf:
-            return QIcon(":/icons/send_tx");
+            iconString = ":/icons/send_tx";
+            break;
         case TransactionRecord::Generated:
-            return QIcon(":/icons/staking_on");
+            iconString = ":/icons/staking_on";
+            break;
     }
-
-    return QColor(0,0,0);
+    
+    QIcon icon = QIcon(iconString);
+    return icon;
 }
 
 QString TransactionTableModel::formatTooltip(const TransactionRecord *rec) const
