@@ -223,7 +223,7 @@ TransactionTableModel::TransactionTableModel(CWallet* wallet, WalletModel *paren
         priv(new TransactionTablePriv(wallet, this)),
         cachedNumBlocks(0)
 {
-    columns << QString() << tr("Date") << tr("Type") << tr("Address") << tr("Amount") ;
+    columns << QString() << tr("Amount") << tr("Type") << tr("Date") << tr("Address") ;
 
     priv->refreshWallet();
 
@@ -587,14 +587,14 @@ QVariant TransactionTableModel::headerData(int section, Qt::Orientation orientat
             {
             case Status:
                 return tr("Transaction status. Hover over this field to show number of confirmations.");
-            case Date:
-                return tr("Date and time that the transaction was received.");
-            case Type:
-                return tr("Type of transaction.");
-            case ToAddress:
-                return tr("Destination address of transaction.");
             case Amount:
                 return tr("Amount removed from or added to balance.");
+             case Type:
+                return tr("Type of transaction.");
+            case Date:
+                return tr("Date and time that the transaction was received.");
+            case ToAddress:
+                return tr("Destination address of transaction.");
             }
         }
     }

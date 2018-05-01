@@ -82,8 +82,6 @@ OverviewPage::OverviewPage(QWidget *parent) :
     connect(timerStakingIcon, SIGNAL(timeout()), this, SLOT(updateStakingWeights()));
     timerStakingIcon->start(30 * 1000);
 
-    //ui->stakingSwitchLayout->setSpacing(0);
-    //ui->stakingSwitch->setIconSize(QSize(30, 20));
     updateStakingIcon();
     updateStakingWeights();
 }

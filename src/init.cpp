@@ -745,7 +745,7 @@ bool AppInit2()
         nStart = GetTimeMillis();
 
         // REMOVE THIS AND UNCOMMENT FOLLOWING LINE
-        //bool isBlkIndexLoaded = true;
+        // bool isBlkIndexLoaded = true;
 
         bool isBlkIndexLoaded = false;
         
