@@ -349,16 +349,16 @@ QString TransactionTableModel::formatTxType(const TransactionRecord *wtx) const
     switch(wtx->type)
     {
     case TransactionRecord::RecvWithAddress:
-        return tr("Received with");
+        return tr("Receive");
     case TransactionRecord::RecvFromOther:
-        return tr("Received from");
+        return tr("Receive");
     case TransactionRecord::SendToAddress:
     case TransactionRecord::SendToOther:
-        return tr("Sent to");
+        return tr("Send");
     case TransactionRecord::SendToSelf:
-        return tr("Payment to yourself");
+        return tr("Send");
     case TransactionRecord::Generated:
-        return tr("Mined");
+        return tr("Staking");
     default:
         return QString();
     }
