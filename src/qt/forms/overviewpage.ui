@@ -81,6 +81,9 @@ color: white;</string>
           <property name="selectionMode">
            <enum>QAbstractItemView::NoSelection</enum>
           </property>
+          <property name="textElideMode">
+           <enum>Qt::ElideLeft</enum>
+          </property>
           <property name="showGrid">
            <bool>true</bool>
           </property>
