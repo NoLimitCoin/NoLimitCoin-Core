@@ -67,7 +67,9 @@ background-color: #252525;</string>
          <widget class="QTableView" name="listTransactions">
           <property name="styleSheet">
            <string notr="true"> background: transparent; 
-color: white;</string>
+color: white;
+alternate-background-color: #393939;
+background-color: #252525;</string>
           </property>
           <property name="frameShape">
            <enum>QFrame::NoFrame</enum>
@@ -77,6 +79,9 @@ color: white;</string>
           </property>
           <property name="horizontalScrollBarPolicy">
            <enum>Qt::ScrollBarAlwaysOff</enum>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
           </property>
           <property name="selectionMode">
            <enum>QAbstractItemView::NoSelection</enum>

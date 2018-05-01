@@ -60,10 +60,7 @@ OverviewPage::OverviewPage(QWidget *parent) :
     ui->setupUi(this);
 
     // Recent transactions
-    //ui->listTransactions->setItemDelegate(txdelegate);
-    //ui->listTransactions->setIconSize(QSize(DECORATION_SIZE, DECORATION_SIZE));
     ui->listTransactions->setMinimumHeight(NUM_ITEMS * (DECORATION_SIZE + 2));
-    //ui->listTransactions->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     // Transactions table styling
     this->setStyleSheet("QTableView {background-color: transparent;}"
@@ -71,9 +68,9 @@ OverviewPage::OverviewPage(QWidget *parent) :
               "QHeaderView {background-color: transparent;}"
               "QTableCornerButton::section {background-color: transparent;}");    
 
-    ui->listTransactions->setGridStyle(Qt::NoPen);
-    ui->listTransactions->setStyleSheet("alternate-background-color: #393939; background-color: #252525;");
-    ui->listTransactions->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+    // ui->listTransactions->setGridStyle(Qt::NoPen);
+    // ui->listTransactions->setStyleSheet("alternate-background-color: #393939; background-color: #252525;");
+    // ui->listTransactions->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
 
     connect(ui->listTransactions, SIGNAL(clicked(QModelIndex)), this, SLOT(handleTransactionClicked(QModelIndex)));
     connect(ui->stakingSwitch, SIGNAL(clicked()), this, SLOT(switchStakingStatus()));
@@ -138,14 +135,17 @@ void OverviewPage::setModel(WalletModel *model)
 
         ui->listTransactions->setModel(filter);
 
-        #ifdef _WIN32
-            ui->listTransactions->horizontalHeader()->setResizeMode(QHeaderView::Stretch); 
-        #else
-            ui->listTransactions->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-        #endif
-        
-
-        //ui->listTransactions->setModelColumn(TransactionTableModel::ToAddress);
+        // Column resizing
+        ui->listTransactions->horizontalHeader()->resizeSection(
+                TransactionTableModel::Status, 40);
+        ui->listTransactions->horizontalHeader()->resizeSection(
+                TransactionTableModel::Amount, 220);
+        ui->listTransactions->horizontalHeader()->resizeSection(
+                TransactionTableModel::Type, 120);
+        ui->listTransactions->horizontalHeader()->resizeSection(
+                TransactionTableModel::Date, 220);
+        ui->listTransactions->horizontalHeader()->setResizeMode(
+                TransactionTableModel::ToAddress, QHeaderView::Stretch);
 
         // Keep up to date with wallet
         setBalance(model->getBalance(), model->getStake(), model->getUnconfirmedBalance(), model->getImmatureBalance());
