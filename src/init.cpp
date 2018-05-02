@@ -335,7 +335,6 @@ std::string HelpMessage()
  *  Backsup blockchain data including blkindex file and db files
  */
 void backupBlockchainData() {
-    printf("\nbacking up blkindex file: %s", blkIndexLocation.c_str());
     // make a backup of the working blkindex file and other database directories.
     copy_file(blkIndexLocation, blkIndexBackupLocation, fs::copy_option::overwrite_if_exists);
 
@@ -343,9 +342,7 @@ void backupBlockchainData() {
     fs::remove_all(databaseBackupLocation);
     fs::remove_all(txLevelDBBackupLocation);
 
-    printf("\nbacking up database log directory: %s", databaseLocation.c_str());
     copyDir(databaseLocation, databaseBackupLocation);
-    printf("\nbacking up txleveldb directory: %s", txLevelDBLocation.c_str());
     copyDir(txLevelDBLocation, txLevelDBBackupLocation);
 }
 
@@ -353,16 +350,13 @@ void backupBlockchainData() {
  *  Restores blockchain data including blkindex file and db files
  */
 void restoreBlockchainData() {
-    printf("\nrestoring blkindex file: %s", blkIndexBackupLocation.c_str());
     copy_file(blkIndexBackupLocation, blkIndexLocation, fs::copy_option::overwrite_if_exists);
 
     // remove data directories and then restore them from backup
     fs::remove_all(databaseLocation);
     fs::remove_all(txLevelDBLocation);
 
-    printf("\nrestoring database log directory: %s", databaseBackupLocation.c_str());
     copyDir(databaseBackupLocation, databaseLocation);
-    printf("\nrestoring txleveldb directory: %s", txLevelDBBackupLocation.c_str());
     copyDir(txLevelDBBackupLocation, txLevelDBLocation);
 }
 
