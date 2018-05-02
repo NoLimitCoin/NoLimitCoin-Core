@@ -19,11 +19,12 @@ public:
     ~TransactionTableModel();
 
     enum ColumnIndex {
-        Status = 0,
-        Amount = 1,
-        Type = 2,
-        Date = 3,
-        ToAddress = 4
+        Confirmations = 0,
+        Status = 1,
+        Amount = 2,
+        Type = 3,
+        Date = 4,
+        ToAddress = 5
     };
 
     /** Roles to get specific information from a transaction row.

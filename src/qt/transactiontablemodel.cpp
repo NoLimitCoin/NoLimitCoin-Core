@@ -224,7 +224,7 @@ TransactionTableModel::TransactionTableModel(CWallet* wallet, WalletModel *paren
         priv(new TransactionTablePriv(wallet, this)),
         cachedNumBlocks(0)
 {
-    columns << QString() << tr("Amount") << tr("Type") << tr("Date") << tr("Address") ;
+    columns << QString() << QString() << tr("Amount") << tr("Type") << tr("Date") << tr("Address") ;
 
     priv->refreshWallet();
 
@@ -437,41 +437,45 @@ QString TransactionTableModel::formatTxAmount(const TransactionRecord *wtx, bool
     return QString(str);
 }
 
+QVariant TransactionTableModel::txConfirmationsBackground(const TransactionRecord *wtx) const {
+    switch(wtx->status.status) {
+        switch(wtx->status.status) {
+        case TransactionStatus::OpenUntilBlock:
+            return QVariant(QColor(Qt::yellow));
+        case TransactionStatus::OpenUntilDate:
+            return QColor(64,64,255);
+        case TransactionStatus::Offline:
+            return QColor(192,192,192);
+        case TransactionStatus::Unconfirmed:
+            return QIcon(":/icons/transaction_0");
+        case TransactionStatus::Confirming:
+            switch(wtx->status.depth) {
+                case 1: return QIcon(":/icons/transaction_1");
+                case 2: return QIcon(":/icons/transaction_2");
+                case 3: return QIcon(":/icons/transaction_3");
+                case 4: return QIcon(":/icons/transaction_4");
+                default: return QIcon(":/icons/transaction_5");
+            };
+        case TransactionStatus::Confirmed:
+            return QIcon(":/icons/transaction_confirmed");
+        case TransactionStatus::Conflicted:
+            return QIcon(":/icons/transaction_conflicted");
+        case TransactionStatus::Immature: {
+            int total = wtx->status.depth + wtx->status.matures_in;
+            int part = (wtx->status.depth * 4 / total) + 1;
+            return QIcon(QString(":/icons/transaction_%1").arg(part));
+        }
+        case TransactionStatus::MaturesWarning:
+        case TransactionStatus::NotAccepted:
+            return QIcon(":/icons/transaction_0");
+    }
+    }
+}
+
 QVariant TransactionTableModel::txStatusDecoration(const TransactionRecord *wtx) const
 {
-    // switch(wtx->status.status) {
-    //     case TransactionStatus::OpenUntilBlock:
-    //     case TransactionStatus::OpenUntilDate:
-    //         return QColor(64,64,255);
-    //     case TransactionStatus::Offline:
-    //         return QColor(192,192,192);
-    //     case TransactionStatus::Unconfirmed:
-    //         return QIcon(":/icons/transaction_0");
-    //     case TransactionStatus::Confirming:
-    //         switch(wtx->status.depth) {
-    //             case 1: return QIcon(":/icons/transaction_1");
-    //             case 2: return QIcon(":/icons/transaction_2");
-    //             case 3: return QIcon(":/icons/transaction_3");
-    //             case 4: return QIcon(":/icons/transaction_4");
-    //             default: return QIcon(":/icons/transaction_5");
-    //         };
-    //     case TransactionStatus::Confirmed:
-    //         return QIcon(":/icons/transaction_confirmed");
-    //     case TransactionStatus::Conflicted:
-    //         return QIcon(":/icons/transaction_conflicted");
-    //     case TransactionStatus::Immature: {
-    //         int total = wtx->status.depth + wtx->status.matures_in;
-    //         int part = (wtx->status.depth * 4 / total) + 1;
-    //         return QIcon(QString(":/icons/transaction_%1").arg(part));
-    //     }
-    //     case TransactionStatus::MaturesWarning:
-    //     case TransactionStatus::NotAccepted:
-    //         return QIcon(":/icons/transaction_0");
-    // }
-
     QString iconString;
     switch(wtx->type) {
-        // border-left: 1px solid red
         case TransactionRecord::RecvWithAddress:
             iconString = ":/icons/receive_tx";
             break;
@@ -515,6 +519,13 @@ QVariant TransactionTableModel::data(const QModelIndex &index, int role) const
 
     switch(role)
     {
+    case Qt::BackgroundRole:
+        switch(index.column())
+        {
+        case Confirmations:
+            return;
+        }
+        break;
     case Qt::DecorationRole:
         switch(index.column())
         {
@@ -535,6 +546,8 @@ QVariant TransactionTableModel::data(const QModelIndex &index, int role) const
             return formatTxToAddress(rec, false);
         case Amount:
             return formatTxAmount(rec);
+        case Confirmations:
+            return QString("Sambhav");
         }
         break;
     case Qt::EditRole:

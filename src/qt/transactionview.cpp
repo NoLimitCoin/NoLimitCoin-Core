@@ -213,6 +213,9 @@ void TransactionView::setModel(WalletModel *model)
         transactionView->sortByColumn(TransactionTableModel::Date, Qt::DescendingOrder);
         transactionView->verticalHeader()->hide();
 
+
+        transactionView->horizontalHeader()->resizeSection(
+                TransactionTableModel::Confirmations, 5);
         transactionView->horizontalHeader()->resizeSection(
                 TransactionTableModel::Status, 40);
         transactionView->horizontalHeader()->resizeSection(
