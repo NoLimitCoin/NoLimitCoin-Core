@@ -2,11 +2,18 @@
 #include "ui_loadingblockchain.h"
 #include "clientmodel.h"
 
+#include <QMovie>
+
 LoadingBlockchain::LoadingBlockchain(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::LoadingBlockchain)
 {
     ui->setupUi(this);
+
+    QMovie *movie = new QMovie(":/movies/loading");
+    movie->setScaledSize(QSize(75,75));
+    ui->loaderLabel->setMovie(movie);
+    movie->start();
 }
 
 LoadingBlockchain::~LoadingBlockchain() {
@@ -37,7 +44,7 @@ void LoadingBlockchain::updateProgress() {
 
         ui->loadingText->setText("Syncing the blockchain... " + percentageText);
 
-        loadedBlockchain = true;
+        //loadedBlockchain = true;
         if(loadedBlockchain){
 		    emit blockchainLoaded();
         }

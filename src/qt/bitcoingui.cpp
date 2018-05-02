@@ -206,7 +206,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     progressBarLabel->setVisible(false);
     progressBar = new QProgressBar();
     addToolBarBreak(Qt::LeftToolBarArea);
-    QToolBar *toolbar2 = addToolBar(tr("Tabs toolbar"));
+    toolbar2 = addToolBar(tr("Tabs toolbar"));
     addToolBar(Qt::BottomToolBarArea,toolbar2);
 
     toolbar2->setOrientation(Qt::Horizontal);
@@ -221,6 +221,8 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     toolbar2->addWidget(labelBlocksIcon);
     toolbar2->setStyleSheet("#toolbar2 {min-height: 15px; } #toolbar2 "\
         "QLabel { background: transparent; margin-left: 10px; border:none; }");
+
+    toolbar2->setVisible(false);
 
     labelEncryptionIcon->setStyleSheet("margin-left: 25px;");
 
@@ -1039,6 +1041,9 @@ void BitcoinGUI::updateStakingIcon()
 }
 
 void BitcoinGUI::addToolbar(){
+
+    toolbar2->setVisible(true);
+
     toolbar->setOrientation(Qt::Vertical);
     toolbar->setMovable( false );
     toolbar->setToolButtonStyle(Qt::ToolButtonTextOnly);
