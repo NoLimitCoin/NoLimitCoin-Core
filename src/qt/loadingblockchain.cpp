@@ -44,7 +44,7 @@ void LoadingBlockchain::updateProgress() {
 
         ui->loadingText->setText("Syncing the blockchain... " + percentageText);
 
-        loadedBlockchain = true;
+        //loadedBlockchain = true;
         if(loadedBlockchain){
 		    emit blockchainLoaded();
         }
