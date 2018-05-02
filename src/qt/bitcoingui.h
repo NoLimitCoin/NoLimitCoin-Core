@@ -13,6 +13,7 @@ class ClientModel;
 class WalletModel;
 class TransactionView;
 class OverviewPage;
+class LoadingBlockchain;
 class AddressBookPage;
 class SendCoinsDialog;
 class SignVerifyMessageDialog;
@@ -65,6 +66,7 @@ private:
     QStackedWidget *centralWidget;
 
     OverviewPage *overviewPage;
+    LoadingBlockchain *loadingBlockchain;
     QWidget *transactionsPage;
     AddressBookPage *addressBookPage;
     AddressBookPage *receiveCoinsPage;
@@ -109,6 +111,9 @@ private:
 
     QMovie *syncIconMovie;
 
+    QToolBar *toolbar;
+    QToolBar *toolbar2;
+
     uint64_t nWeight;
 
     /** Create the main UI actions. */
@@ -119,6 +124,7 @@ private:
     void createToolBars();
     /** Create system tray (notification) icon */
     void createTrayIcon();
+
 
 public slots:
     /** Set number of connections shown in the UI */
@@ -147,6 +153,8 @@ public slots:
 private slots:
     /** Switch to overview (home) page */
     void gotoOverviewPage();
+    /** Switch to loading blockchain page */
+    void gotoLoadingBlockchain();
     /** Switch to history (transactions) page */
     void gotoHistoryPage();
     /** Switch to address book page */
@@ -168,6 +176,8 @@ private slots:
 
     /** Show about dialog */
     void aboutClicked();
+
+    void addToolbar();
 	
 #ifndef Q_OS_MAC
     /** Handle tray icon clicked */
