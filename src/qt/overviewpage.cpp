@@ -137,6 +137,8 @@ void OverviewPage::setModel(WalletModel *model)
 
         // Column resizing
         ui->listTransactions->horizontalHeader()->resizeSection(
+                TransactionTableModel::Confirmations, 3);
+        ui->listTransactions->horizontalHeader()->resizeSection(
                 TransactionTableModel::Status, 40);
         ui->listTransactions->horizontalHeader()->resizeSection(
                 TransactionTableModel::Amount, 220);
