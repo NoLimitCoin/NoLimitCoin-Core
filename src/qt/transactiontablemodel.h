@@ -75,6 +75,7 @@ private:
     QString formatTooltip(const TransactionRecord *rec) const;
     QVariant txStatusDecoration(const TransactionRecord *wtx) const;
     QVariant txAddressDecoration(const TransactionRecord *wtx) const;
+    QVariant txConfirmationsBackground(const TransactionRecord *wtx) const;
 
 public slots:
     void updateTransaction(const QString &hash, int status);
