@@ -440,36 +440,36 @@ QString TransactionTableModel::formatTxAmount(const TransactionRecord *wtx, bool
 QVariant TransactionTableModel::txConfirmationsBackground(const TransactionRecord *wtx) const {
     switch(wtx->status.status) {
         case TransactionStatus::OpenUntilBlock:
-            return QVariant(QColor(Qt::red));
+            return QVariant(QColor(255,0,0));
         case TransactionStatus::OpenUntilDate:
-            return QVariant(QColor(Qt::red));
+            return QVariant(QColor(255,0,0));
         case TransactionStatus::Offline:
-            return QVariant(QColor(Qt::red));
+            return QVariant(QColor(255,0,0));
         case TransactionStatus::Unconfirmed:
-            return QVariant(QColor(Qt::red));
+            return QVariant(QColor(255,0,0));
         case TransactionStatus::Confirming:
             switch(wtx->status.depth) {
-                case 1: return QVariant(QColor(Qt::yellow));
-                case 2: return QVariant(QColor(Qt::yellow));
-                case 3: return QVariant(QColor(Qt::yellow));
-                case 4: return QVariant(QColor(Qt::yellow));
-                default: return QVariant(QColor(Qt::yellow));
+                case 1: return QVariant(QColor(255,255,0));
+                case 2: return QVariant(QColor(255,255,0));
+                case 3: return QVariant(QColor(255,255,0));
+                case 4: return QVariant(QColor(255,255,0));
+                default: return QVariant(QColor(255,255,0));
             };
         case TransactionStatus::Confirmed:
-            return QVariant(QColor(Qt::green));
+            return QVariant(QColor(0,128,0));
         case TransactionStatus::Conflicted:
-            return QVariant(QColor(Qt::red));
+            return QVariant(QColor(255,0,0));
         case TransactionStatus::Immature: {
             int total = wtx->status.depth + wtx->status.matures_in;
             int part = (wtx->status.depth * 4 / total) + 1;
             //return QIcon(QString(":/icons/transaction_%1").arg(part));
-            return QVariant(QColor(Qt::yellow));
+            return QVariant(QColor(255,255,0));
         }
         case TransactionStatus::MaturesWarning:
-            return QVariant(QColor(Qt::yellow));
+            return QVariant(QColor(255,255,0));
         case TransactionStatus::NotAccepted:
             //return QIcon(":/icons/transaction_0");
-            return QVariant(QColor(Qt::red));
+            return QVariant(QColor(255,0,0));
     }
 }
 

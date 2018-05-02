@@ -129,7 +129,6 @@ void OverviewPage::setModel(WalletModel *model)
         filter->sort(TransactionTableModel::Status, Qt::DescendingOrder);
 
         // QStringList labelList;
-        // labelList << "Alarm Name" << "Time" << "Enabled";
         filter->setHeaderData(0, Qt::Horizontal, tr("Name"));
         filter->setHeaderData(1, Qt::Horizontal, tr("Salary"));
 
