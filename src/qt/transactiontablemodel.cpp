@@ -547,8 +547,6 @@ QVariant TransactionTableModel::data(const QModelIndex &index, int role) const
             return formatTxToAddress(rec, false);
         case Amount:
             return formatTxAmount(rec);
-        case Confirmations:
-            return QString("Sambhav");
         }
         break;
     case Qt::EditRole:
