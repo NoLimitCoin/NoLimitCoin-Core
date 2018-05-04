@@ -83,6 +83,12 @@ p, li { white-space: pre-wrap; }
 &lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Try a different internet connection&lt;/li&gt;
 &lt;li style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;For more information &lt;a href=&quot;https://nolimitcoin.zendesk.com/hc/en-us/articles/115001326291&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;click here&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
+        <property name="openExternalLinks">
+         <bool>true</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::TextBrowserInteraction</set>
+        </property>
        </widget>
       </item>
       <item>
