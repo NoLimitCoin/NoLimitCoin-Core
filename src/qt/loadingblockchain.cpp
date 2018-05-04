@@ -16,10 +16,10 @@ LoadingBlockchain::LoadingBlockchain(QWidget *parent) :
     ui->loaderLabel->setMovie(movie);
     movie->start();
 
-    QTimer *timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(emitNoConnectionWarning()));
-    timer-> setSingleShot(true);
-    timer->start(5000);
+    noConnectionTimer = new QTimer(this);
+    connect(noConnectionTimer, SIGNAL(timeout()), this, SLOT(emitNoConnectionWarning()));
+    noConnectionTimer-> setSingleShot(true);
+    noConnectionTimer->start(20000);
 }
 
 LoadingBlockchain::~LoadingBlockchain() {
@@ -30,6 +30,7 @@ void LoadingBlockchain::setModel(ClientModel *model) {
     this->model = model;
     updateProgress();
     connect(this->model, SIGNAL(numBlocksChanged(int,int)), this, SLOT(updateProgress()));
+    connect(this->model, SIGNAL(numConnectionsChanged(int)), this, SLOT(stopNoConnectionTimer()));
     
 }
 
@@ -50,11 +51,16 @@ void LoadingBlockchain::updateProgress() {
 
         ui->loadingText->setText("Syncing the blockchain... " + percentageText);
 
-        loadedBlockchain = false;
+        // loadedBlockchain = true;
         if(loadedBlockchain){
 		    emit blockchainLoaded();
         }
     }
+}
+
+void LoadingBlockchain::stopNoConnectionTimer() {
+    noConnectionTimer->blockSignals(true);
+    noConnectionTimer->stop();
 }
 
 void LoadingBlockchain::emitNoConnectionWarning() {

@@ -26,10 +26,12 @@ private:
     Ui::LoadingBlockchain *ui;
     ClientModel *model;
     bool loadedBlockchain = false;
+    QTimer *noConnectionTimer;
 
     private slots:
     void updateProgress();
     void emitNoConnectionWarning();
+    void stopNoConnectionTimer();
 
 signals:
 	void blockchainLoaded();  
