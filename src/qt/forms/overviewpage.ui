@@ -120,6 +120,9 @@ background-color: #252525;</string>
         <enum>QFrame::Raised</enum>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
+        <property name="spacing">
+         <number>6</number>
+        </property>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_5">
           <property name="spacing">
@@ -583,7 +586,7 @@ background: transparent;</string>
             <property name="maximumSize">
              <size>
               <width>16777215</width>
-              <height>30</height>
+              <height>35</height>
              </size>
             </property>
             <property name="layoutDirection">
