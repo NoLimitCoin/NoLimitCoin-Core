@@ -28,6 +28,7 @@
 #include "rpcconsole.h"
 #include "wallet.h"
 #include "blockbrowser.h"
+#include "noconnection.h"
 
 #ifdef Q_OS_MAC
 #include "macdockiconhandler.h"
@@ -153,11 +154,13 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 
     // Create tabs
     overviewPage = new OverviewPage();
+
+    noConnection = new NoConnection();
     
     loadingBlockchain = new LoadingBlockchain();
     connect(loadingBlockchain, SIGNAL(blockchainLoaded()), this, SLOT(gotoOverviewPage()));
     connect(loadingBlockchain, SIGNAL(blockchainLoaded()), this, SLOT(addToolbar()));
-    connect(loadingBlockchain, SIGNAL(showNoConnectionWarning()), this, SLOT(gotoBlockBrowser()));
+    connect(loadingBlockchain, SIGNAL(showNoConnectionWarning()), this, SLOT(gotoNoConnection()));
     
     blockBrowser = new BlockBrowser(this);  
 
@@ -178,6 +181,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     centralWidget = new QStackedWidget(this);
     centralWidget->addWidget(overviewPage);
     centralWidget->addWidget(loadingBlockchain);
+    centralWidget->addWidget(noConnection);
     centralWidget->addWidget(transactionsPage);
     centralWidget->addWidget(addressBookPage);
     centralWidget->addWidget(receiveCoinsPage);
@@ -758,6 +762,11 @@ void BitcoinGUI::gotoOverviewPage()
 
     exportAction->setEnabled(false);
     disconnect(exportAction, SIGNAL(triggered()), 0, 0);
+}
+
+void BitcoinGUI::gotoNoConnection()
+{
+    centralWidget->setCurrentWidget(noConnection);
 }
 
 void BitcoinGUI::gotoLoadingBlockchain()
