@@ -96,7 +96,8 @@ color: white;</string>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">font-weight:bold;</string>
+             <string notr="true">font-weight:bold;
+color: white;</string>
             </property>
             <property name="text">
              <string>Coin Control Features</string>
@@ -125,6 +126,9 @@ color: white;</string>
           </item>
           <item>
            <widget class="QLabel" name="labelCoinControlAutomaticallySelected">
+            <property name="styleSheet">
+             <string notr="true">color: white;</string>
+            </property>
             <property name="text">
              <string>Automatically Selected</string>
             </property>
@@ -228,7 +232,8 @@ color: white;</string>
                <item row="0" column="0">
                 <widget class="QLabel" name="labelCoinControlQuantityText">
                  <property name="styleSheet">
-                  <string notr="true">font-weight:bold;</string>
+                  <string notr="true">color: white;
+font-weight:bold;</string>
                  </property>
                  <property name="text">
                   <string>Quantity:</string>
@@ -252,6 +257,9 @@ color: white;</string>
                  <property name="contextMenuPolicy">
                   <enum>Qt::ActionsContextMenu</enum>
                  </property>
+                 <property name="styleSheet">
+                  <string notr="true">color: white;</string>
+                 </property>
                  <property name="text">
                   <string>0</string>
                  </property>
@@ -266,7 +274,8 @@ color: white;</string>
                <item row="1" column="0">
                 <widget class="QLabel" name="labelCoinControlBytesText">
                  <property name="styleSheet">
-                  <string notr="true">font-weight:bold;</string>
+                  <string notr="true">color: white;
+font-weight:bold;</string>
                  </property>
                  <property name="text">
                   <string>Bytes:</string>
@@ -286,6 +295,9 @@ color: white;</string>
                  </property>
                  <property name="contextMenuPolicy">
                   <enum>Qt::ActionsContextMenu</enum>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color: white;</string>
                  </property>
                  <property name="text">
                   <string>0</string>
@@ -317,7 +329,8 @@ color: white;</string>
                <item row="0" column="0">
                 <widget class="QLabel" name="labelCoinControlAmountText">
                  <property name="styleSheet">
-                  <string notr="true">font-weight:bold;</string>
+                  <string notr="true">font-weight:bold;
+color: white;</string>
                  </property>
                  <property name="text">
                   <string>Amount:</string>
@@ -341,6 +354,9 @@ color: white;</string>
                  <property name="contextMenuPolicy">
                   <enum>Qt::ActionsContextMenu</enum>
                  </property>
+                 <property name="styleSheet">
+                  <string notr="true">color: white;</string>
+                 </property>
                  <property name="text">
                   <string>0.00 NLC2</string>
                  </property>
@@ -352,7 +368,8 @@ color: white;</string>
                <item row="1" column="0">
                 <widget class="QLabel" name="labelCoinControlPriorityText">
                  <property name="styleSheet">
-                  <string notr="true">font-weight:bold;</string>
+                  <string notr="true">color: white;
+font-weight:bold;</string>
                  </property>
                  <property name="text">
                   <string>Priority:</string>
@@ -372,6 +389,9 @@ color: white;</string>
                  </property>
                  <property name="contextMenuPolicy">
                   <enum>Qt::ActionsContextMenu</enum>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color: white;</string>
                  </property>
                  <property name="text">
                   <string>medium</string>
@@ -403,7 +423,8 @@ color: white;</string>
                <item row="0" column="0">
                 <widget class="QLabel" name="labelCoinControlFeeText">
                  <property name="styleSheet">
-                  <string notr="true">font-weight:bold;</string>
+                  <string notr="true">color: white;
+font-weight:bold;</string>
                  </property>
                  <property name="text">
                   <string>Fee:</string>
@@ -427,6 +448,9 @@ color: white;</string>
                  <property name="contextMenuPolicy">
                   <enum>Qt::ActionsContextMenu</enum>
                  </property>
+                 <property name="styleSheet">
+                  <string notr="true">color: white;</string>
+                 </property>
                  <property name="text">
                   <string>0.00 NLC2</string>
                  </property>
@@ -438,7 +462,8 @@ color: white;</string>
                <item row="1" column="0">
                 <widget class="QLabel" name="labelCoinControlLowOutputText">
                  <property name="styleSheet">
-                  <string notr="true">font-weight:bold;</string>
+                  <string notr="true">color: white;
+font-weight:bold;</string>
                  </property>
                  <property name="text">
                   <string>Low Output:</string>
@@ -458,6 +483,9 @@ color: white;</string>
                  </property>
                  <property name="contextMenuPolicy">
                   <enum>Qt::ActionsContextMenu</enum>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color: white;</string>
                  </property>
                  <property name="text">
                   <string>no</string>
@@ -492,7 +520,8 @@ color: white;</string>
                <item row="0" column="0">
                 <widget class="QLabel" name="labelCoinControlAfterFeeText">
                  <property name="styleSheet">
-                  <string notr="true">font-weight:bold;</string>
+                  <string notr="true">color: white;
+font-weight:bold;</string>
                  </property>
                  <property name="text">
                   <string>After Fee:</string>
@@ -516,6 +545,9 @@ color: white;</string>
                  <property name="contextMenuPolicy">
                   <enum>Qt::ActionsContextMenu</enum>
                  </property>
+                 <property name="styleSheet">
+                  <string notr="true">color: white;</string>
+                 </property>
                  <property name="text">
                   <string>0.00 NLC2</string>
                  </property>
@@ -527,7 +559,8 @@ color: white;</string>
                <item row="1" column="0">
                 <widget class="QLabel" name="labelCoinControlChangeText">
                  <property name="styleSheet">
-                  <string notr="true">font-weight:bold;</string>
+                  <string notr="true">color: white;
+font-weight:bold;</string>
                  </property>
                  <property name="text">
                   <string>Change</string>
@@ -547,6 +580,9 @@ color: white;</string>
                  </property>
                  <property name="contextMenuPolicy">
                   <enum>Qt::ActionsContextMenu</enum>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color: white;</string>
                  </property>
                  <property name="text">
                   <string>0.00 NLC2</string>
@@ -579,6 +615,9 @@ color: white;</string>
           </property>
           <item>
            <widget class="QCheckBox" name="returnChangeCheckBox">
+            <property name="styleSheet">
+             <string notr="true">color: white;</string>
+            </property>
             <property name="text">
              <string>Return Change</string>
             </property>
@@ -586,6 +625,9 @@ color: white;</string>
           </item>
           <item>
            <widget class="QCheckBox" name="checkBoxCoinControlChange">
+            <property name="styleSheet">
+             <string notr="true">color: white;</string>
+            </property>
             <property name="text">
              <string>Custom Change Address</string>
             </property>
@@ -644,6 +686,9 @@ color: white;</string>
           </property>
           <item>
            <widget class="QCheckBox" name="splitBlockCheckBox">
+            <property name="styleSheet">
+             <string notr="true">color: white;</string>
+            </property>
             <property name="text">
              <string>Split Block</string>
             </property>
@@ -653,6 +698,9 @@ color: white;</string>
            <widget class="QLabel" name="labelBlocksToMakeText">
             <property name="enabled">
              <bool>false</bool>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: white;</string>
             </property>
             <property name="text">
              <string># Of Blocks To Make:</string>
@@ -683,6 +731,9 @@ color: white;</string>
             <property name="enabled">
              <bool>false</bool>
             </property>
+            <property name="styleSheet">
+             <string notr="true">color: white;</string>
+            </property>
             <property name="text">
              <string>Block Size:</string>
             </property>
@@ -692,6 +743,9 @@ color: white;</string>
            <widget class="QLabel" name="labelBlockSize">
             <property name="enabled">
              <bool>false</bool>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: white;</string>
             </property>
             <property name="text">
              <string>0.00 NLC2</string>

@@ -744,8 +744,11 @@ bool AppInit2()
         printf("Loading block index...\n");
         nStart = GetTimeMillis();
 
-        bool isBlkIndexLoaded = false;
+        // REMOVE THIS AND UNCOMMENT FOLLOWING LINE
+        // bool isBlkIndexLoaded = true;
 
+        bool isBlkIndexLoaded = false;
+        
         if (!LoadBlockIndex() && boost::filesystem::exists( blkIndexBackupLocation )){
             clearBlockIndex();
 

@@ -145,6 +145,17 @@ void AskPassphraseDialog::accept()
         }
         } break;
     case UnlockStaking:
+        if(!model->setWalletLocked(false, oldpass))
+        {
+            QMessageBox::critical(this, tr("Wallet unlock failed"),
+                                  tr("The passphrase entered for the wallet decryption was incorrect."));
+        }
+        else
+        {
+            fWalletUnlockStakingOnly = ui->stakingCheckBox->isChecked();
+            QDialog::accept(); // Success
+        }
+        break;
     case Unlock:
         if(!model->setWalletLocked(false, oldpass))
         {

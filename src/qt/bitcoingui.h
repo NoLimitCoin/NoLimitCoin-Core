@@ -112,6 +112,7 @@ private:
     QMovie *syncIconMovie;
 
     QToolBar *toolbar;
+    QToolBar *toolbar2;
 
     uint64_t nWeight;
 

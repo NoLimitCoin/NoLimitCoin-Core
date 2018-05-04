@@ -59,7 +59,9 @@ background-color: #252525;</string>
         <property name="styleSheet">
          <string notr="true">color: white;
 background-color: transparent;
-</string>
+QHeaderView::section {background-color: transparent;}
+QHeaderView {background-color: transparent;}
+QTableCornerButton::section {background-color: transparent;}</string>
         </property>
         <property name="tabKeyNavigation">
          <bool>false</bool>

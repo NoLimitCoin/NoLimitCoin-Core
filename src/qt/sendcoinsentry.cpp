@@ -49,7 +49,7 @@ void SendCoinsEntry::on_addressBookButton_clicked()
     if (model->getSplitBlock())
     {
         AddressBookPage dlg(AddressBookPage::ForSending, AddressBookPage::ReceivingTab, this); 
- 		dlg.setModel(model->getAddressTableModel()); 
+ 		dlg.setModel(model->getAddressTableModel());
  		if(dlg.exec()) 
  		{ 
  			ui->payTo->setText(dlg.getReturnValue()); 

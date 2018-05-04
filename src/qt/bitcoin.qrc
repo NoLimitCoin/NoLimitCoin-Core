@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/icons">
+        <file alias="nlc2-logo">res/icons/nlc2-logo.png</file>
         <file alias="bitcoin">res/icons/nlc2-logo.png</file>		
         <file alias="address-book">res/icons/address-book.png</file>
         <file alias="quit">res/icons/quit.png</file>
@@ -46,7 +47,11 @@
         <file alias="debugwindow">res/icons/debugwindow.png</file>
         <file alias="staking_off">res/icons/staking_off.png</file>
         <file alias="staking_on">res/icons/staking_on.png</file>
-        <file alias="sync">res/icons/sync.png</file>		
+        <file alias="staking_switch_off">res/icons/staking_switch_off.png</file>
+        <file alias="staking_switch_on">res/icons/staking_switch_on.png</file>
+        <file alias="receive_tx">res/icons/receive_tx.png</file>
+        <file alias="send_tx">res/icons/send_tx.png</file>
+        <file alias="sync">res/icons/sync.png</file>	
     </qresource>
     <qresource prefix="/images">
         <file alias="about">res/images/about.png</file>
@@ -76,6 +81,7 @@
     </qresource>
     <qresource prefix="/movies">
         <file alias="update_spinner">res/movies/update_spinner.mng</file>
+        <file alias="loading">res/movies/loading.gif</file>  
     </qresource>
 	<qresource prefix="/fonts">
         <file alias="Bebas">res/fonts/BEBAS___.TTF</file>

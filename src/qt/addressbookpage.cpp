@@ -89,14 +89,15 @@ AddressBookPage::AddressBookPage(Mode mode, Tabs tab, QWidget *parent) :
     }
 
     // Stylesheet for addresses table
-    this->setStyleSheet("QTableView {background-color: transparent;}"
-              "QHeaderView::section {background-color: transparent;}"
-              "QHeaderView {background-color: transparent;}"
+    this->setStyleSheet("QTableView {background-color: transparent;}"\
               "QTableCornerButton::section {background-color: transparent;}");
 
     ui->tableView->setGridStyle(Qt::NoPen);
     ui->tableView->setStyleSheet("alternate-background-color: #393939;background-color: #252525;");
+    
     ui->tableView->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+    ui->tableView->horizontalHeader()->setStyleSheet("QHeaderView::section {background-color: transparent;}"\
+              "QHeaderView {background-color: transparent;}");
 
     // Connect signals for context menu actions
     connect(copyAddressAction, SIGNAL(triggered()), this, SLOT(on_copyToClipboard_clicked()));

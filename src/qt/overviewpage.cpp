@@ -8,13 +8,20 @@
 #include "transactionfilterproxy.h"
 #include "guiutil.h"
 #include "guiconstants.h"
+#include "askpassphrasedialog.h"
+#include "wallet.h"
 
 #include <QAbstractItemDelegate>
 #include <QPainter>
 #include <QTableView>
+#include <QTimer>
 
 #define DECORATION_SIZE 64
 #define NUM_ITEMS 6
+
+extern CWallet* pwalletMain;
+extern int64_t nLastCoinStakeSearchInterval;
+double GetPoSKernelPS();
 
 class TxViewDelegate : public QAbstractItemDelegate
 {
@@ -47,15 +54,13 @@ OverviewPage::OverviewPage(QWidget *parent) :
     currentUnconfirmedBalance(-1),
     currentImmatureBalance(-1),
     txdelegate(new TxViewDelegate()),
-    filter(0)
+    filter(0),
+    nWeight(0)
 {
     ui->setupUi(this);
 
     // Recent transactions
-    //ui->listTransactions->setItemDelegate(txdelegate);
-    //ui->listTransactions->setIconSize(QSize(DECORATION_SIZE, DECORATION_SIZE));
     ui->listTransactions->setMinimumHeight(NUM_ITEMS * (DECORATION_SIZE + 2));
-    //ui->listTransactions->setAttribute(Qt::WA_MacShowFocusRect, false);
 
     // Transactions table styling
     this->setStyleSheet("QTableView {background-color: transparent;}"
@@ -63,11 +68,19 @@ OverviewPage::OverviewPage(QWidget *parent) :
               "QHeaderView {background-color: transparent;}"
               "QTableCornerButton::section {background-color: transparent;}");    
 
-    ui->listTransactions->setGridStyle(Qt::NoPen);
-    ui->listTransactions->setStyleSheet("alternate-background-color: #393939; background-color: #252525;");
-    ui->listTransactions->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+    // ui->listTransactions->setGridStyle(Qt::NoPen);
+    // ui->listTransactions->setStyleSheet("alternate-background-color: #393939; background-color: #252525;");
+    // ui->listTransactions->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
 
     connect(ui->listTransactions, SIGNAL(clicked(QModelIndex)), this, SLOT(handleTransactionClicked(QModelIndex)));
+    connect(ui->stakingSwitch, SIGNAL(clicked()), this, SLOT(switchStakingStatus()));
+
+    QTimer *timerStakingIcon = new QTimer(ui->stakingStatusLabel);
+    connect(timerStakingIcon, SIGNAL(timeout()), this, SLOT(updateStakingWeights()));
+    timerStakingIcon->start(30 * 1000);
+
+    updateStakingIcon();
+    updateStakingWeights();
 }
 
 void OverviewPage::handleTransactionClicked(const QModelIndex &index)
@@ -116,20 +129,24 @@ void OverviewPage::setModel(WalletModel *model)
         filter->sort(TransactionTableModel::Status, Qt::DescendingOrder);
 
         // QStringList labelList;
-        // labelList << "Alarm Name" << "Time" << "Enabled";
         filter->setHeaderData(0, Qt::Horizontal, tr("Name"));
         filter->setHeaderData(1, Qt::Horizontal, tr("Salary"));
 
         ui->listTransactions->setModel(filter);
 
-        #ifdef _WIN32
-            ui->listTransactions->horizontalHeader()->setResizeMode(QHeaderView::Stretch); 
-        #else
-            ui->listTransactions->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-        #endif
-        
-
-        //ui->listTransactions->setModelColumn(TransactionTableModel::ToAddress);
+        // Column resizing
+        ui->listTransactions->horizontalHeader()->resizeSection(
+                TransactionTableModel::Confirmations, 3);
+        ui->listTransactions->horizontalHeader()->resizeSection(
+                TransactionTableModel::Status, 40);
+        ui->listTransactions->horizontalHeader()->resizeSection(
+                TransactionTableModel::Amount, 220);
+        ui->listTransactions->horizontalHeader()->resizeSection(
+                TransactionTableModel::Type, 120);
+        ui->listTransactions->horizontalHeader()->resizeSection(
+                TransactionTableModel::Date, 220);
+        ui->listTransactions->horizontalHeader()->setResizeMode(
+                TransactionTableModel::ToAddress, QHeaderView::Stretch);
 
         // Keep up to date with wallet
         setBalance(model->getBalance(), model->getStake(), model->getUnconfirmedBalance(), model->getImmatureBalance());
@@ -160,4 +177,48 @@ void OverviewPage::showOutOfSyncWarning(bool fShow)
 {
     // ui->labelWalletStatus->setVisible(fShow);
     // ui->labelTransactionsStatus->setVisible(fShow);
+}
+
+void OverviewPage::updateStakingSwitchToOn(){
+     ui->stakingSwitch->setIcon(QIcon(":/icons/staking_switch_on"));
+     ui->stakingStatusLabel->setText("On");
+}
+
+void OverviewPage::updateStakingSwitchToOff(){
+     ui->stakingSwitch->setIcon(QIcon(":/icons/staking_switch_off"));
+     ui->stakingStatusLabel->setText("Off");
+}
+
+void OverviewPage::updateStakingIcon()
+{
+    if (nLastCoinStakeSearchInterval && nWeight)
+        updateStakingSwitchToOn();
+    else 
+       updateStakingSwitchToOff();
+}
+
+
+void OverviewPage::switchStakingStatus() {
+    if(!model)
+        return;
+    // Unlock wallet when requested by wallet model
+    if(model->getEncryptionStatus() == WalletModel::Locked)
+    {
+        AskPassphraseDialog::Mode mode = AskPassphraseDialog::UnlockStaking ;
+        AskPassphraseDialog dlg(mode, this);
+        dlg.setModel(model);
+        connect(&dlg, SIGNAL(accepted()), this, SLOT(updateStakingSwitchToOn()));
+
+        dlg.exec();
+    } else {
+        model->setWalletLocked(true);
+        updateStakingSwitchToOff();
+    }
+}
+
+void OverviewPage::updateStakingWeights() {
+    uint64_t nNetworkWeight = GetPoSKernelPS();
+
+    ui->stakingWeightText->setText(QString::number(nWeight));
+    ui->networkWeightText->setText(QString::number(nNetworkWeight));
 }
