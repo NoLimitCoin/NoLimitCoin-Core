@@ -19,7 +19,7 @@ LoadingBlockchain::LoadingBlockchain(QWidget *parent) :
     noConnectionTimer = new QTimer(this);
     connect(noConnectionTimer, SIGNAL(timeout()), this, SLOT(emitNoConnectionWarning()));
     noConnectionTimer-> setSingleShot(true);
-    noConnectionTimer->start(20000);
+    noConnectionTimer->start(900000);
 }
 
 LoadingBlockchain::~LoadingBlockchain() {
