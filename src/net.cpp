@@ -586,10 +586,11 @@ bool CNode::IsBanned(CNetAddr ip)
 
 bool CNode::Misbehaving(int howmuch)
 {
+    bool misbehaving = false;
     if (addr.IsLocal())
     {
         printf("Warning: Local node %s misbehaving (delta: %d)!\n", addrName.c_str(), howmuch);
-        return false;
+        return misbehaving;
     }
 
     nMisbehavior += howmuch;
@@ -603,10 +604,10 @@ bool CNode::Misbehaving(int howmuch)
                 setBanned[addr] = banTime;
         }
         CloseSocketDisconnect();
-        return true;
+        misbehaving = true;
     } else
         printf("Misbehaving: %s (%d -> %d)\n", addr.ToString().c_str(), nMisbehavior-howmuch, nMisbehavior);
-    return false;
+    return misbehaving;
 }
 
 #undef X
@@ -1239,7 +1240,6 @@ static const char *strDNSSeed[][2] = {
     {"seed1", "seed1.nlc2.info"},
     {"seed2", "seed2.nlc2.info"},
     {"seed3", "seed3.nlc2.info"},
-
 };
 
 void ThreadDNSAddressSeed(void* parg)
@@ -1472,7 +1472,7 @@ void ThreadOpenConnections2(void* parg)
                 addr.nTime = GetTime()-GetRand(nOneWeek)-nOneWeek;
                 vAdd.push_back(addr);
             }
-            addrman.Add(vAdd, CNetAddr("127.0.0.1"));
+            addrman.Add(vAdd, CNetAddr("127.0.0.1")); // Adding localhost
         }
 
         //

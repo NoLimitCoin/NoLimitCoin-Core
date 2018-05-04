@@ -13,6 +13,7 @@ class ClientModel;
 class WalletModel;
 class TransactionView;
 class OverviewPage;
+class NoConnection;
 class LoadingBlockchain;
 class AddressBookPage;
 class SendCoinsDialog;
@@ -66,6 +67,7 @@ private:
     QStackedWidget *centralWidget;
 
     OverviewPage *overviewPage;
+    NoConnection *noConnection;
     LoadingBlockchain *loadingBlockchain;
     QWidget *transactionsPage;
     AddressBookPage *addressBookPage;
@@ -153,6 +155,8 @@ public slots:
 private slots:
     /** Switch to overview (home) page */
     void gotoOverviewPage();
+    /** Switch to no connection page */
+    void gotoNoConnection();
     /** Switch to loading blockchain page */
     void gotoLoadingBlockchain();
     /** Switch to history (transactions) page */

@@ -3,6 +3,7 @@
 #include "clientmodel.h"
 
 #include <QMovie>
+#include <QTimer>
 
 LoadingBlockchain::LoadingBlockchain(QWidget *parent) :
     QWidget(parent),
@@ -14,6 +15,11 @@ LoadingBlockchain::LoadingBlockchain(QWidget *parent) :
     movie->setScaledSize(QSize(75,75));
     ui->loaderLabel->setMovie(movie);
     movie->start();
+
+    noConnectionTimer = new QTimer(this);
+    connect(noConnectionTimer, SIGNAL(timeout()), this, SLOT(emitNoConnectionWarning()));
+    noConnectionTimer-> setSingleShot(true);
+    noConnectionTimer->start(900000);
 }
 
 LoadingBlockchain::~LoadingBlockchain() {
@@ -24,6 +30,7 @@ void LoadingBlockchain::setModel(ClientModel *model) {
     this->model = model;
     updateProgress();
     connect(this->model, SIGNAL(numBlocksChanged(int,int)), this, SLOT(updateProgress()));
+    connect(this->model, SIGNAL(numConnectionsChanged(int)), this, SLOT(stopNoConnectionTimer()));
     
 }
 
@@ -44,9 +51,18 @@ void LoadingBlockchain::updateProgress() {
 
         ui->loadingText->setText("Syncing the blockchain... " + percentageText);
 
-        //loadedBlockchain = true;
+        // loadedBlockchain = true;
         if(loadedBlockchain){
 		    emit blockchainLoaded();
         }
     }
+}
+
+void LoadingBlockchain::stopNoConnectionTimer() {
+    noConnectionTimer->blockSignals(true);
+    noConnectionTimer->stop();
+}
+
+void LoadingBlockchain::emitNoConnectionWarning() {
+    emit showNoConnectionWarning();
 }
