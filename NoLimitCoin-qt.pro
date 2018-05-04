@@ -13,7 +13,7 @@ macx {
     QMAKE_CXXFLAGS = -fpermissive -stdlib=libc++ -std=c++11
 
 } else {
-    QMAKE_CXXFLAGS = -fpermissive -std=c++0x
+    QMAKE_CXXFLAGS = -fpermissive
 }
 
 greaterThan(QT_MAJOR_VERSION, 4) {
