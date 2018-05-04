@@ -157,6 +157,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     loadingBlockchain = new LoadingBlockchain();
     connect(loadingBlockchain, SIGNAL(blockchainLoaded()), this, SLOT(gotoOverviewPage()));
     connect(loadingBlockchain, SIGNAL(blockchainLoaded()), this, SLOT(addToolbar()));
+    connect(loadingBlockchain, SIGNAL(showNoConnectionWarning()), this, SLOT(gotoBlockBrowser()));
     
     blockBrowser = new BlockBrowser(this);  
 

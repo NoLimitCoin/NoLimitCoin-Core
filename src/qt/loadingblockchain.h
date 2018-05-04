@@ -29,9 +29,11 @@ private:
 
     private slots:
     void updateProgress();
+    void emitNoConnectionWarning();
 
 signals:
-	void blockchainLoaded();    
+	void blockchainLoaded();  
+    void showNoConnectionWarning();  
 };
 
 #endif // LOADINGBLOCKCHAIN_H

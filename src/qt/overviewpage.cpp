@@ -68,10 +68,6 @@ OverviewPage::OverviewPage(QWidget *parent) :
               "QHeaderView {background-color: transparent;}"
               "QTableCornerButton::section {background-color: transparent;}");    
 
-    // ui->listTransactions->setGridStyle(Qt::NoPen);
-    // ui->listTransactions->setStyleSheet("alternate-background-color: #393939; background-color: #252525;");
-    // ui->listTransactions->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
-
     connect(ui->listTransactions, SIGNAL(clicked(QModelIndex)), this, SLOT(handleTransactionClicked(QModelIndex)));
     connect(ui->stakingSwitch, SIGNAL(clicked()), this, SLOT(switchStakingStatus()));
 
