@@ -394,6 +394,7 @@ void BitcoinGUI::createMenuBar()
 void BitcoinGUI::createToolBars()
 {
     toolbar = addToolBar(tr("Tabs toolbar"));
+    toolbar->setVisible(false);
     toolbar->setObjectName("toolbar");
     addToolBar(Qt::LeftToolBarArea,toolbar);
     toolbar->setStyleSheet("#toolbar { border:1px; background: transparent; }");    
@@ -1053,6 +1054,7 @@ void BitcoinGUI::updateStakingIcon()
 void BitcoinGUI::addToolbar(){
 
     toolbar2->setVisible(true);
+    toolbar->setVisible(true);
 
     toolbar->setOrientation(Qt::Vertical);
     toolbar->setMovable( false );
