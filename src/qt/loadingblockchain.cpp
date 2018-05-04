@@ -19,7 +19,7 @@ LoadingBlockchain::LoadingBlockchain(QWidget *parent) :
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(emitNoConnectionWarning()));
     timer-> setSingleShot(true);
-    timer->start(10000);
+    timer->start(5000);
 }
 
 LoadingBlockchain::~LoadingBlockchain() {
