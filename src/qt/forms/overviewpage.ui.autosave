@@ -769,7 +769,7 @@ background: #028cd6;</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <property name="spacing">
-         <number>25</number>
+         <number>20</number>
         </property>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_4">

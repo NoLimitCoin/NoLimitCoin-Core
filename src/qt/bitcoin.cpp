@@ -202,9 +202,9 @@ int main(int argc, char *argv[])
     QDesktopWidget* desktopWidget = QApplication::desktop();
     QRect screenGeometry = desktopWidget->screenGeometry();
     //int screenWidth = screenGeometry.width();
-    int screenHeight = screenGeometry.height() - 100;
+    // int screenHeight = screenGeometry.height() - 100;
 
-    QPixmap pixmapForSplash = QPixmap(":/images/splash").scaled(screenHeight, screenHeight, Qt::KeepAspectRatio);
+    QPixmap pixmapForSplash = QPixmap(":/images/splash").scaled(500, 500, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     QSplashScreen splash(pixmapForSplash);
 
     if (GetBoolArg("-splash", true) && !GetBoolArg("-min"))

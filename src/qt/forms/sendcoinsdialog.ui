@@ -789,7 +789,7 @@ font-weight:bold;</string>
         <x>0</x>
         <y>0</y>
         <width>811</width>
-        <height>77</height>
+        <height>86</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -884,7 +884,7 @@ background-color: transparent;
         <property name="minimumSize">
          <size>
           <width>90</width>
-          <height>40</height>
+          <height>30</height>
          </size>
         </property>
         <property name="acceptDrops">
@@ -923,7 +923,7 @@ border-radius: 6px;
         <property name="minimumSize">
          <size>
           <width>110</width>
-          <height>40</height>
+          <height>30</height>
          </size>
         </property>
         <property name="toolTip">
