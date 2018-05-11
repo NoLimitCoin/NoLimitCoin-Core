@@ -26,6 +26,7 @@ static int column_alignments[] = {
         Qt::AlignLeft|Qt::AlignVCenter,
         Qt::AlignLeft|Qt::AlignVCenter,
         Qt::AlignLeft|Qt::AlignVCenter,
+        Qt::AlignLeft|Qt::AlignVCenter,
         Qt::AlignLeft|Qt::AlignVCenter
     };
 
@@ -368,19 +369,6 @@ QString TransactionTableModel::formatTxType(const TransactionRecord *wtx) const
 
 QVariant TransactionTableModel::txAddressDecoration(const TransactionRecord *wtx) const
 {
-    // switch(wtx->type)
-    // {
-    // case TransactionRecord::Generated:
-    //     return QIcon(":/icons/tx_mined");
-    // case TransactionRecord::RecvWithAddress:
-    // case TransactionRecord::RecvFromOther:
-    //     return QIcon(":/icons/tx_input");
-    // case TransactionRecord::SendToAddress:
-    // case TransactionRecord::SendToOther:
-    //     return QIcon(":/icons/tx_output");
-    // default:
-    //     return QIcon(":/icons/tx_inout");
-    // }
     return QVariant();
 }
 
