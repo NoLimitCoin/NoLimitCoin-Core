@@ -43,7 +43,7 @@ void LoadingBlockchain::updateProgress() {
 
     	if(numBlocks < totalBlocks){
     		float nPercentageDone = numBlocks / (totalBlocks * 0.01f);
-    		percentageText = QString::number(nPercentageDone) + "%";
+    		percentageText = QString::number(nPercentageDone, 'f', 2) + "%";
     	} else if( (numBlocks == totalBlocks) || (numBlocks - totalBlocks < 10)) {
     		percentageText = "100%";
     		loadedBlockchain = true;
@@ -51,7 +51,7 @@ void LoadingBlockchain::updateProgress() {
 
         ui->loadingText->setText("Syncing the blockchain... " + percentageText);
 
-        loadedBlockchain = true;
+        //loadedBlockchain = true;
         if(loadedBlockchain){
 		    emit blockchainLoaded();
         }
