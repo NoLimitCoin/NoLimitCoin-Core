@@ -227,14 +227,9 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     toolbar2->addWidget(labelBlocksIcon);
 
     toolbar2->setStyleSheet("#toolbar2 {min-height: 15px; } #toolbar2 "\
-        "QLabel { background: transparent; margin-left: 10px; border:none; }");
+        "QLabel { background: transparent; margin-left: 15px; border:none; }");
 
     toolbar2->setVisible(false);
-
-    labelEncryptionIcon->setStyleSheet("margin-left: 15px;");
-    labelStakingIcon->setStyleSheet("margin-left: 15px;");
-    labelBlocksIcon->setStyleSheet("margin-left: 15px;");
-    labelConnectionsIcon->setStyleSheet("margin-left: 15px;");
 
     // Clicking on a transaction on the overview page simply sends you to transaction history page
     connect(overviewPage, SIGNAL(transactionClicked(QModelIndex)), this, SLOT(gotoHistoryPage()));
@@ -634,7 +629,7 @@ void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
     if(secs < 90*60 && count >= nTotalBlocks)
     {
         tooltip = tr("Up to date") + QString(".<br>") + tooltip;
-        labelBlocksIcon->setPixmap(QIcon(":/icons/synced").pixmap(21,40));
+        labelBlocksIcon->setPixmap(QIcon(":/icons/tick").pixmap(21,40));
 
         overviewPage->showOutOfSyncWarning(false);
     }
@@ -1069,6 +1064,7 @@ void BitcoinGUI::addToolbar(){
     QPixmap logoPixmap = QPixmap(":/icons/nlc2-logo");
     l->setPixmap(logoPixmap.scaled(75,75, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     l->setAlignment(Qt::AlignCenter);
+    l->setStyleSheet("margin-bottom: 20px;");
 
     toolbar->addWidget(l);
     toolbar->addAction(overviewAction);
