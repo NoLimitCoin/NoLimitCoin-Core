@@ -1061,8 +1061,9 @@ void BitcoinGUI::addToolbar(){
     toolbar->setToolButtonStyle(Qt::ToolButtonTextOnly);
     
     QLabel *l = new QLabel(this);
-    l->setPixmap(QPixmap(":/icons/nlc2-logo"));
-    l->setStyleSheet("margin-bottom: 15px; margin-left: 20px;");
+    QPixmap logoPixmap = QPixmap(":/icons/nlc2-logo");
+    l->setPixmap(logoPixmap.scaled(75,75, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    l->setAlignment(Qt::AlignCenter);
 
     toolbar->addWidget(l);
     toolbar->addAction(overviewAction);
