@@ -220,16 +220,21 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     toolbar2->setFixedWidth(180);
     toolbar2->setFixedHeight(50);
     toolbar2->setIconSize(QSize(21,40));
+    toolbar->layout()->setSpacing(30);
     toolbar2->addWidget(labelEncryptionIcon);
     toolbar2->addWidget(labelStakingIcon);
     toolbar2->addWidget(labelConnectionsIcon);
     toolbar2->addWidget(labelBlocksIcon);
+
     toolbar2->setStyleSheet("#toolbar2 {min-height: 15px; } #toolbar2 "\
         "QLabel { background: transparent; margin-left: 10px; border:none; }");
 
     toolbar2->setVisible(false);
 
-    labelEncryptionIcon->setStyleSheet("margin-left: 25px;");
+    labelEncryptionIcon->setStyleSheet("margin-left: 15px;");
+    labelStakingIcon->setStyleSheet("margin-left: 15px;");
+    labelBlocksIcon->setStyleSheet("margin-left: 15px;");
+    labelConnectionsIcon->setStyleSheet("margin-left: 15px;");
 
     // Clicking on a transaction on the overview page simply sends you to transaction history page
     connect(overviewPage, SIGNAL(transactionClicked(QModelIndex)), this, SLOT(gotoHistoryPage()));
