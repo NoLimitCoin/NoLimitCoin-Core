@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>Send Coins</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout" stretch="0,0,1,0,0">
    <property name="bottomMargin">
     <number>8</number>
@@ -837,10 +840,10 @@ font-weight:bold;</string>
         <bool>false</bool>
        </property>
        <property name="styleSheet">
-        <string notr="true">font-size: 20px;
+        <string notr="true">QPushButton {  font-size: 20px;
 color: white;
 background-color: transparent;
-
+}
 </string>
        </property>
        <property name="text">
@@ -894,11 +897,11 @@ background-color: transparent;
          <bool>false</bool>
         </property>
         <property name="styleSheet">
-         <string notr="true">font-size: 20px;
+         <string notr="true">QPushButton {font-size: 20px;
 color: white;
 background-color: #eb9a0d;
 border-radius: 6px;
-
+}
 </string>
         </property>
         <property name="text">
@@ -927,11 +930,11 @@ border-radius: 6px;
          <string>Remove all transaction fields</string>
         </property>
         <property name="styleSheet">
-         <string notr="true">font-size: 20px;
+         <string notr="true">QPushButton { font-size: 20px;
 color: white;
 background-color: #cf3232;
 border-radius: 6px;
-
+}
 </string>
         </property>
         <property name="text">

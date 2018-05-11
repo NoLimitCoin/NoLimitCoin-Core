@@ -103,11 +103,11 @@ QTableCornerButton::section {background-color: transparent;}</string>
         <string>Create a new address</string>
        </property>
        <property name="styleSheet">
-        <string notr="true">font-size: 16px;
+        <string notr="true">QPushButton { font-size: 16px;
 color: white;
 background-color: #eb9a0d;
 border-radius: 6px;
-
+}
 </string>
        </property>
        <property name="text">
@@ -127,11 +127,11 @@ border-radius: 6px;
         <string>Copy the currently selected address to the system clipboard</string>
        </property>
        <property name="styleSheet">
-        <string notr="true">font-size: 16px;
+        <string notr="true">QPushButton { font-size: 16px;
 color: white;
 background-color: #32cfcf;
 border-radius: 6px;
-
+}
 </string>
        </property>
        <property name="text">
@@ -168,12 +168,12 @@ border-radius: 6px;
         <string>Sign a message to prove you own a NoLimitCoin address</string>
        </property>
        <property name="styleSheet">
-        <string notr="true">font-size: 16px;
+        <string notr="true">QPushButton { font-size: 16px;
 color: white;
 background-color: #9c9e9a;
 border-radius: 6px;
 
-</string>
+}</string>
        </property>
        <property name="text">
         <string>Sign Message</string>
@@ -192,10 +192,11 @@ border-radius: 6px;
         <string>Verify a message to ensure it was signed with a specified NoLimitCoin address</string>
        </property>
        <property name="styleSheet">
-        <string notr="true">font-size: 16px;
+        <string notr="true">QPushButton { font-size: 16px;
 color: white;
 background-color: #9c9e9a;
 border-radius: 6px;
+}
 
 </string>
        </property>
@@ -216,12 +217,11 @@ border-radius: 6px;
         <string>Delete the currently selected address from the list</string>
        </property>
        <property name="styleSheet">
-        <string notr="true">font-size: 16px;
+        <string notr="true">QPushButton { font-size: 16px;
 color: white;
 background-color: #cf3232;
 border-radius: 6px;
-
-</string>
+}</string>
        </property>
        <property name="text">
         <string>&amp;Delete</string>
