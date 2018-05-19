@@ -44,7 +44,7 @@ void LoadingBlockchain::updateProgress() {
     	if(numBlocks < totalBlocks){
     		float nPercentageDone = numBlocks / (totalBlocks * 0.01f);
     		percentageText = QString::number(nPercentageDone, 'f', 2) + "%";
-    	} else if( (numBlocks == totalBlocks) || (numBlocks - totalBlocks < 10)) {
+    	} else if( ((numBlocks > 0) && (numBlocks == totalBlocks)) || (numBlocks - totalBlocks < 10)) {
     		percentageText = "100%";
     		loadedBlockchain = true;
     	}
