@@ -192,7 +192,7 @@ void OverviewPage::updateStakingIcon()
         return;
 
     if (model->getEncryptionStatus() == WalletModel::Locked)
-        return updateStakingSwitchToOff();
+        updateStakingSwitchToOff();
 
     if (nLastCoinStakeSearchInterval && nWeight)
         updateStakingSwitchToOn();
