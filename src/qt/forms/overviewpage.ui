@@ -47,7 +47,7 @@ background-color: #252525;</string>
           <item>
            <widget class="QLabel" name="label_4">
             <property name="styleSheet">
-             <string notr="true">font-size: 25px;\nbackground: transparent;</string>
+             <string notr="true">font-size: 25px; background: transparent;</string>
             </property>
             <property name="text">
              <string>Recent Transactions</string>

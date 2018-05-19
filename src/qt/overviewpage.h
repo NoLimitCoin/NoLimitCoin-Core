@@ -46,8 +46,6 @@ private:
 
     uint64_t nWeight;
 
-    void updateStakingIcon();
-
 private slots:
     void updateDisplayUnit();
     void handleTransactionClicked(const QModelIndex &index);
@@ -58,6 +56,7 @@ private slots:
     /** Ask for passphrase to unlock wallet temporarily */
     void switchStakingStatus();
     void updateStakingWeights();
+    void updateStakingIcon();
 };
 
 #endif // OVERVIEWPAGE_H

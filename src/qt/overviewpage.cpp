@@ -149,6 +149,7 @@ void OverviewPage::setModel(WalletModel *model)
         connect(model, SIGNAL(balanceChanged(qint64, qint64, qint64, qint64)), this, SLOT(setBalance(qint64, qint64, qint64, qint64)));
 
         connect(model->getOptionsModel(), SIGNAL(displayUnitChanged(int)), this, SLOT(updateDisplayUnit()));
+        connect(model, SIGNAL(encryptionStatusChanged(int)), this, SLOT(updateStakingIcon()));
     }
 
     // update the display unit, to not use the default ("BTC")
@@ -187,10 +188,14 @@ void OverviewPage::updateStakingSwitchToOff(){
 
 void OverviewPage::updateStakingIcon()
 {
+    if(!model)
+        return;
+
+    if (model->getEncryptionStatus() == WalletModel::Locked)
+        return updateStakingSwitchToOff();
+
     if (nLastCoinStakeSearchInterval && nWeight)
         updateStakingSwitchToOn();
-    else 
-       updateStakingSwitchToOff();
 }
 
 
