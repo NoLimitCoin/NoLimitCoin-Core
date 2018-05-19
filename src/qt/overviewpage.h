@@ -57,6 +57,7 @@ private slots:
     void switchStakingStatus();
     void updateStakingWeights();
     void updateStakingIcon();
+    void updateWeight();
 };
 
 #endif // OVERVIEWPAGE_H

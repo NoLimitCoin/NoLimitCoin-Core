@@ -217,7 +217,25 @@ void OverviewPage::switchStakingStatus() {
     }
 }
 
+void OverviewPage::updateWeight()
+{
+    if (!pwalletMain)
+        return;
+
+    TRY_LOCK(cs_main, lockMain);
+    if (!lockMain)
+        return;
+
+    TRY_LOCK(pwalletMain->cs_wallet, lockWallet);
+    if (!lockWallet)
+        return;
+
+    uint64_t nMinWeight = 0, nMaxWeight = 0;
+    pwalletMain->GetStakeWeight(*pwalletMain, nMinWeight, nMaxWeight, nWeight);
+}
+
 void OverviewPage::updateStakingWeights() {
+    updateWeight();
     uint64_t nNetworkWeight = GetPoSKernelPS();
 
     ui->stakingWeightText->setText(QString::number(nWeight));
