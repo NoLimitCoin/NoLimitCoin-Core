@@ -75,7 +75,6 @@ OverviewPage::OverviewPage(QWidget *parent) :
     connect(timerStakingIcon, SIGNAL(timeout()), this, SLOT(updateStakingWeights()));
     timerStakingIcon->start(30 * 1000);
 
-    updateStakingIcon();
     updateStakingWeights();
 }
 
@@ -150,6 +149,8 @@ void OverviewPage::setModel(WalletModel *model)
 
         connect(model->getOptionsModel(), SIGNAL(displayUnitChanged(int)), this, SLOT(updateDisplayUnit()));
         connect(model, SIGNAL(encryptionStatusChanged(int)), this, SLOT(updateStakingIcon()));
+
+        updateStakingIcon();
     }
 
     // update the display unit, to not use the default ("BTC")
@@ -191,10 +192,9 @@ void OverviewPage::updateStakingIcon()
     if(!model)
         return;
 
-    if (model->getEncryptionStatus() == WalletModel::Locked)
+    if(model->getEncryptionStatus() == WalletModel::Locked)
         updateStakingSwitchToOff();
-
-    if (nLastCoinStakeSearchInterval && nWeight)
+    else
         updateStakingSwitchToOn();
 }
 

@@ -1401,7 +1401,7 @@ background: transparent;</string>
            <widget class="QLabel" name="labelTotalText">
             <property name="font">
              <font>
-              <pointsize>20</pointsize>
+              <pointsize>16</pointsize>
              </font>
             </property>
             <property name="styleSheet">
@@ -1416,9 +1416,7 @@ background: transparent;</string>
            <widget class="QLabel" name="labelTotal">
             <property name="font">
              <font>
-              <pointsize>20</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
+              <pointsize>16</pointsize>
              </font>
             </property>
             <property name="cursor">
