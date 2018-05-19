@@ -75,7 +75,7 @@
 font-size: 25px;</string>
      </property>
      <property name="text">
-      <string>Syncing the blockchain... 99.9999%</string>
+      <string>Syncing the blockchain... 99.99%</string>
      </property>
      <property name="scaledContents">
       <bool>true</bool>

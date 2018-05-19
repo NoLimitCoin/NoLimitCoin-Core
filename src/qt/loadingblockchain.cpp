@@ -4,6 +4,7 @@
 
 #include <QMovie>
 #include <QTimer>
+#include <QDateTime>
 
 LoadingBlockchain::LoadingBlockchain(QWidget *parent) :
     QWidget(parent),
@@ -50,6 +51,47 @@ void LoadingBlockchain::updateProgress() {
     	}
 
         ui->loadingText->setText("Syncing the blockchain... " + percentageText);
+
+        if(percentageText != ""){
+            
+            QString tooltip = tr("Catching up.. <br>Downloaded %1 of %2 blocks of transaction history (%3% done).")
+                .arg(numBlocks).arg(totalBlocks).arg(percentageText);
+
+            QDateTime lastBlockDate = this->model->getLastBlockDate();
+            int secs = lastBlockDate.secsTo(QDateTime::currentDateTime());
+            QString text;
+
+            // Represent time from last generated block in human readable text
+            if(secs <= 0)
+            {
+                // Fully up to date. Leave text empty.
+            }
+            else if(secs < 60)
+            {
+                text = tr("%n second(s) ago","",secs);
+            }
+            else if(secs < 60*60)
+            {
+                text = tr("%n minute(s) ago","",secs/60);
+            }
+            else if(secs < 24*60*60)
+            {
+                text = tr("%n hour(s) ago","",secs/(60*60));
+            }
+            else
+            {
+                text = tr("%n day(s) ago","",secs/(60*60*24));
+            }
+
+            if(!text.isEmpty())
+            {
+                tooltip += QString("<br>");
+                tooltip += tr("Last received block was generated %1.").arg(text);
+            }
+
+            ui->loaderLabel->setToolTip(tooltip);    
+        }
+        
 
         //loadedBlockchain = true;
         if(loadedBlockchain){
