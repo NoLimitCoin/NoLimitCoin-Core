@@ -74,7 +74,7 @@ border-radius: 6px;</string>
    <item>
     <layout class="QHBoxLayout" name="payToLayout">
      <property name="spacing">
-      <number>10</number>
+      <number>5</number>
      </property>
      <property name="leftMargin">
       <number>10</number>
@@ -130,7 +130,7 @@ color: black;
 border-radius: 0;</string>
        </property>
        <property name="maxLength">
-        <number>34</number>
+        <number>36</number>
        </property>
       </widget>
      </item>

@@ -1064,7 +1064,7 @@ void BitcoinGUI::addToolbar(){
     QPixmap logoPixmap = QPixmap(":/icons/nlc2-logo");
     l->setPixmap(logoPixmap.scaled(75,75, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     l->setAlignment(Qt::AlignCenter);
-    l->setStyleSheet("margin-bottom: 20px;");
+    l->setStyleSheet("margin-bottom: 40px;");
 
     toolbar->addWidget(l);
     toolbar->addAction(overviewAction);

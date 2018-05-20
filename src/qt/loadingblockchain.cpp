@@ -93,7 +93,7 @@ void LoadingBlockchain::updateProgress() {
         }
         
 
-        //loadedBlockchain = true;
+        loadedBlockchain = true;
         if(loadedBlockchain){
 		    emit blockchainLoaded();
         }
