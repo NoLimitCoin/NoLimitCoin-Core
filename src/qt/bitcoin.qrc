@@ -52,7 +52,8 @@
         <file alias="receive_tx">res/icons/receive_tx.png</file>
         <file alias="send_tx">res/icons/send_tx.png</file>
         <file alias="sync">res/icons/sync.png</file>
-        <file alias="tick">res/icons/tick.png</file>	
+        <file alias="tick">res/icons/tick.png</file>
+        <file alias="menu-nlc2-logo">res/icons/menu-logo.png</file>	
     </qresource>
     <qresource prefix="/images">
         <file alias="about">res/images/about.png</file>
