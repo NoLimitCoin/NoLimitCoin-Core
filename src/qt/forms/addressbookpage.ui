@@ -14,8 +14,9 @@
    <string>Address Book</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">color: white;
-QTableView {background-color: transparent;}</string>
+   <string notr="true">#AddressBookPage {color: white;
+QTableView {background-color: transparent;}
+}</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
