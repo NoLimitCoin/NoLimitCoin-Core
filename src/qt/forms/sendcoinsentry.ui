@@ -14,9 +14,16 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">color: white;
+   <string notr="true">#SendCoinsEntry { color: white;
 background: #028cd6;
-border-radius: 6px;</string>
+border-radius: 6px;
+}
+
+#deleteButton {
+	color: white;
+background: #028cd6;
+border-radius: 6px;
+}</string>
   </property>
   <property name="frameShape">
    <enum>QFrame::StyledPanel</enum>
@@ -60,12 +67,18 @@ border-radius: 6px;</string>
        <property name="autoFillBackground">
         <bool>false</bool>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: #028cd6;</string>
+       </property>
        <property name="text">
         <string/>
        </property>
        <property name="icon">
         <iconset resource="../bitcoin.qrc">
          <normaloff>:/icons/close</normaloff>:/icons/close</iconset>
+       </property>
+       <property name="autoRaise">
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -95,6 +108,9 @@ border-radius: 6px;</string>
          <width>60</width>
          <height>10</height>
         </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: white;</string>
        </property>
        <property name="text">
         <string>Send &amp;To:</string>
@@ -201,6 +217,9 @@ border-radius: 0;</string>
          <height>10</height>
         </size>
        </property>
+       <property name="styleSheet">
+        <string notr="true">color: white;</string>
+       </property>
        <property name="text">
         <string>&amp;Label:</string>
        </property>
@@ -281,6 +300,9 @@ border-radius: 0;</string>
        </property>
        <property name="layoutDirection">
         <enum>Qt::LeftToRight</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: white;</string>
        </property>
        <property name="text">
         <string>A&amp;mount:</string>
