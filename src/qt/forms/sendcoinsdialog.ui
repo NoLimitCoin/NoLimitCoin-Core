@@ -899,7 +899,7 @@ background-color: transparent;
         <property name="styleSheet">
          <string notr="true">QPushButton {font-size: 20px;
 color: white;
-background-color: #eb9a0d;
+background-color: #00b800;
 border-radius: 6px;
 }
 </string>
