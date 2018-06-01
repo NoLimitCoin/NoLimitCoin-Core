@@ -195,7 +195,13 @@ padding: 0px;</string>
         <widget class="QPushButton" name="txButton">
          <property name="minimumSize">
           <size>
-           <width>0</width>
+           <width>190</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>190</width>
            <height>30</height>
           </size>
          </property>
@@ -295,6 +301,12 @@ border-radius: 5;</string>
           </sizepolicy>
          </property>
          <property name="minimumSize">
+          <size>
+           <width>190</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="maximumSize">
           <size>
            <width>190</width>
            <height>30</height>
