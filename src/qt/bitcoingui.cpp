@@ -246,7 +246,11 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     // Clicking on "Sign Message" in the receive coins page sends you to the sign message tab
     connect(receiveCoinsPage, SIGNAL(signMessage(QString)), this, SLOT(gotoSignMessageTab(QString)));
 
-    gotoLoadingBlockchain();
+    // Do not show loading blockchain page anymore
+    // gotoLoadingBlockchain();
+    
+    gotoOverviewPage();
+    addToolbar();
 }
 
 BitcoinGUI::~BitcoinGUI()
