@@ -99,7 +99,7 @@ color: white;</string>
         <x>0</x>
         <y>50</y>
         <width>701</width>
-        <height>428</height>
+        <height>410</height>
        </rect>
       </property>
       <property name="autoFillBackground">
@@ -109,7 +109,8 @@ color: white;</string>
        <string notr="true">background-color: #028cd6;
 color: white;
 opacity: 0.85;
-border-radius: 6px;</string>
+border-radius: 6px;
+padding: 0px;</string>
       </property>
       <layout class="QGridLayout" name="gridLayout_3" rowstretch="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" columnstretch="0,0,0">
        <property name="sizeConstraint">
@@ -121,8 +122,14 @@ border-radius: 6px;</string>
        <property name="topMargin">
         <number>15</number>
        </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
        <property name="horizontalSpacing">
         <number>7</number>
+       </property>
+       <property name="verticalSpacing">
+        <number>8</number>
        </property>
        <item row="16" column="1">
         <widget class="QLabel" name="txID">
