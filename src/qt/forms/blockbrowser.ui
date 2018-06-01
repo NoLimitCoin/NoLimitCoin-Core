@@ -106,7 +106,7 @@ color: white;</string>
        <bool>false</bool>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: #028cd6;
+       <string notr="true">background-color: #252525;
 color: white;
 opacity: 0.85;
 border-radius: 6px;
