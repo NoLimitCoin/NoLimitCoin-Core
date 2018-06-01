@@ -847,7 +847,7 @@ background-color: transparent;
 </string>
        </property>
        <property name="text">
-        <string>+  Add &amp;Address</string>
+        <string>+  Add &amp;Recipient</string>
        </property>
        <property name="autoDefault">
         <bool>false</bool>
