@@ -103,7 +103,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
             background: transparent;border:none; \
         } \
         #toolbar2 { \
-            border:none;width:0px;height:0px;padding-top:40px;padding-bottom:0px; background-color: transparent; \
+            border:none; width:0px; height:0px; padding-top:35px; padding-bottom:20px; background-color: transparent; \
         } \
         #labelMiningIcon { \
             padding-left:5px;font-family:Century Gothic;width:100%;font-size:10px;text-align:center;color:black; \
@@ -197,6 +197,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     labelStakingIcon = new QLabel();
     labelConnectionsIcon = new QLabel();
     labelBlocksIcon = new QLabel();
+    labelBlocksIcon->setObjectName("syncLabel");
     
     if (GetBoolArg("-staking", true))
     {
@@ -573,6 +574,7 @@ void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
 
     QString strStatusBarWarnings = clientModel->getStatusBarWarnings();
     QString tooltip;
+    QString percentageDone;
 
     if(count < nTotalBlocks)
     {
@@ -589,7 +591,10 @@ void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
             progressBar->setVisible(false);
         }
 
-        tooltip = tr("Downloaded %1 of %2 blocks of transaction history (%3% done).").arg(count).arg(nTotalBlocks).arg(nPercentageDone, 0, 'f', 2);
+        tooltip = tr("Downloaded %1 of %2 blocks of transaction history (%3% done).").arg(count).arg(nTotalBlocks)
+            .arg(nPercentageDone, 0, 'f', 2);
+        percentageDone = tr("%1").arg(nPercentageDone, 0, 'f', 2);
+        labelBlocksIcon->setText(percentageDone);
     }
     else
     {
@@ -638,7 +643,7 @@ void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
     if(secs < 90*60 && count >= nTotalBlocks)
     {
         tooltip = tr("Up to date") + QString(".<br>") + tooltip;
-        labelBlocksIcon->setPixmap(QIcon(":/icons/tick").pixmap(21,40));
+        //labelBlocksIcon->setPixmap(QIcon(":/icons/tick").pixmap(21,30));
 
         overviewPage->showOutOfSyncWarning(false);
 
@@ -657,6 +662,12 @@ void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
         sendCoinsAction->setToolTip(tr("Send coins to a NoLimitCoin address"));
         receiveCoinsAction->setToolTip(tr("Show the list of addresses for receiving payments"));
 
+        toolbar2->setStyleSheet(toolbar2->styleSheet().append(
+            QString(" \
+                QLabel#syncLabel{ background-image: url(:images/ticki); background-repeat: no-repeat;} \
+        ")));
+        labelBlocksIcon->setText("100%");
+
         connect(sendCoinsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
         connect(sendCoinsAction, SIGNAL(triggered()), this, SLOT(gotoSendCoinsPage()));
         connect(receiveCoinsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
@@ -666,7 +677,7 @@ void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
     else
     {
         tooltip = tr("Catching up...") + QString("<br>") + tooltip;
-        labelBlocksIcon->setPixmap(QIcon(":/icons/sync").pixmap(21,40));
+        //labelBlocksIcon->setPixmap(QIcon(":/icons/sync").pixmap(21,30));
         overviewPage->showOutOfSyncWarning(true);
     }
 
@@ -917,7 +928,7 @@ void BitcoinGUI::setEncryptionStatus(int status)
         break;
     case WalletModel::Unlocked:
         labelEncryptionIcon->show();
-        labelEncryptionIcon->setPixmap(QIcon(":/icons/lock_open").pixmap(21,40));
+        labelEncryptionIcon->setPixmap(QIcon(":/icons/lock_open").pixmap(21,30));
         labelEncryptionIcon->setToolTip(tr("Wallet is <b>encrypted</b> and currently <b>unlocked</b>"));
         encryptWalletAction->setChecked(true);
         changePassphraseAction->setEnabled(true);
@@ -927,7 +938,7 @@ void BitcoinGUI::setEncryptionStatus(int status)
         break;
     case WalletModel::Locked:
         labelEncryptionIcon->show();
-        labelEncryptionIcon->setPixmap(QIcon(":/icons/lock_closed").pixmap(21,40));
+        labelEncryptionIcon->setPixmap(QIcon(":/icons/lock_closed").pixmap(21,30));
         labelEncryptionIcon->setToolTip(tr("Wallet is <b>encrypted</b> and currently <b>locked</b>"));
         encryptWalletAction->setChecked(true);
         changePassphraseAction->setEnabled(true);
@@ -1163,4 +1174,12 @@ void BitcoinGUI::addToolbar(){
         QToolButton#addressbook:hover{ background-image: url(:images/address2); } \
         QToolButton#addressbook:checked{ background-image: url(:images/address2); } \
     ");
+
+    toolbar2->setStyleSheet(toolbar2->styleSheet().append(
+        QString(" \
+            QLabel#syncLabel{ background-image: url(:images/synci); background-repeat: no-repeat; \
+                min-width: 21px; color: #ffffff; font-size: 10px; margin-top: 20px; margin-bottom: 5px; \
+            } \
+    ")));
+    labelBlocksIcon->setAlignment(Qt::AlignBottom);
 }

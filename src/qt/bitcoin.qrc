@@ -82,6 +82,8 @@
         <file alias="send3">res/images/send3.png</file>
         <file alias="save">res/images/save.png</file>
         <file alias="save2">res/images/save2.png</file>
+        <file alias="synci">res/images/sync.png</file>
+        <file alias="ticki">res/images/tick.png</file>
     </qresource>
     <qresource prefix="/movies">
         <file alias="update_spinner">res/movies/update_spinner.mng</file>
