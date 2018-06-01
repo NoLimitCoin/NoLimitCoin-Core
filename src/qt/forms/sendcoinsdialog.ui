@@ -899,8 +899,12 @@ background-color: transparent;
         <property name="styleSheet">
          <string notr="true">QPushButton {font-size: 20px;
 color: white;
-background-color: #00b800;
+background-color: #00a500;
 border-radius: 6px;
+}
+
+QPushButton:pressed {
+	background-color: #009400;
 }
 </string>
         </property>
@@ -935,6 +939,11 @@ color: white;
 background-color: #cf3232;
 border-radius: 6px;
 }
+
+QPushButton:pressed {
+background-color: #bf3232;
+}
+
 </string>
         </property>
         <property name="text">

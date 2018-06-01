@@ -206,10 +206,18 @@ padding: 0px;</string>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">font-size: 14px;
+          <string notr="true">QPushButton { font-size: 16px;
+font-size: 14px;
 color: white;
 background-color: #eb9a0d;
-border-radius: 6px;</string>
+border-radius: 6px;
+}
+
+QPushButton:pressed {
+background-color: #d88d09;
+}
+
+</string>
          </property>
          <property name="text">
           <string>Decode Transaction</string>
@@ -313,10 +321,18 @@ border-radius: 5;</string>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">font-size: 14px;
+          <string notr="true">QPushButton { font-size: 16px;
+font-size: 14px;
 color: white;
 background-color: #eb9a0d;
-border-radius: 6px;</string>
+border-radius: 6px;
+}
+
+QPushButton:pressed {
+background-color: #d88d09;
+}
+
+</string>
          </property>
          <property name="text">
           <string>Jump to Block</string>

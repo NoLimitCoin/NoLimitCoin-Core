@@ -109,6 +109,10 @@ color: white;
 background-color: #eb9a0d;
 border-radius: 6px;
 }
+
+QPushButton:pressed {
+    background-color: #d88d09;
+}
 </string>
        </property>
        <property name="text">
@@ -132,6 +136,9 @@ border-radius: 6px;
 color: white;
 background-color: #32cfcf;
 border-radius: 6px;
+}
+QPushButton:pressed {
+background-color: #2dbaba;
 }
 </string>
        </property>
@@ -173,7 +180,9 @@ border-radius: 6px;
 color: white;
 background-color: #9c9e9a;
 border-radius: 6px;
-
+}
+QPushButton:pressed {
+background-color: #8f928d;
 }</string>
        </property>
        <property name="text">
@@ -197,6 +206,9 @@ border-radius: 6px;
 color: white;
 background-color: #9c9e9a;
 border-radius: 6px;
+}
+QPushButton:pressed {
+background-color: #8f928d;
 }
 
 </string>
@@ -222,6 +234,9 @@ border-radius: 6px;
 color: white;
 background-color: #cf3232;
 border-radius: 6px;
+}
+QPushButton:pressed {
+background-color: #bf3232;
 }</string>
        </property>
        <property name="text">
