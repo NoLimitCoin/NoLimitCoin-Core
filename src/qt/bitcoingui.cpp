@@ -180,7 +180,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 
     centralWidget = new QStackedWidget(this);
     centralWidget->addWidget(overviewPage);
-    centralWidget->addWidget(loadingBlockchain);
+    // centralWidget->addWidget(loadingBlockchain);
     centralWidget->addWidget(noConnection);
     centralWidget->addWidget(transactionsPage);
     centralWidget->addWidget(addressBookPage);
@@ -462,7 +462,7 @@ void BitcoinGUI::setWalletModel(WalletModel *walletModel)
         transactionView->setModel(walletModel);
 
         overviewPage->setModel(walletModel);
-        loadingBlockchain->setModel(clientModel);
+        // loadingBlockchain->setModel(clientModel);
         addressBookPage->setModel(walletModel->getAddressTableModel());
         receiveCoinsPage->setModel(walletModel->getAddressTableModel());
         sendCoinsPage->setModel(walletModel);
@@ -802,7 +802,7 @@ void BitcoinGUI::gotoNoConnection()
 
 void BitcoinGUI::gotoLoadingBlockchain()
 {
-    centralWidget->setCurrentWidget(loadingBlockchain);
+    //centralWidget->setCurrentWidget(loadingBlockchain);
 }
 
 void BitcoinGUI::gotoHistoryPage()
