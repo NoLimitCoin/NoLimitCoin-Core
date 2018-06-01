@@ -297,8 +297,15 @@ void BitcoinGUI::createActions()
     blockAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_6));
     blockAction->setCheckable(true);
     tabGroup->addAction(blockAction);
+
+    saveAction = new QAction(QIcon(":/icons/save"), tr("&Backup"), this);
+    saveAction->setToolTip(tr("Backup Wallet"));
+    saveAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_7));
+    saveAction->setCheckable(true);
+    tabGroup->addAction(saveAction);
     
     connect(blockAction, SIGNAL(triggered()), this, SLOT(gotoBlockBrowser()));
+    connect(blockAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(gotoOverviewPage()));
     connect(sendCoinsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
@@ -309,6 +316,8 @@ void BitcoinGUI::createActions()
     connect(historyAction, SIGNAL(triggered()), this, SLOT(gotoHistoryPage()));
     connect(addressBookAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(addressBookAction, SIGNAL(triggered()), this, SLOT(gotoAddressBookPage()));
+    connect(saveAction, SIGNAL(triggered()), this, SLOT(backupWallet()));
+    connect(saveAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
 
     quitAction = new QAction(QIcon(":/icons/quit"), tr("E&xit"), this);
     quitAction->setToolTip(tr("Quit application"));
@@ -1073,6 +1082,7 @@ void BitcoinGUI::addToolbar(){
     toolbar->addAction(historyAction);
     toolbar->addAction(addressBookAction);
     toolbar->addAction(blockAction);
+    toolbar->addAction(saveAction);
 
     toolbar->widgetForAction(overviewAction)->setObjectName("overview");
     toolbar->widgetForAction(sendCoinsAction)->setObjectName("sendcoin");
@@ -1080,6 +1090,7 @@ void BitcoinGUI::addToolbar(){
     toolbar->widgetForAction(historyAction)->setObjectName("history");
     toolbar->widgetForAction(addressBookAction)->setObjectName("addressbook");
     toolbar->widgetForAction(blockAction)->setObjectName("block");
+    toolbar->widgetForAction(saveAction)->setObjectName("save");
 
 
     toolbar->setStyleSheet("#toolbar { \
@@ -1130,6 +1141,8 @@ void BitcoinGUI::addToolbar(){
         QToolButton#block{ background-image: url(:images/explorer); } \
         QToolButton#block:hover{ background-image: url(:images/explorer2); } \
         QToolButton#block:checked{ background-image: url(:images/explorer2); } \
+        QToolButton#save{ background-image: url(:images/save); } \
+        QToolButton#save:hover{ background-image: url(:images/save2); } \
         QToolButton#addressbook{ background-image: url(:images/address); } \
         QToolButton#addressbook:hover{ background-image: url(:images/address2); } \
         QToolButton#addressbook:checked{ background-image: url(:images/address2); }"

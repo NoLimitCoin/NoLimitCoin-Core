@@ -78,7 +78,7 @@
         <file alias="send">res/images/send.png</file>
         <file alias="send2">res/images/send2.png</file>
         <file alias="save">res/images/save.png</file>
-        <file alias="save">res/images/save2.png</file>
+        <file alias="save2">res/images/save2.png</file>
     </qresource>
     <qresource prefix="/movies">
         <file alias="update_spinner">res/movies/update_spinner.mng</file>

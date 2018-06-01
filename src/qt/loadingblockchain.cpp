@@ -42,15 +42,10 @@ void LoadingBlockchain::updateProgress() {
     	int totalBlocks = this->model->getNumBlocksOfPeers();
     	QString percentageText = "";
 
-        QDateTime lastBlockDate = this->model->getLastBlockDate();
-        int secs = lastBlockDate.secsTo(QDateTime::currentDateTime());
-
     	if(numBlocks < totalBlocks){
     		float nPercentageDone = numBlocks / (totalBlocks * 0.01f);
     		percentageText = QString::number(nPercentageDone, 'f', 2) + "%";
-
-            // if last block time is less than 2 minutes, we can consider that the blockchain is downloaded
-    	} else if(secs < 120) {
+    	} else if( ((numBlocks > 0) && (numBlocks == totalBlocks)) || (numBlocks - totalBlocks < 10)) {
     		percentageText = "100%";
     		loadedBlockchain = true;
     	}
@@ -61,6 +56,9 @@ void LoadingBlockchain::updateProgress() {
             
             QString tooltip = tr("Catching up.. <br>Downloaded %1 of %2 blocks of transaction history (%3% done).")
                 .arg(numBlocks).arg(totalBlocks).arg(percentageText);
+
+            QDateTime lastBlockDate = this->model->getLastBlockDate();
+            int secs = lastBlockDate.secsTo(QDateTime::currentDateTime());
             QString text;
 
             // Represent time from last generated block in human readable text
@@ -95,7 +93,7 @@ void LoadingBlockchain::updateProgress() {
         }
         
 
-        //loadedBlockchain = true;
+        // loadedBlockchain = true;
         if(loadedBlockchain){
 		    emit blockchainLoaded();
         }

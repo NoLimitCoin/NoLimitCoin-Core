@@ -88,6 +88,7 @@ private:
     QAction *quitAction;
     QAction *sendCoinsAction;
     QAction *addressBookAction;
+    QAction *saveAction;
     QAction *nodeAction;
 	QAction *signMessageAction;
     QAction *verifyMessageAction;
