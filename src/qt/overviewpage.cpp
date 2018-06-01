@@ -208,7 +208,7 @@ void OverviewPage::updateStakingIcon()
 
 
 void OverviewPage::switchStakingStatus() {
-    if(!model)
+    if(!model || model->getEncryptionStatus() == WalletModel::Unencrypted)
         return;
     // Unlock wallet when requested by wallet model
     if(model->getEncryptionStatus() == WalletModel::Locked)
