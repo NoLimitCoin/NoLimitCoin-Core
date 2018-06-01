@@ -157,10 +157,10 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 
     noConnection = new NoConnection();
     
-    loadingBlockchain = new LoadingBlockchain();
-    connect(loadingBlockchain, SIGNAL(blockchainLoaded()), this, SLOT(gotoOverviewPage()));
-    connect(loadingBlockchain, SIGNAL(blockchainLoaded()), this, SLOT(addToolbar()));
-    connect(loadingBlockchain, SIGNAL(showNoConnectionWarning()), this, SLOT(gotoNoConnection()));
+    // loadingBlockchain = new LoadingBlockchain();
+    // connect(loadingBlockchain, SIGNAL(blockchainLoaded()), this, SLOT(gotoOverviewPage()));
+    // connect(loadingBlockchain, SIGNAL(blockchainLoaded()), this, SLOT(addToolbar()));
+    // connect(loadingBlockchain, SIGNAL(showNoConnectionWarning()), this, SLOT(gotoNoConnection()));
     
     blockBrowser = new BlockBrowser(this);  
 
