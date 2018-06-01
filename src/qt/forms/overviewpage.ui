@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>611</width>
+    <width>766</width>
     <height>460</height>
    </rect>
   </property>
@@ -1268,6 +1268,17 @@ background: transparent;</string>
              </size>
             </property>
            </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="syncText">
+            <property name="styleSheet">
+             <string notr="true">font-size: 20px;
+background: transparent;</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
           </item>
          </layout>
         </item>

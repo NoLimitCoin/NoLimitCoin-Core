@@ -1,6 +1,7 @@
 #include "overviewpage.h"
 #include "ui_overviewpage.h"
 
+#include "clientmodel.h"
 #include "walletmodel.h"
 #include "bitcoinunits.h"
 #include "optionsmodel.h"
@@ -107,6 +108,13 @@ void OverviewPage::setBalance(qint64 balance, qint64 stake, qint64 unconfirmedBa
     bool showImmature = immatureBalance != 0;
     ui->labelImmature->setVisible(showImmature);
     ui->labelImmatureText->setVisible(showImmature);
+}
+
+void OverviewPage::setClientModel(ClientModel *model) {
+    this->clientModel = model;
+
+    setNumBlocks(clientModel->getNumBlocks(), clientModel->getNumBlocksOfPeers());
+    connect(clientModel, SIGNAL(numBlocksChanged(int,int)), this, SLOT(setNumBlocks(int,int)));
 }
 
 void OverviewPage::setModel(WalletModel *model)
@@ -240,4 +248,32 @@ void OverviewPage::updateStakingWeights() {
 
     ui->stakingWeightText->setText(QString::number(nWeight));
     ui->networkWeightText->setText(QString::number(nNetworkWeight));
+}
+
+void OverviewPage::setNumBlocks(int count, int nTotalBlocks)
+{
+    // don't show label if we have no connection to the network
+    if (!clientModel || clientModel->getNumConnections() == 0)
+        return;
+
+    QString strStatusBarWarnings = clientModel->getStatusBarWarnings();
+    QString percentageDone;
+
+    if(count < nTotalBlocks)
+    {
+        int nRemainingBlocks = nTotalBlocks - count;
+        float nPercentageDone = count / (nTotalBlocks * 0.01f);
+
+        percentageDone = tr("%1").arg(nPercentageDone, 0, 'f', 2);
+        ui->syncText->setText("Syncing the Blockchain ... " + percentageDone);
+    }
+   
+    QDateTime lastBlockDate = clientModel->getLastBlockDate();
+    int secs = lastBlockDate.secsTo(QDateTime::currentDateTime());
+
+    // Set icon state: spinning if catching up, tick otherwise
+    if(secs < 90*60 && count >= nTotalBlocks)
+      ;
+    else
+        ui->syncText->setText("Syncing the Blockchain ...");
 }
