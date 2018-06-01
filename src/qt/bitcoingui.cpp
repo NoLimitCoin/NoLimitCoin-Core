@@ -646,12 +646,13 @@ void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
 
         toolbar->setStyleSheet(toolbar->styleSheet().append(
         QString("\
-                QToolButton#sendcoin{ background-image: url(:images/send); color: #ffffff } \
-                QToolButton#sendcoin:hover{ background-image: url(:images/send2); } \
-                QToolButton#receivecoin{ background-image: url(:images/receive); color: #ffffff } \
-                QToolButton#receivecoin:hover{ background-image: url(:images/receive2); } \
-            ")
-        ));
+            QToolButton#sendcoin{ background-image: url(:images/send); color: #ffffff } \
+            QToolButton#sendcoin:hover{ background-image: url(:images/send2); } \
+            QToolButton#sendcoin:checked{ background-image: url(:images/send2); } \
+            QToolButton#receivecoin{ background-image: url(:images/receive); color: #ffffff } \
+            QToolButton#receivecoin:hover{ background-image: url(:images/receive2); } \
+            QToolButton#receivecoin:checked{ background-image: url(:images/receive2); } \
+        ")));
 
         sendCoinsAction->setToolTip(tr("Send coins to a NoLimitCoin address"));
         receiveCoinsAction->setToolTip(tr("Show the list of addresses for receiving payments"));
@@ -1161,6 +1162,6 @@ void BitcoinGUI::addToolbar(){
         QToolButton#save:hover{ background-image: url(:images/save2); } \
         QToolButton#addressbook{ background-image: url(:images/address); } \
         QToolButton#addressbook:hover{ background-image: url(:images/address2); } \
-        QToolButton#addressbook:checked{ background-image: url(:images/address2); }"
-    );
+        QToolButton#addressbook:checked{ background-image: url(:images/address2); } \
+    ");
 }
