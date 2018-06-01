@@ -75,8 +75,10 @@
         <file alias="explorer2">res/images/explorer2.png</file>
         <file alias="receive">res/images/receive.png</file>
         <file alias="receive2">res/images/receive2.png</file>
+        <file alias="receive3">res/images/receive3.png</file>
         <file alias="send">res/images/send.png</file>
         <file alias="send2">res/images/send2.png</file>
+        <file alias="send3">res/images/send3.png</file>
         <file alias="save">res/images/save.png</file>
         <file alias="save2">res/images/save2.png</file>
     </qresource>

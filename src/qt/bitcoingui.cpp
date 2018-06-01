@@ -273,13 +273,13 @@ void BitcoinGUI::createActions()
     tabGroup->addAction(overviewAction);
 
     sendCoinsAction = new QAction(QIcon(":/icons/send"), tr("&Send Coins"), this);
-    sendCoinsAction->setToolTip(tr("Send coins to a NoLimitCoin address"));
+    sendCoinsAction->setToolTip("Disabled until blockchain finishes syncing");
     sendCoinsAction->setCheckable(true);
     sendCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_2));
     tabGroup->addAction(sendCoinsAction);
 
     receiveCoinsAction = new QAction(QIcon(":/icons/receiving_addresses"), tr("&Receive Coins"), this);
-    receiveCoinsAction->setToolTip(tr("Show the list of addresses for receiving payments"));
+    receiveCoinsAction->setToolTip("Disabled until blockchain finishes syncing");
     receiveCoinsAction->setCheckable(true);
     receiveCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_3));
     tabGroup->addAction(receiveCoinsAction);
@@ -312,10 +312,6 @@ void BitcoinGUI::createActions()
     connect(blockAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(gotoOverviewPage()));
-    connect(sendCoinsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
-    connect(sendCoinsAction, SIGNAL(triggered()), this, SLOT(gotoSendCoinsPage()));
-    connect(receiveCoinsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
-    connect(receiveCoinsAction, SIGNAL(triggered()), this, SLOT(gotoReceiveCoinsPage()));
     connect(historyAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(historyAction, SIGNAL(triggered()), this, SLOT(gotoHistoryPage()));
     connect(addressBookAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
@@ -645,6 +641,26 @@ void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
         labelBlocksIcon->setPixmap(QIcon(":/icons/tick").pixmap(21,40));
 
         overviewPage->showOutOfSyncWarning(false);
+
+        // Enable Sending and Receiving of Coins
+
+        toolbar->setStyleSheet(toolbar->styleSheet().append(
+        QString("\
+                QToolButton#sendcoin{ background-image: url(:images/send); color: #ffffff } \
+                QToolButton#sendcoin:hover{ background-image: url(:images/send2); } \
+                QToolButton#receivecoin{ background-image: url(:images/receive); color: #ffffff } \
+                QToolButton#receivecoin:hover{ background-image: url(:images/receive2); } \
+            ")
+        ));
+
+        sendCoinsAction->setToolTip(tr("Send coins to a NoLimitCoin address"));
+        receiveCoinsAction->setToolTip(tr("Show the list of addresses for receiving payments"));
+
+        connect(sendCoinsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
+        connect(sendCoinsAction, SIGNAL(triggered()), this, SLOT(gotoSendCoinsPage()));
+        connect(receiveCoinsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
+        connect(receiveCoinsAction, SIGNAL(triggered()), this, SLOT(gotoReceiveCoinsPage()));
+
     }
     else
     {
@@ -1133,12 +1149,8 @@ void BitcoinGUI::addToolbar(){
         QToolButton#overview{ background-image: url(:images/overview); } \
         QToolButton#overview:hover{ background-image: url(:images/overview2); } \
         QToolButton#overview:checked{ background-image: url(:images/overview2); } \
-        QToolButton#sendcoin{ background-image: url(:images/send); } \
-        QToolButton#sendcoin:hover{ background-image: url(:images/send2); } \
-        QToolButton#sendcoin:checked{ background-image: url(:images/send2); } \
-        QToolButton#receivecoin{ background-image: url(:images/receive); } \
-        QToolButton#receivecoin:hover{ background-image: url(:images/receive2); } \
-        QToolButton#receivecoin:checked{ background-image: url(:images/receive2); } \
+        QToolButton#sendcoin{ background-image: url(:images/send3); color: #616161; } \
+        QToolButton#receivecoin{ background-image: url(:images/receive3); color: #616161; } \
         QToolButton#history{ background-image: url(:images/transaction); } \
         QToolButton#history:hover{ background-image: url(:images/transaction2); } \
         QToolButton#history:checked{ background-image: url(:images/transaction2); } \
