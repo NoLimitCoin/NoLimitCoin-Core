@@ -225,7 +225,7 @@ TransactionTableModel::TransactionTableModel(CWallet* wallet, WalletModel *paren
         priv(new TransactionTablePriv(wallet, this)),
         cachedNumBlocks(0)
 {
-    columns << QString() << QString() << tr("Amount") << tr("Type") << tr("Date") << tr("Address") ;
+    columns << QString() << QString() << tr("Date") << tr("Type") << tr("Address") << tr("Amount") ;
 
     priv->refreshWallet();
 
