@@ -42,14 +42,16 @@ enum Checkpoints::CPMode CheckpointsMode;
 // Original
 // blkindex file number
 unsigned int nFile = 1;
-fs::path blkIndexLocation = GetDataDir() / strprintf("blk%04u.dat", nFile);
-fs::path databaseLocation = GetDataDir() / "database";
-fs::path txLevelDBLocation = GetDataDir() / "txleveldb";    
+const boost::filesystem::path dataDir = GetDataDir();
+
+fs::path blkIndexLocation = dataDir / strprintf("blk%04u.dat", nFile);
+fs::path databaseLocation = dataDir / "database";
+fs::path txLevelDBLocation = dataDir / "txleveldb";    
 
 // Backup 
-fs::path blkIndexBackupLocation = GetDataDir() / strprintf("blk%04u.dat.bak", nFile);
-fs::path databaseBackupLocation = GetDataDir() / "database.bak";
-fs::path txLevelDBBackupLocation = GetDataDir() / "txleveldb.bak";
+fs::path blkIndexBackupLocation = dataDir / strprintf("blk%04u.dat.bak", nFile);
+fs::path databaseBackupLocation = dataDir / "database.bak";
+fs::path txLevelDBBackupLocation = dataDir / "txleveldb.bak";
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -744,12 +746,9 @@ bool AppInit2()
         printf("Loading block index...\n");
         nStart = GetTimeMillis();
 
-        // REMOVE THIS AND UNCOMMENT FOLLOWING LINE
-        // bool isBlkIndexLoaded = true;
-
-        bool isBlkIndexLoaded = false;
+        bool isBlkIndexLoaded = LoadBlockIndex();
         
-        if (!LoadBlockIndex() && boost::filesystem::exists( blkIndexBackupLocation )){
+        if (!isBlkIndexLoaded && boost::filesystem::exists( blkIndexBackupLocation )){
             clearBlockIndex();
 
             // if a backup of blkindex exists, use that as the main blkindex
@@ -758,9 +757,6 @@ bool AppInit2()
             // Try loading blkindex again and throw error if it still fails
             // Explicitly mentioning to reload blockindex
             isBlkIndexLoaded = LoadBlockIndex();
-        } else {
-            isBlkIndexLoaded = true;
-            backupBlockchainData();
         }
 
         // Return with error if blkindex could not be loaded.

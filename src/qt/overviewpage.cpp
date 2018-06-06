@@ -143,13 +143,14 @@ void OverviewPage::setModel(WalletModel *model)
         ui->listTransactions->horizontalHeader()->resizeSection(
                 TransactionTableModel::Status, 28);
         ui->listTransactions->horizontalHeader()->resizeSection(
-                TransactionTableModel::Amount, 220);
+                TransactionTableModel::Date, 180);
         ui->listTransactions->horizontalHeader()->resizeSection(
-                TransactionTableModel::Type, 120);
+                TransactionTableModel::Type, 80);
         ui->listTransactions->horizontalHeader()->resizeSection(
-                TransactionTableModel::Date, 220);
+                TransactionTableModel::ToAddress, 280 );
         ui->listTransactions->horizontalHeader()->setResizeMode(
-                TransactionTableModel::ToAddress, QHeaderView::Stretch);
+                TransactionTableModel::Amount, QHeaderView::Stretch);
+        
 
         // Keep up to date with wallet
         setBalance(model->getBalance(), model->getStake(), model->getUnconfirmedBalance(), model->getImmatureBalance());
