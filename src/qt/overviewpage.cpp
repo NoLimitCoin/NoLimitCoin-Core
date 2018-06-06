@@ -253,28 +253,30 @@ void OverviewPage::updateStakingWeights() {
 
 void OverviewPage::setNumBlocks(int count, int nTotalBlocks)
 {
+    QString message;
+
     // don't show label if we have no connection to the network
     if (!clientModel || clientModel->getNumConnections() == 0)
-        return;
+        message = "Out of Sync";
+    else {
+        message = "Syncing the Blockchain ... ";
+        QString percentageDone;
 
-    QString strStatusBarWarnings = clientModel->getStatusBarWarnings();
-    QString percentageDone;
+        if(count < nTotalBlocks)
+        {
+            int nRemainingBlocks = nTotalBlocks - count;
+            float nPercentageDone = count / (nTotalBlocks * 0.01f);
 
-    if(count < nTotalBlocks)
-    {
-        int nRemainingBlocks = nTotalBlocks - count;
-        float nPercentageDone = count / (nTotalBlocks * 0.01f);
+            percentageDone = tr("%1").arg(nPercentageDone, 0, 'f', 2);
+            message = "Syncing the Blockchain ... " + percentageDone;
+        }
+       
+        QDateTime lastBlockDate = clientModel->getLastBlockDate();
+        int secs = lastBlockDate.secsTo(QDateTime::currentDateTime());
 
-        percentageDone = tr("%1").arg(nPercentageDone, 0, 'f', 2);
-        ui->syncText->setText("Syncing the Blockchain ... " + percentageDone);
+        if(secs < 90*60 && count >= nTotalBlocks)
+          message = "";
     }
-   
-    QDateTime lastBlockDate = clientModel->getLastBlockDate();
-    int secs = lastBlockDate.secsTo(QDateTime::currentDateTime());
 
-    // Set icon state: spinning if catching up, tick otherwise
-    if(secs < 90*60 && count >= nTotalBlocks)
-      ;
-    else
-        ui->syncText->setText("Syncing the Blockchain ...");
+    ui->syncText->setText(message);
 }
