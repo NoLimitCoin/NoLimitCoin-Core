@@ -20,9 +20,9 @@ public:
 
     enum ColumnIndex {
         Confirmations = 0,
-        Status = 1,
-        Date = 2,
-        Type = 3,
+        Date = 1,
+        Type = 2,
+        Status = 3,
         ToAddress = 4,
         Amount = 5
     };
