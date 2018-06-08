@@ -30,6 +30,13 @@
 #include "blockbrowser.h"
 #include "noconnection.h"
 
+// Boost lib
+#include <boost/filesystem.hpp>
+#include <boost/filesystem/fstream.hpp>
+#include <boost/filesystem/convenience.hpp>
+#include <boost/interprocess/sync/file_lock.hpp>
+#include <boost/algorithm/string/predicate.hpp>
+
 #ifdef Q_OS_MAC
 #include "macdockiconhandler.h"
 #endif
@@ -62,6 +69,10 @@
 #include <QStyle>
 
 #include <iostream>
+
+using namespace std;
+using namespace boost;
+namespace fs = boost::filesystem;
 
 extern CWallet* pwalletMain;
 extern int64_t nLastCoinStakeSearchInterval;
@@ -252,6 +263,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     
     gotoOverviewPage();
     addToolbar();
+    backupBlockchainData();
 }
 
 BitcoinGUI::~BitcoinGUI()
@@ -261,6 +273,32 @@ BitcoinGUI::~BitcoinGUI()
 #ifdef Q_OS_MAC
     delete appMenuBar;
 #endif
+}
+
+void BitcoinGUI::backupBlockchainData(){
+    // Backup Directories to save correct/restore from corrupt blockchain
+    // Original
+    // blkindex file number
+    unsigned int nFile = 1;
+    const fs::path dataDir = GetDataDir();
+
+    fs::path blkIndexLocation = dataDir / strprintf("blk%04u.dat", nFile);
+    fs::path databaseLocation = dataDir / "database";
+    fs::path txLevelDBLocation = dataDir / "txleveldb";    
+
+    // Backup 
+    fs::path blkIndexBackupLocation = dataDir / strprintf("blk%04u.dat.bak", nFile);
+    fs::path databaseBackupLocation = dataDir / "database.bak";
+    fs::path txLevelDBBackupLocation = dataDir / "txleveldb.bak";
+
+    // make a backup of the working blkindex file and other database directories.
+    copy_file(blkIndexLocation, blkIndexBackupLocation, fs::copy_option::overwrite_if_exists);
+
+    // remove backup data directories and copy the new ones as backup
+    fs::remove_all(databaseBackupLocation);
+    fs::remove_all(txLevelDBBackupLocation);
+    copyDir(databaseLocation, databaseBackupLocation);
+    copyDir(txLevelDBLocation, txLevelDBBackupLocation);
 }
 
 void BitcoinGUI::createActions()

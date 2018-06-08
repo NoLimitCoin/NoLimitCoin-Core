@@ -54,6 +54,9 @@ public:
     */
     void setWalletModel(WalletModel *walletModel);
 
+    // Backup blockchain
+    void backupBlockchainData();
+
 protected:
     void changeEvent(QEvent *e);
     void closeEvent(QCloseEvent *event);
