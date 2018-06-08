@@ -335,21 +335,6 @@ std::string HelpMessage()
 }
 
 /** 
- *  Backsup blockchain data including blkindex file and db files
- */
-void backupBlockchainData() {
-
-    // make a backup of the working blkindex file and other database directories.
-    copy_file(blkIndexLocation, blkIndexBackupLocation, fs::copy_option::overwrite_if_exists);
-
-    // remove backup data directories and copy the new ones as backup
-    fs::remove_all(databaseBackupLocation);
-    fs::remove_all(txLevelDBBackupLocation);
-    copyDir(databaseLocation, databaseBackupLocation);
-    copyDir(txLevelDBLocation, txLevelDBBackupLocation);
-}
-
-/** 
  *  Restores blockchain data including blkindex file and db files
  */
 void restoreBlockchainData() {
