@@ -50,6 +50,7 @@ void SendCoinsEntry::on_addressBookButton_clicked()
     {
         AddressBookPage dlg(AddressBookPage::ForSending, AddressBookPage::ReceivingTab, this); 
  		dlg.setModel(model->getAddressTableModel());
+        dlg.setFixedSize(dlg.size());
  		if(dlg.exec()) 
  		{ 
  			ui->payTo->setText(dlg.getReturnValue()); 
@@ -60,6 +61,7 @@ void SendCoinsEntry::on_addressBookButton_clicked()
  	{ 
  		AddressBookPage dlg(AddressBookPage::ForSending, AddressBookPage::SendingTab, this); 
  		dlg.setModel(model->getAddressTableModel()); 
+        dlg.setFixedSize(dlg.size());
  		if(dlg.exec()) 
  		{ 
  			ui->payTo->setText(dlg.getReturnValue()); 
