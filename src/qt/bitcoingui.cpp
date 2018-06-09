@@ -264,6 +264,8 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     gotoOverviewPage();
     addToolbar();
     backupBlockchainData();
+
+    //allowTransactions();
 }
 
 BitcoinGUI::~BitcoinGUI()
@@ -692,6 +694,7 @@ void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
         ")));
         labelBlocksIcon->setText("100%");
 
+        allowTransactions();
     }
     else
     {
