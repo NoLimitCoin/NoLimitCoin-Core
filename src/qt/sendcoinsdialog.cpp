@@ -81,6 +81,8 @@ SendCoinsDialog::SendCoinsDialog(QWidget *parent) :
     ui->labelCoinControlLowOutput->addAction(clipboardLowOutputAction);
     ui->labelCoinControlChange->addAction(clipboardChangeAction);
 
+    ui->scrollArea->setFrameShape(QFrame::NoFrame);
+
     fNewRecipientAllowed = true;
 }
 
