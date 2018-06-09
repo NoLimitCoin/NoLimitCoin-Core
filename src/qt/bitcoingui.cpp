@@ -633,7 +633,7 @@ void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
         tooltip = tr("Downloaded %1 of %2 blocks of transaction history (%3% done).").arg(count).arg(nTotalBlocks)
             .arg(nPercentageDone, 0, 'f', 2);
         percentageDone = tr("%1").arg(nPercentageDone, 0, 'f', 2);
-        labelBlocksIcon->setText(percentageDone);
+        labelBlocksIcon->setText(percentageDone + "%");
     }
     else
     {

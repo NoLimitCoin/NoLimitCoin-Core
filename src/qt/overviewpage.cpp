@@ -268,7 +268,7 @@ void OverviewPage::setNumBlocks(int count, int nTotalBlocks)
             float nPercentageDone = count / (nTotalBlocks * 0.01f);
 
             percentageDone = tr("%1").arg(nPercentageDone, 0, 'f', 2);
-            message = "Syncing the Blockchain ... " + percentageDone;
+            message = "Syncing the Blockchain ... " + percentageDone + "%";
         }
        
         QDateTime lastBlockDate = clientModel->getLastBlockDate();
