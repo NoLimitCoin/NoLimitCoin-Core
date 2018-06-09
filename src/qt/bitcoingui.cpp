@@ -686,31 +686,11 @@ void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
 
         overviewPage->showOutOfSyncWarning(false);
 
-        // Enable Sending and Receiving of Coins
-
-        toolbar->setStyleSheet(toolbar->styleSheet().append(
-        QString("\
-            QToolButton#sendcoin{ background-image: url(:images/send); color: #ffffff } \
-            QToolButton#sendcoin:hover{ background-image: url(:images/send2); } \
-            QToolButton#sendcoin:checked{ background-image: url(:images/send2); } \
-            QToolButton#receivecoin{ background-image: url(:images/receive); color: #ffffff } \
-            QToolButton#receivecoin:hover{ background-image: url(:images/receive2); } \
-            QToolButton#receivecoin:checked{ background-image: url(:images/receive2); } \
-        ")));
-
-        sendCoinsAction->setToolTip(tr("Send coins to a NoLimitCoin address"));
-        receiveCoinsAction->setToolTip(tr("Show the list of addresses for receiving payments"));
-
         toolbar2->setStyleSheet(toolbar2->styleSheet().append(
             QString(" \
                 QLabel#syncLabel{ background-image: url(:images/ticki); background-repeat: no-repeat;} \
         ")));
         labelBlocksIcon->setText("100%");
-
-        connect(sendCoinsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
-        connect(sendCoinsAction, SIGNAL(triggered()), this, SLOT(gotoSendCoinsPage()));
-        connect(receiveCoinsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
-        connect(receiveCoinsAction, SIGNAL(triggered()), this, SLOT(gotoReceiveCoinsPage()));
 
     }
     else
@@ -732,6 +712,28 @@ void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
     labelBlocksIcon->setToolTip(tooltip);
     progressBarLabel->setToolTip(tooltip);
     progressBar->setToolTip(tooltip);
+}
+
+void BitcoinGUI::allowTransactions(){
+    // Enable Sending and Receiving of Coins
+
+    toolbar->setStyleSheet(toolbar->styleSheet().append(
+    QString("\
+        QToolButton#sendcoin{ background-image: url(:images/send); color: #ffffff } \
+        QToolButton#sendcoin:hover{ background-image: url(:images/send2); } \
+        QToolButton#sendcoin:checked{ background-image: url(:images/send2); } \
+        QToolButton#receivecoin{ background-image: url(:images/receive); color: #ffffff } \
+        QToolButton#receivecoin:hover{ background-image: url(:images/receive2); } \
+        QToolButton#receivecoin:checked{ background-image: url(:images/receive2); } \
+    ")));
+
+    sendCoinsAction->setToolTip(tr("Send coins to a NoLimitCoin address"));
+    receiveCoinsAction->setToolTip(tr("Show the list of addresses for receiving payments"));
+
+    connect(sendCoinsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
+    connect(sendCoinsAction, SIGNAL(triggered()), this, SLOT(gotoSendCoinsPage()));
+    connect(receiveCoinsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
+    connect(receiveCoinsAction, SIGNAL(triggered()), this, SLOT(gotoReceiveCoinsPage()));
 }
 
 void BitcoinGUI::error(const QString &title, const QString &message, bool modal)

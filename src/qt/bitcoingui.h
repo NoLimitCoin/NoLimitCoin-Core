@@ -141,6 +141,9 @@ public slots:
        @param[in] status            current encryption status
        @see WalletModel::EncryptionStatus
     */
+
+    void allowTransactions();
+
     void setEncryptionStatus(int status);
 
     /** Notify the user of an error in the network or transaction handling code. */
