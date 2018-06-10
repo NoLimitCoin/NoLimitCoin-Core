@@ -692,7 +692,7 @@ void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
             QString(" \
                 QLabel#syncLabel{ background-image: url(:images/ticki); background-repeat: no-repeat;} \
         ")));
-        labelBlocksIcon->setText("100%");
+        labelBlocksIcon->setText("");
 
         allowTransactions();
     }
