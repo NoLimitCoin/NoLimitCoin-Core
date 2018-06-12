@@ -36,30 +36,29 @@ TransactionView::TransactionView(QWidget *parent) :
     // Build filter row
     setContentsMargins(0,0,0,0);
 
+    QHBoxLayout *parentLayout = new QHBoxLayout(this);
+    parent->setLayout(parentLayout);
+
+    QWidget *container = new QWidget();
+    container->setContentsMargins(10,10,10,10);
+    container->setStyleSheet("background-color: #252525; color: white; border-radius: 5px;");
+
+    parentLayout->addWidget(container);
+
     QHBoxLayout *hlayout = new QHBoxLayout();
     hlayout->setContentsMargins(0,0,0,0);
 #ifdef Q_OS_MAC
     hlayout->setSpacing(5);
-    hlayout->addSpacing(26);
+    hlayout->addSpacing(0);
 #else
     hlayout->setSpacing(0);
-    hlayout->addSpacing(23);
+    hlayout->addSpacing(0);
 #endif
 
-    dateWidget = new QComboBox(this);
-#ifdef Q_OS_MAC
-    dateWidget->setFixedWidth(121);
-#else
-    dateWidget->setFixedWidth(120);
-#endif
-    dateWidget->addItem(tr("All"), All);
-    dateWidget->addItem(tr("Today"), Today);
-    dateWidget->addItem(tr("This week"), ThisWeek);
-    dateWidget->addItem(tr("This month"), ThisMonth);
-    dateWidget->addItem(tr("Last month"), LastMonth);
-    dateWidget->addItem(tr("This year"), ThisYear);
-    dateWidget->addItem(tr("Range..."), Range);
-    hlayout->addWidget(dateWidget);
+    QLabel *typeLabel = new QLabel(this);
+    typeLabel->setFrameStyle(QFrame::Panel | QFrame::Sunken);
+    typeLabel->setText("Type: ");
+    hlayout->addWidget(typeLabel);
 
     typeWidget = new QComboBox(this);
 #ifdef Q_OS_MAC
@@ -77,37 +76,72 @@ TransactionView::TransactionView(QWidget *parent) :
     typeWidget->addItem(tr("Mined"), TransactionFilterProxy::TYPE(TransactionRecord::Generated));
     typeWidget->addItem(tr("Other"), TransactionFilterProxy::TYPE(TransactionRecord::Other));
 
+    typeWidget->setStyleSheet("background-color: white; color: black; border-radius: 0;");
+
     hlayout->addWidget(typeWidget);
 
+    QLabel *dateLabel = new QLabel(this);
+    dateLabel->setFrameStyle(QFrame::Panel | QFrame::Sunken);
+    dateLabel->setText("Date: ");
+    hlayout->addWidget(dateLabel);
+
+    dateWidget = new QComboBox(this);
+#ifdef Q_OS_MAC
+    dateWidget->setFixedWidth(121);
+#else
+    dateWidget->setFixedWidth(120);
+#endif
+    dateWidget->addItem(tr("All"), All);
+    dateWidget->addItem(tr("Today"), Today);
+    dateWidget->addItem(tr("This week"), ThisWeek);
+    dateWidget->addItem(tr("This month"), ThisMonth);
+    dateWidget->addItem(tr("Last month"), LastMonth);
+    dateWidget->addItem(tr("This year"), ThisYear);
+    dateWidget->addItem(tr("Range..."), Range);
+    dateWidget->setStyleSheet("background-color: white; color: black; border-radius: 0;");
+
+    hlayout->addWidget(dateWidget);
+
+
+    QLabel *addressLabel = new QLabel(this);
+    addressLabel->setFrameStyle(QFrame::Panel | QFrame::Sunken);
+    addressLabel->setText("Address: ");
+    hlayout->addWidget(addressLabel);
+
     addressWidget = new QLineEdit(this);
+
+// Amount Widget is no longer required.
+
 #if QT_VERSION >= 0x040700
-    /* Do not move this to the XML file, Qt before 4.7 will choke on it */
+     // Do not move this to the XML file, Qt before 4.7 will choke on it 
     addressWidget->setPlaceholderText(tr("Enter address or label to search"));
+    addressWidget->setStyleSheet("background-color: white; color: black; border-radius: 0;");
 #endif
     hlayout->addWidget(addressWidget);
-
-    amountWidget = new QLineEdit(this);
-#if QT_VERSION >= 0x040700
-    /* Do not move this to the XML file, Qt before 4.7 will choke on it */
-    amountWidget->setPlaceholderText(tr("Min amount"));
-#endif
-#ifdef Q_OS_MAC
-    amountWidget->setFixedWidth(97);
-#else
-    amountWidget->setFixedWidth(100);
-#endif
-    amountWidget->setValidator(new QDoubleValidator(0, 1e20, 8, this));
-    hlayout->addWidget(amountWidget);
 
     QVBoxLayout *vlayout = new QVBoxLayout(this);
     vlayout->setContentsMargins(0,0,0,0);
     vlayout->setSpacing(0);
 
+    QLabel *heading = new QLabel(this);
+    heading->setText("Transactions");
+    heading->setStyleSheet("font-size: 25px;");
+    heading->setMargin(0);
+    vlayout->addWidget(heading);
+
+
+    this->setStyleSheet("QTableWidget {background-color: transparent;}"
+              "QHeaderView::section {background-color: transparent;}"
+              "QHeaderView {background-color: transparent;}"
+              "QTableCornerButton::section {background-color: transparent;}");
+
     QTableView *view = new QTableView(this);
+    view->setGridStyle(Qt::NoPen);
+
     vlayout->addLayout(hlayout);
     vlayout->addWidget(createDateRangeWidget());
     vlayout->addWidget(view);
-    vlayout->setSpacing(0);
+    vlayout->setSpacing(15);
     int width = view->verticalScrollBar()->sizeHint().width();
     // Cover scroll bar width with spacing
 #ifdef Q_OS_MAC
@@ -119,6 +153,7 @@ TransactionView::TransactionView(QWidget *parent) :
     view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     view->setTabKeyNavigation(false);
     view->setContextMenuPolicy(Qt::CustomContextMenu);
+    view->setStyleSheet("alternate-background-color: #393939;background-color: #252525;");
 
     transactionView = view;
 
@@ -153,6 +188,8 @@ TransactionView::TransactionView(QWidget *parent) :
     connect(copyTxIDAction, SIGNAL(triggered()), this, SLOT(copyTxID()));
     connect(editLabelAction, SIGNAL(triggered()), this, SLOT(editLabel()));
     connect(showDetailsAction, SIGNAL(triggered()), this, SLOT(showDetails()));
+
+    container->setLayout(vlayout);
 }
 
 void TransactionView::setModel(WalletModel *model)
@@ -177,15 +214,18 @@ void TransactionView::setModel(WalletModel *model)
         transactionView->verticalHeader()->hide();
 
         transactionView->horizontalHeader()->resizeSection(
-                TransactionTableModel::Status, 23);
+                TransactionTableModel::Confirmations, 28);
         transactionView->horizontalHeader()->resizeSection(
-                TransactionTableModel::Date, 120);
+                TransactionTableModel::Status, 28);
         transactionView->horizontalHeader()->resizeSection(
-                TransactionTableModel::Type, 120);
+                TransactionTableModel::Date, 180);
+        transactionView->horizontalHeader()->resizeSection(
+                TransactionTableModel::Type, 80);
+        transactionView->horizontalHeader()->resizeSection(
+                TransactionTableModel::ToAddress, 280);
         transactionView->horizontalHeader()->setResizeMode(
-                TransactionTableModel::ToAddress, QHeaderView::Stretch);
-        transactionView->horizontalHeader()->resizeSection(
-                TransactionTableModel::Amount, 100);
+                TransactionTableModel::Amount, QHeaderView::Stretch);
+       
     }
 }
 

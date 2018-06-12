@@ -13,6 +13,12 @@
   <property name="windowTitle">
    <string>Edit Address</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">#EditAddressDialog{
+	background-color: #f5f5f5;
+	color: black;
+}</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QFormLayout" name="formLayout">

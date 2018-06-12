@@ -13,6 +13,8 @@ class ClientModel;
 class WalletModel;
 class TransactionView;
 class OverviewPage;
+class NoConnection;
+class LoadingBlockchain;
 class AddressBookPage;
 class SendCoinsDialog;
 class SignVerifyMessageDialog;
@@ -52,6 +54,9 @@ public:
     */
     void setWalletModel(WalletModel *walletModel);
 
+    // Backup blockchain
+    void backupBlockchainData();
+
 protected:
     void changeEvent(QEvent *e);
     void closeEvent(QCloseEvent *event);
@@ -65,6 +70,8 @@ private:
     QStackedWidget *centralWidget;
 
     OverviewPage *overviewPage;
+    NoConnection *noConnection;
+    LoadingBlockchain *loadingBlockchain;
     QWidget *transactionsPage;
     AddressBookPage *addressBookPage;
     AddressBookPage *receiveCoinsPage;
@@ -84,6 +91,7 @@ private:
     QAction *quitAction;
     QAction *sendCoinsAction;
     QAction *addressBookAction;
+    QAction *saveAction;
     QAction *nodeAction;
 	QAction *signMessageAction;
     QAction *verifyMessageAction;
@@ -109,6 +117,9 @@ private:
 
     QMovie *syncIconMovie;
 
+    QToolBar *toolbar;
+    QToolBar *toolbar2;
+
     uint64_t nWeight;
 
     /** Create the main UI actions. */
@@ -120,6 +131,7 @@ private:
     /** Create system tray (notification) icon */
     void createTrayIcon();
 
+
 public slots:
     /** Set number of connections shown in the UI */
     void setNumConnections(int count);
@@ -129,6 +141,9 @@ public slots:
        @param[in] status            current encryption status
        @see WalletModel::EncryptionStatus
     */
+
+    void allowTransactions();
+
     void setEncryptionStatus(int status);
 
     /** Notify the user of an error in the network or transaction handling code. */
@@ -147,6 +162,10 @@ public slots:
 private slots:
     /** Switch to overview (home) page */
     void gotoOverviewPage();
+    /** Switch to no connection page */
+    void gotoNoConnection();
+    /** Switch to loading blockchain page */
+    void gotoLoadingBlockchain();
     /** Switch to history (transactions) page */
     void gotoHistoryPage();
     /** Switch to address book page */
@@ -168,6 +187,8 @@ private slots:
 
     /** Show about dialog */
     void aboutClicked();
+
+    void addToolbar();
 	
 #ifndef Q_OS_MAC
     /** Handle tray icon clicked */

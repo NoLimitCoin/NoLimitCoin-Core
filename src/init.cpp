@@ -37,19 +37,22 @@ unsigned int nMinerSleep;
 bool fUseFastIndex;
 enum Checkpoints::CPMode CheckpointsMode;
 
+
 // Backup Directories to save correct/restore from corrupt blockchain
 // Original
 // blkindex file number
 unsigned int nFile = 1;
+const boost::filesystem::path dataDir = GetDataDir();
 
-fs::path blkIndexLocation;
-fs::path databaseLocation;
-fs::path txLevelDBLocation;
+fs::path blkIndexLocation = dataDir / strprintf("blk%04u.dat", nFile);
+fs::path databaseLocation = dataDir / "database";
+fs::path txLevelDBLocation = dataDir / "txleveldb";    
 
 // Backup 
-fs::path blkIndexBackupLocation;
-fs::path databaseBackupLocation;
-fs::path txLevelDBBackupLocation;
+fs::path blkIndexBackupLocation = dataDir / strprintf("blk%04u.dat.bak", nFile);
+fs::path databaseBackupLocation = dataDir / "database.bak";
+fs::path txLevelDBBackupLocation = dataDir / "txleveldb.bak";
+
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -332,21 +335,6 @@ std::string HelpMessage()
 }
 
 /** 
- *  Backsup blockchain data including blkindex file and db files
- */
-void backupBlockchainData() {
-    // make a backup of the working blkindex file and other database directories.
-    copy_file(blkIndexLocation, blkIndexBackupLocation, fs::copy_option::overwrite_if_exists);
-
-    // remove backup data directories and copy the new ones as backup
-    fs::remove_all(databaseBackupLocation);
-    fs::remove_all(txLevelDBBackupLocation);
-
-    copyDir(databaseLocation, databaseBackupLocation);
-    copyDir(txLevelDBLocation, txLevelDBBackupLocation);
-}
-
-/** 
  *  Restores blockchain data including blkindex file and db files
  */
 void restoreBlockchainData() {
@@ -355,7 +343,6 @@ void restoreBlockchainData() {
     // remove data directories and then restore them from backup
     fs::remove_all(databaseLocation);
     fs::remove_all(txLevelDBLocation);
-
     copyDir(databaseBackupLocation, databaseLocation);
     copyDir(txLevelDBBackupLocation, txLevelDBLocation);
 }
@@ -366,15 +353,6 @@ void restoreBlockchainData() {
  */
 bool AppInit2()
 {
-        // Initializing blkindex and and data original and backup files
-    blkIndexLocation = GetDataDir() / strprintf("blk%04u.dat", nFile);
-    databaseLocation = GetDataDir() / "database";
-    txLevelDBLocation = GetDataDir() / "txleveldb";    
- 
-    blkIndexBackupLocation = GetDataDir() / strprintf("blk%04u.dat.bak", nFile);
-    databaseBackupLocation = GetDataDir() / "database.bak";
-    txLevelDBBackupLocation = GetDataDir() / "txleveldb.bak";
-
     // ********************************************************* Step 1: setup
     #ifdef _MSC_VER
         // Turn off Microsoft heap dump noise
@@ -587,7 +565,7 @@ bool AppInit2()
 
         // ********************************************************* Step 5: verify database integrity
 
-        uiInterface.InitMessage(_("Verifying database integrity..."));
+        uiInterface.InitMessage(_("Verifying database..."));
 
         if (!bitdb.Open(GetDataDir()))
         {
@@ -753,9 +731,9 @@ bool AppInit2()
         printf("Loading block index...\n");
         nStart = GetTimeMillis();
 
-        bool isBlkIndexLoaded = false;
-
-        if (!LoadBlockIndex() && boost::filesystem::exists( blkIndexBackupLocation )){
+        bool isBlkIndexLoaded = LoadBlockIndex();
+        
+        if (!isBlkIndexLoaded && boost::filesystem::exists( blkIndexBackupLocation )){
             clearBlockIndex();
 
             // if a backup of blkindex exists, use that as the main blkindex
@@ -764,9 +742,6 @@ bool AppInit2()
             // Try loading blkindex again and throw error if it still fails
             // Explicitly mentioning to reload blockindex
             isBlkIndexLoaded = LoadBlockIndex();
-        } else {
-            isBlkIndexLoaded = true;
-            backupBlockchainData();
         }
 
         // Return with error if blkindex could not be loaded.

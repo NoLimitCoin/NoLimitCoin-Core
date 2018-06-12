@@ -13,6 +13,7 @@
 #include "qtipcserver.h"
 
 #include <QApplication>
+#include <QDesktopWidget>
 #include <QMessageBox>
 #include <QTextCodec>
 #include <QLocale>
@@ -147,9 +148,9 @@ int main(int argc, char *argv[])
     app.setOrganizationName("NoLimitCoin");
     //XXX app.setOrganizationDomain("");
     if(GetBoolArg("-testnet")) // Separate UI settings for testnet
-        app.setApplicationName("NoLimitCoin-Qt-testnet");
+        app.setApplicationName("NoLimitCoin-Wallet-testnet");
     else
-        app.setApplicationName("NoLimitCoin-Qt");
+        app.setApplicationName("NoLimitCoin-Wallet");
 
     // ... then GUI settings:
     OptionsModel optionsModel;
@@ -198,7 +199,12 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    QSplashScreen splash(QPixmap(":/images/splash"), 0);
+    QDesktopWidget* desktopWidget = QApplication::desktop();
+    QRect screenGeometry = desktopWidget->screenGeometry();
+
+    QPixmap pixmapForSplash = QPixmap(":/images/splash").scaled(500, 500, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    QSplashScreen splash(pixmapForSplash);
+
     if (GetBoolArg("-splash", true) && !GetBoolArg("-min"))
     {
         splash.show();
