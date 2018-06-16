@@ -293,14 +293,17 @@ void BitcoinGUI::backupBlockchainData(){
     fs::path databaseBackupLocation = dataDir / "database.bak";
     fs::path txLevelDBBackupLocation = dataDir / "txleveldb.bak";
 
-    // make a backup of the working blkindex file and other database directories.
-    copy_file(blkIndexLocation, blkIndexBackupLocation, fs::copy_option::overwrite_if_exists);
+    // If the wallet already has blkindex files, we will back it up.
+    if(fs::exists( blkIndexLocation )){
+        // make a backup of the working blkindex file and other database directories.
+        copy_file(blkIndexLocation, blkIndexBackupLocation, fs::copy_option::overwrite_if_exists);
 
-    // remove backup data directories and copy the new ones as backup
-    fs::remove_all(databaseBackupLocation);
-    fs::remove_all(txLevelDBBackupLocation);
-    copyDir(databaseLocation, databaseBackupLocation);
-    copyDir(txLevelDBLocation, txLevelDBBackupLocation);
+        // remove backup data directories and copy the new ones as backup
+        fs::remove_all(databaseBackupLocation);
+        fs::remove_all(txLevelDBBackupLocation);
+        copyDir(databaseLocation, databaseBackupLocation);
+        copyDir(txLevelDBLocation, txLevelDBBackupLocation);    
+    }
 }
 
 void BitcoinGUI::createActions()
