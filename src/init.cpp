@@ -42,16 +42,15 @@ enum Checkpoints::CPMode CheckpointsMode;
 // Original
 // blkindex file number
 unsigned int nFile = 1;
-const boost::filesystem::path dataDir = GetDataDir();
 
-fs::path blkIndexLocation = dataDir / strprintf("blk%04u.dat", nFile);
-fs::path databaseLocation = dataDir / "database";
-fs::path txLevelDBLocation = dataDir / "txleveldb";    
+static fs::path blkIndexLocation;
+static fs::path databaseLocation;
+static fs::path txLevelDBLocation;    
 
 // Backup 
-fs::path blkIndexBackupLocation = dataDir / strprintf("blk%04u.dat.bak", nFile);
-fs::path databaseBackupLocation = dataDir / "database.bak";
-fs::path txLevelDBBackupLocation = dataDir / "txleveldb.bak";
+static fs::path blkIndexBackupLocation;
+static fs::path databaseBackupLocation;
+static fs::path txLevelDBBackupLocation;
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -154,6 +153,18 @@ bool AppInit(int argc, char* argv[])
         //
         // If Qt is used, parameters/bitcoin.conf are parsed in qt/bitcoin.cpp's main()
         ParseParameters(argc, argv);
+
+        const boost::filesystem::path dataDir = GetDataDir();
+
+        blkIndexLocation = dataDir / strprintf("blk%04u.dat", nFile);
+        databaseLocation = dataDir / "database";
+        txLevelDBLocation = dataDir / "txleveldb";
+
+        // Backup
+        blkIndexBackupLocation = dataDir / strprintf("blk%04u.dat.bak", nFile);
+        databaseBackupLocation = dataDir / "database.bak";
+        txLevelDBBackupLocation = dataDir / "txleveldb.bak";
+
         if (!boost::filesystem::is_directory(GetDataDir(false)))
         {
             fprintf(stderr, "Error: Specified directory does not exist\n");
