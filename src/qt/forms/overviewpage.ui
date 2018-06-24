@@ -36,7 +36,7 @@
        <property name="maximumSize">
         <size>
          <width>16777215</width>
-         <height>275</height>
+         <height>16777215</height>
         </size>
        </property>
        <property name="styleSheet">
@@ -139,7 +139,7 @@ background-color: #252525;</string>
        <property name="maximumSize">
         <size>
          <width>16777215</width>
-         <height>215</height>
+         <height>16777215</height>
         </size>
        </property>
        <property name="styleSheet">
@@ -797,7 +797,7 @@ background: transparent;</string>
        <property name="maximumSize">
         <size>
          <width>16777215</width>
-         <height>215</height>
+         <height>16777215</height>
         </size>
        </property>
        <property name="styleSheet">
