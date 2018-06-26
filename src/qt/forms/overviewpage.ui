@@ -81,7 +81,7 @@ background-color: #252525;</string>
         <item>
          <widget class="QTableView" name="listTransactions">
           <property name="styleSheet">
-           <string notr="true"> background: transparent; color: white; </string>
+           <string notr="true"> background: transparent; color: white; alternate-background-color: #393939; background-color: #252525;</string>
           </property>
           <property name="frameShape">
            <enum>QFrame::NoFrame</enum>
