@@ -106,7 +106,7 @@ border-radius: 6px;
        <property name="maximumSize">
         <size>
          <width>60</width>
-         <height>10</height>
+         <height>25</height>
         </size>
        </property>
        <property name="styleSheet">
@@ -214,7 +214,7 @@ border-radius: 0;</string>
        <property name="maximumSize">
         <size>
          <width>60</width>
-         <height>10</height>
+         <height>25</height>
         </size>
        </property>
        <property name="styleSheet">
@@ -295,7 +295,7 @@ border-radius: 0;</string>
        <property name="maximumSize">
         <size>
          <width>60</width>
-         <height>10</height>
+         <height>25</height>
         </size>
        </property>
        <property name="layoutDirection">
