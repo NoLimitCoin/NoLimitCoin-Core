@@ -88,7 +88,7 @@ AddressBookPage::AddressBookPage(Mode mode, Tabs tab, QWidget *parent) :
         contextMenu->addAction(verifyMessageAction);
     }
 
-    // Stylesheet for addresses table
+    // Stylesheet for table
     this->setStyleSheet("QTableView {background-color: transparent;}"\
               "QTableCornerButton::section {background-color: transparent;}");
 
