@@ -105,7 +105,7 @@ border-radius: 6px;
        </property>
        <property name="maximumSize">
         <size>
-         <width>60</width>
+         <width>120</width>
          <height>25</height>
         </size>
        </property>
@@ -213,7 +213,7 @@ border-radius: 0;</string>
        </property>
        <property name="maximumSize">
         <size>
-         <width>60</width>
+         <width>120</width>
          <height>25</height>
         </size>
        </property>
@@ -294,7 +294,7 @@ border-radius: 0;</string>
        </property>
        <property name="maximumSize">
         <size>
-         <width>60</width>
+         <width>120</width>
          <height>25</height>
         </size>
        </property>
