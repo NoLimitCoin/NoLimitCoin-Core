@@ -57,7 +57,10 @@ APIs: http://nolimitcoin.info/info
 
 License
 -------
+
 Distributed under the MIT/X11 software license.
+
 Copyright © 2009-2018 The Bitcoin developers
+
 Copyright © 2018 The NoLimitCoin developers
 
