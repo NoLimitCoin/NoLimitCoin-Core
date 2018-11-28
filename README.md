@@ -38,13 +38,15 @@ Difficulty adjusts every block.
 Links
 ----------------
 
-Main Website: https://nolimitcoin.org/
+Main Website: https://nolimitcoin.org
 
 No Limit Fantasy Sports: http://www.cryptofantasysports.com
 
-Secure Web Wallet: http://NoLimitCoin.com
+No Rake Poker: https://www.nolimitcoinpoker.com
 
-Block Explorer: http://NoLimitCoin.info
+Secure Web Wallet: http://nolimitcoin.com
+
+Block Explorer: http://nolimitcoin.info
 
 Wallet Downloads https://nolimitcoin.org/#wallet
 
