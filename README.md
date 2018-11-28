@@ -20,7 +20,7 @@ Our Blockchain
 
 NoLimitCoin is a proof of Stake coin that pays 4% per year for wallets that stake their coins. 
 
-
+```
 Algorithm: SHA256d/PoS 
 Block size: 2mb 
 Block time: 2 minutes
@@ -33,7 +33,7 @@ PUBKEY_ADDRESS = 53 (0x35)
 SCRIPT_ADDRESS = 92 (0x5c)
 Wallet addresses will start with “N”
 Difficulty adjusts every block.
-
+```
 
 Links
 ----------------
