@@ -38,8 +38,6 @@ Difficulty adjusts every block.
 Links
 ----------------
 
-WEBSITES
-
 Main Website: https://nolimitcoin.org/
 
 No Limit Fantasy Sports: http://www.cryptofantasysports.com
