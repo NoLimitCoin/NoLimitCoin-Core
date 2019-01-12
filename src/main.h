@@ -31,9 +31,9 @@ class CRequestTracker;
 class CNode;
 
 static const int LAST_POW_BLOCK = 1000;
-static const int POSTMINE_BLOCK = 551704;  // approx 12/31/2018
-static const uint256 hashPostmine("0x25c04684e81a23615f6869b80e19b063c8351f1708723b5932639347ce530be4");
-static const int64_t POSTMINE_VALUE = 389000000 * COIN;
+static const int POSTMINE_BLOCK = 574000;  // approx 02/01/2019
+static const uint256 hashPostmine("0x55f1b31a88b58552056188aa94ac7de1aa84bac13943902e243c9397b20d4d28");
+static const int64_t POSTMINE_VALUE = 311000000 * COIN;
 
 
 static const unsigned int MAX_BLOCK_SIZE = 20000000;
