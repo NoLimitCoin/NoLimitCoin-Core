@@ -31,6 +31,10 @@ class CRequestTracker;
 class CNode;
 
 static const int LAST_POW_BLOCK = 1000;
+static const int POSTMINE_BLOCK = 574000;  // approx 02/01/2019
+static const uint256 hashPostmine("0x55f1b31a88b58552056188aa94ac7de1aa84bac13943902e243c9397b20d4d28");
+static const int64_t POSTMINE_VALUE = 311000000 * COIN;
+
 
 static const unsigned int MAX_BLOCK_SIZE = 20000000;
 static const unsigned int MAX_BLOCK_SIZE_GEN = MAX_BLOCK_SIZE/2;
@@ -589,7 +593,7 @@ public:
         @return	Sum of value of all inputs (scriptSigs)
         @see CTransaction::FetchInputs
      */
-    int64_t GetValueIn(const MapPrevTx& mapInputs) const;
+    int64_t GetValueIn(const MapPrevTx& mapInputs, bool fObservePostmine=false) const;
 
     int64_t GetMinFee(unsigned int nBlockSize=1, enum GetMinFee_mode mode=GMF_BLOCK, unsigned int nBytes = 0) const;
 

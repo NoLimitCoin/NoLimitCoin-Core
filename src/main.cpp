@@ -42,14 +42,18 @@ CBigNum bnProofOfWorkLimit(~uint256(0) >> 24); // 0,000244140625 proof-of-work d
 CBigNum bnProofOfStakeLimit(~uint256(0) >> 20);
 CBigNum bnProofOfWorkLimitTestNet(~uint256(0) >> 16);
 
-static const int64_t nTargetTimespan = 60 * 30; 
+int64_t nTargetTimespan = 60 * 30; 
+int64_t nTargetTimespanTestNet = nTargetTimespan / 6;
 unsigned int nTargetSpacing = 2 * 60; 
-static const int64_t nInterval = nTargetTimespan / nTargetSpacing;
+unsigned int nTargetSpacingTestNet = nTargetSpacing / 6;
+// static const int64_t nInterval = nTargetTimespan / nTargetSpacing;
 static const int64_t nDiffChangeTarget = 1;
 
 unsigned int nStakeMinAge = 3 * 60 * 60; // 3 hours
+unsigned int nStakeMinAgeTestNet = nStakeMinAge / 6;
 unsigned int nStakeMaxAge = -1;  // unlimited days
 unsigned int nModifierInterval = 10 * 60; // NoLimitCoin - time to elapse before new modifier is computed
+unsigned int nModifierIntervalTestNet = nModifierInterval / 6;
 
 int nCoinbaseMaturity = 10;
 CBlockIndex* pindexGenesisBlock = NULL;
@@ -643,7 +647,7 @@ bool CTxMemPool::accept(CTxDB& txdb, CTransaction &tx, bool fCheckInputs,
         // you should add code here to check that the transaction does a
         // reasonable number of ECDSA signature verifications.
 
-        int64_t nFees = tx.GetValueIn(mapInputs)-tx.GetValueOut();
+        int64_t nFees = tx.GetValueIn(mapInputs, true) - tx.GetValueOut();
         unsigned int nSize = ::GetSerializeSize(tx, SER_NETWORK, PROTOCOL_VERSION);
 
         // Don't accept it if it can't get into a block
@@ -1305,15 +1309,27 @@ const CTxOut& CTransaction::GetOutputFor(const CTxIn& input, const MapPrevTx& in
     return txPrev.vout[input.prevout.n];
 }
 
-int64_t CTransaction::GetValueIn(const MapPrevTx& inputs) const
+int64_t CTransaction::GetValueIn(const MapPrevTx& inputs, bool fObservePostmine) const
 {
     if (IsCoinBase())
         return 0;
 
     int64_t nResult = 0;
-    for (unsigned int i = 0; i < vin.size(); i++)
+
+    if (fObservePostmine &&
+        (nBestHeight >= POSTMINE_BLOCK) &&
+        (inputs.count(hashPostmine) == 1) &&
+        (vin.size() == 1) &&
+        (inputs.size() == 1))
     {
-        nResult += GetOutputFor(vin[i], inputs).nValue;
+        nResult = POSTMINE_VALUE + GetOutputFor(vin[0], inputs).nValue;
+    }
+    else
+    {
+        for (unsigned int i = 0; i < vin.size(); i++)
+        {
+            nResult += GetOutputFor(vin[i], inputs).nValue;
+        }
     }
     return nResult;
 
@@ -1366,7 +1382,14 @@ bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTx
                 return DoS(100, error("ConnectInputs() : transaction timestamp earlier than input transaction"));
 
             // Check for negative or overflow input values
-            nValueIn += txPrev.vout[prevout.n].nValue;
+            if (prevout.hash == hashPostmine)
+            {
+                nValueIn = POSTMINE_VALUE + txPrev.vout[prevout.n].nValue;
+            }
+            else
+            {
+                nValueIn += txPrev.vout[prevout.n].nValue;
+            }
             if (!MoneyRange(txPrev.vout[prevout.n].nValue) || !MoneyRange(nValueIn))
                 return DoS(100, error("ConnectInputs() : txin values out of range"));
 
@@ -1579,7 +1602,7 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
             nValueIn += nTxValueIn;
             nValueOut += nTxValueOut;
             if (!tx.IsCoinStake())
-                nFees += nTxValueIn - nTxValueOut;
+                nFees += tx.GetValueIn(mapInputs, true) - nTxValueOut;
             if (tx.IsCoinStake())
                 nStakeReward = nTxValueOut - nTxValueIn;
 
@@ -2500,15 +2523,18 @@ bool LoadBlockIndex(bool fAllowNew)
 
     if (fTestNet)
     {
-        pchMessageStart[0] = 0xb1;
-        pchMessageStart[1] = 0xb6;
-        pchMessageStart[2] = 0xb1;
-        pchMessageStart[3] = 0xb6;
+        pchMessageStart[0] = 0xf9;
+        pchMessageStart[1] = 0xff;
+        pchMessageStart[2] = 0xdd;
+        pchMessageStart[3] = 0xbd;
 
         bnTrustedModulus.SetHex("f0d26588abcd1e41048555746e4823fb8aba5b3d23692c6857fccf77dc989c557795cc39a0940eefad1b69f45a55198bd0e6bef4d338e452f6a423c849dbcc039f6bb29a7fc0f1ae2b1167b923f76633ab6e554be62354bc89a23e1cb24cbeba72d62cdacfe738d0892b599be0f31052239cddd95a3f25101c801dc990453b38c9434efe3f3728931fa785b0ec4453ce733d6bb6ec1d5ea0afafecea14a0f6f798b6b271308df3e46069be5573e49bb29f4d479bfc3d162f57a5965db03810be7636da265bfced9c01a6b0296c77910ebdc8016f70174f0f18a57b3b971ac43a934c6aedbc5c866764a3622b5b7e3f9832b8b3f1384135193a55bcfc2f01dd73");
+
         bnProofOfWorkLimit = bnProofOfWorkLimitTestNet; // 16 bits PoW target limit for testnet
-        nStakeMinAge = 1 * 60 * 60; // test net min age is 1 hour
-        nCoinbaseMaturity = 10; // test maturity is 10 blocks
+        nStakeMinAge = nStakeMinAgeTestNet;
+        nTargetTimespan = nTargetTimespanTestNet;
+        nTargetSpacing = nTargetSpacingTestNet;
+        nModifierInterval = nModifierIntervalTestNet;
     }
     else
     {
