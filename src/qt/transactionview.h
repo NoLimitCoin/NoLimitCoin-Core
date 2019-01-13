@@ -47,7 +47,7 @@ private:
     QComboBox *dateWidget;
     QComboBox *typeWidget;
     QLineEdit *addressWidget;
-    QLineEdit *amountWidget;
+    // QLineEdit *amountWidget;
 
     QMenu *contextMenu;
 

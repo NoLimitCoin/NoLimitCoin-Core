@@ -50,7 +50,7 @@ $RECYCLE.BIN/
 *.lnk
 
 # Locale files
-# src/qt/locale/*.qm
+src/qt/locale/*.qm
 
 # =========================
 # Operating System Files
@@ -80,3 +80,6 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# backup files
+*~

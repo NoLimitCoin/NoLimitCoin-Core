@@ -3,7 +3,7 @@
 // found in the LICENSE file. See the AUTHORS file for names of contributors.
 //
 // Logger implementation that can be shared by all environments
-// where enough Posix functionality is available.
+// where enough posix functionality is available.
 
 #ifndef STORAGE_LEVELDB_UTIL_POSIX_LOGGER_H_
 #define STORAGE_LEVELDB_UTIL_POSIX_LOGGER_H_
@@ -63,7 +63,7 @@ class PosixLogger : public Logger {
       // Print the message
       if (p < limit) {
         va_list backup_ap;
-        va_copy(backup_ap, ap);
+        __va_copy(backup_ap, ap);
         p += vsnprintf(p, limit - p, format, backup_ap);
         va_end(backup_ap);
       }

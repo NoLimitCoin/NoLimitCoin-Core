@@ -137,6 +137,8 @@ void OverviewPage::setModel(WalletModel *model)
 
         ui->listTransactions->setModel(filter);
 
+
+#if QT_VERSION < 0x050000
         // Column resizing
         ui->listTransactions->horizontalHeader()->resizeSection(
                 TransactionTableModel::Confirmations, 28);
@@ -150,7 +152,21 @@ void OverviewPage::setModel(WalletModel *model)
                 TransactionTableModel::ToAddress, 280 );
         ui->listTransactions->horizontalHeader()->setResizeMode(
                 TransactionTableModel::Amount, QHeaderView::Stretch);
-        
+#else
+        // Column resizing
+        ui->listTransactions->horizontalHeader()->setSectionResizeMode(
+				TransactionTableModel::Confirmations, QHeaderView::ResizeToContents);
+        ui->listTransactions->horizontalHeader()->setSectionResizeMode(
+				TransactionTableModel::Status, QHeaderView::ResizeToContents);
+        ui->listTransactions->horizontalHeader()->setSectionResizeMode(
+				TransactionTableModel::Date, QHeaderView::ResizeToContents);
+        ui->listTransactions->horizontalHeader()->setSectionResizeMode(
+				TransactionTableModel::Type, QHeaderView::ResizeToContents);
+        ui->listTransactions->horizontalHeader()->setSectionResizeMode(
+				TransactionTableModel::ToAddress, QHeaderView::ResizeToContents);
+        ui->listTransactions->horizontalHeader()->setSectionResizeMode(
+				TransactionTableModel::Amount, QHeaderView::ResizeToContents);
+#endif
 
         // Keep up to date with wallet
         setBalance(model->getBalance(), model->getStake(), model->getUnconfirmedBalance(), model->getImmatureBalance());

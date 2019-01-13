@@ -25,7 +25,7 @@ public:
 private:
     Ui::LoadingBlockchain *ui;
     ClientModel *model;
-    bool loadedBlockchain = false;
+    bool loadedBlockchain;
     QTimer *noConnectionTimer;
 
     private slots:

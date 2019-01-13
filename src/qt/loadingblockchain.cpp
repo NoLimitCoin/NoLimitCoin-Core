@@ -10,6 +10,7 @@ LoadingBlockchain::LoadingBlockchain(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::LoadingBlockchain)
 {
+    loadedBlockchain = false;
     ui->setupUi(this);
 
     QMovie *movie = new QMovie(":/movies/loading");
