@@ -64,7 +64,6 @@ macx {
    # INCLUDEPATH += /usr/local/include/event2
    # custom linux for static
    # bdb 4 is not obsolete yet!
-   INCLUDEPATH += /usr/local/BerkeleyDB.4.8/include
 }
 
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE \
@@ -586,6 +585,7 @@ win32 {
 !macx:!win32 {
     LIBS += -lrt
     LIBS += -ldl
+    LIBS += -ldb_cxx
 }
 
 macx | win32 {
@@ -612,7 +612,6 @@ macx {
     # LIBS += /usr/local/boost/stage/lib/libboost_thread.a
     # LIBS += /usr/local/boost/stage/lib/libboost_program_options.a
     # custom linux for static
-    LIBS += /usr/local/BerkeleyDB.4.8/lib/libdb_cxx-4.8.a
 }
 
 
