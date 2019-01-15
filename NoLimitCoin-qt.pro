@@ -44,7 +44,10 @@ win32 {
   }
 }
 
-!macx:!win32:CONFIG += static
+!macx:!win32:
+{
+    CONFIG += static
+}
 
 macx {
   INCLUDEPATH += /usr/local/ssl/include
@@ -54,7 +57,7 @@ macx {
 }
 
 !macx:!win32 {
-   # debian
+   # debian & ubuntu
    INCLUDEPATH += /usr/include/x86_64-linux-gnu
    # custom linux
    # INCLUDEPATH += /usr/include
@@ -135,7 +138,8 @@ contains(USE_QRCODE, 1) {
     message(Building with QRCode support)
     DEFINES += USE_QRCODE
     macx:LIBS += /usr/local/lib/libqrencode.4.dylib
-    LIBS += -lqrencode
+    win32:LIBS += -lqrencode
+    !macx:!win32:LIBS += /usr/local/lib/libqrencode.a
 } else {
     message(Building without QRCode support)
 }
@@ -576,7 +580,7 @@ win32 {
 
 !win32:!macx {
     DEFINES += LINUX
-    # debian
+    # debian & ubuntu
     LIBS += -L/usr/lib/x86_64-linux-gnu
     # custom linux
     # LIBS += -L/usr/local/ssl/lib
@@ -585,7 +589,6 @@ win32 {
 !macx:!win32 {
     LIBS += -lrt
     LIBS += -ldl
-    LIBS += -ldb_cxx
 }
 
 macx | win32 {
@@ -598,12 +601,14 @@ macx {
 }
 
 !macx:!win32 {
-    # debian
+    # debian & ubuntu
     LIBS += /usr/lib/x86_64-linux-gnu/libssl.a
     LIBS += /usr/lib/x86_64-linux-gnu/libboost_system.a
     LIBS += /usr/lib/x86_64-linux-gnu/libboost_filesystem.a
     LIBS += /usr/lib/x86_64-linux-gnu/libboost_thread.a
     LIBS += /usr/lib/x86_64-linux-gnu/libboost_program_options.a
+    LIBS += /usr/lib/x86_64-linux-gnu/libdb_cxx.a
+    message("qrencode should be built static from source")
     # custom linux
     # LIBS += /usr/local/ssl/lib/libssl.a
     # LIBS += /usr/local/ssl/lib/libcrypto.a
