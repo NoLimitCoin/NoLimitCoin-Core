@@ -32,7 +32,7 @@ class CNode;
 static const int LAST_POW_BLOCK = 1000;
 static const int POSTMINE_BLOCK = 574000;  // approx 02/01/2019
 static const uint256 hashPostmine("0x55f1b31a88b58552056188aa94ac7de1aa84bac13943902e243c9397b20d4d28");
-static const int64_t POSTMINE_VALUE = 311000000 * COIN;
+static const int64_t POSTMINE_VALUE = 389000000 * COIN;
 
 
 static const unsigned int MAX_BLOCK_SIZE = 20000000;
