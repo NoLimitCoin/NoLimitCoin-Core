@@ -532,6 +532,7 @@ macx {
    # QMAKE_CFLAGS_THREAD += -pthread
    # QMAKE_LFLAGS_THREAD += -pthread
    # QMAKE_CXXFLAGS_THREAD += -pthread
+   QMAKE_LFLAGS += -Wl,-rpath,@executable_path/../Frameworks
 }
 
 # Set libraries and includes at end, to use platform-defined defaults if not overridden
