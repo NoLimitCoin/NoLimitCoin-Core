@@ -17,7 +17,7 @@ win32 {
 }
 TEMPLATE = app
 TARGET = NoLimitCoin-wallet
-VERSION = 4.0.1.1
+VERSION = 4.0.2.1
 INCLUDEPATH += src src/json src/qt
 
 QT += core gui network
