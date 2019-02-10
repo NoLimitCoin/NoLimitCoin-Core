@@ -13,6 +13,7 @@
 using namespace json_spirit;
 using namespace std;
 
+#ifdef WITH_MINER
 Value getsubsidy(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 1)
@@ -58,6 +59,7 @@ Value getmininginfo(const Array& params, bool fHelp)
     obj.push_back(Pair("testnet",       fTestNet));
     return obj;
 }
+#endif  /* WITH_MINER */
 
 Value getstakinginfo(const Array& params, bool fHelp)
 {
@@ -94,6 +96,7 @@ Value getstakinginfo(const Array& params, bool fHelp)
     return obj;
 }
 
+#ifdef WITH_MINER
 Value getworkex(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 2)
@@ -525,4 +528,5 @@ Value submitblock(const Array& params, bool fHelp)
 
     return Value::null;
 }
+#endif  /* WITH_MINER */
 

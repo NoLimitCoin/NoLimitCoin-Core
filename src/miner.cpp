@@ -17,6 +17,7 @@ using namespace std;
 
 extern unsigned int nMinerSleep;
 
+#ifdef WITH_MINER
 int static FormatHashBlocks(void* pbuffer, unsigned int len)
 {
     unsigned char* pdata = (unsigned char*)pbuffer;
@@ -52,6 +53,7 @@ void SHA256Transform(void* pstate, void* pinput, const void* pinit)
     for (int i = 0; i < 8; i++)
         ((uint32_t*)pstate)[i] = ctx.h[i];
 }
+#endif  /* WITH_MINER */
 
 // Some explaining would be appreciated
 class COrphan
@@ -376,7 +378,7 @@ CBlock* CreateNewBlock(CWallet* pwallet, bool fProofOfStake, int64_t* pFees)
     return pblock.release();
 }
 
-
+#ifdef WITH_MINER
 void IncrementExtraNonce(CBlock* pblock, CBlockIndex* pindexPrev, unsigned int& nExtraNonce)
 {
     // Update nExtraNonce
@@ -480,6 +482,7 @@ bool CheckWork(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
 
     return true;
 }
+#endif  /* WITH_MINER */
 
 bool CheckStake(CBlock* pblock, CWallet& wallet)
 {

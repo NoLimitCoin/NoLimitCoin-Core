@@ -2578,7 +2578,7 @@ bool LoadBlockIndex(bool fAllowNew)
             block.nNonce   = 21863;
         }
 
-
+#ifdef WITH_MINER
        if (true && (block.GetHash() != hashGenesisBlock)) {
                 block.nNonce = 0;
 
@@ -2595,6 +2595,7 @@ bool LoadBlockIndex(bool fAllowNew)
                     }
                 }
             }
+#endif  /* WITH_MINER */
 
         block.print();
         printf("block.GetHash() == %s\n", block.GetHash().ToString().c_str());
