@@ -2,6 +2,8 @@
 
 pragma solidity =0.7.6;
 
+pragma abicoder v2;
+
 import "./Context.sol";
 
 contract NLC is Context {
@@ -11,12 +13,17 @@ contract NLC is Context {
     mapping (address => uint256) private _balances;
     mapping (address => mapping (address => uint256)) private _allowances;
 
-    address public LIQUIDITY_TRANSFORMER;
-    address public liquidityGateKeeper;  
+    address private _LIQUIDITY_TRANSFORMER;
+    address private _liquidityGateKeeper;  
 
-    address public STAKE_TRANSFORMER;
-    address public stakeGateKeeper;
+    address private _STAKE_TRANSFORMER;
+    address private _stakeGateKeeper;
     bool private _stakeAccess;
+
+    struct TokenTransfer {
+        address recipient;
+        uint256 amount;
+    }
 
     /**
      * @dev initial private
@@ -52,8 +59,8 @@ contract NLC is Context {
         _name = "NoLimitCoin";
         _symbol = "NLC";
         _swapAdmin = swapAdmin;
-        liquidityGateKeeper = msg.sender;
-        stakeGateKeeper = msg.sender; 
+        _liquidityGateKeeper = msg.sender;
+        _stakeGateKeeper = msg.sender; 
     }
 
     /**
@@ -174,19 +181,23 @@ contract NLC is Context {
      * @dev Allows to transfer tokens to multiple accounts
      */
     function transferToMultipleAccounts(
-        address[] memory recipients,
-        uint256[] memory amount
+        TokenTransfer[] memory _account 
     )
         public
         returns (bool)
     {   
-        for (uint8 _i = 0; _i < recipients.length; _i++) {
-
-        _transfer(
-            _msgSender(),
-            recipients[_i],
-            amount[_i]
+        require(
+            _account.length <= 25, 
+            'NLC: more than 25 transfers are not allowed in single transaction'
         );
+
+        for (uint8 _i = 0; _i < _account.length; _i++) {
+
+            _transfer(
+                _msgSender(),
+                _account[_i].recipient,
+                _account[_i].amount
+            );
 
         }
 
@@ -253,7 +264,7 @@ contract NLC is Context {
 
         require(
             _totalSupply.add(amount) <= maxSupply,
-            'NLC:mint amount exceeds maximum supply limit'
+            'NLC: mint amount exceeds maximum supply limit'
         );
 
         _totalSupply =
@@ -341,7 +352,7 @@ contract NLC is Context {
 
     /**
      * @notice ability to define liquidity transformer address
-     * @dev this method renounce liquidityGateKeeper access
+     * @dev this method renounce _liquidityGateKeeper access
      * @param _immutableTransformer contract address
      */
     function setLiquidityTransformer(
@@ -350,11 +361,49 @@ contract NLC is Context {
         external
     {
         require(
-            liquidityGateKeeper == msg.sender,
+            _liquidityGateKeeper == msg.sender,
             'NLC: transformer defined'
         );
-        LIQUIDITY_TRANSFORMER = _immutableTransformer;
-        liquidityGateKeeper = address(0x0);
+        _LIQUIDITY_TRANSFORMER = _immutableTransformer;
+        _liquidityGateKeeper = address(0x0);
+    }
+
+    /**
+     * @notice ability to define stake transformer contract
+     * @param _immutableTransformer contract address
+     */
+    function setStakeTransformer(
+        address _immutableTransformer
+    )
+        external
+    {
+        require(
+            _stakeGateKeeper == msg.sender,
+            'NLC: transformer defined'
+        );
+
+        _STAKE_TRANSFORMER = _immutableTransformer;
+        _stakeAccess = true;
+    }
+
+    /**
+     * @notice ability to renounce _stakeGateKeeper access 
+     * after giving access to staking contract
+     */
+    function revokeAccess()
+        external
+    {
+        require(
+            _stakeGateKeeper == msg.sender,
+            'NLC: transformer defined'
+        ); 
+
+        require(
+            _stakeAccess == true,
+            'NLC: access is not given to staking contract'
+        ); 
+
+        _stakeGateKeeper = address(0x0);  
     }    
 
     /**
@@ -369,8 +418,8 @@ contract NLC is Context {
         external
     {
         require(
-            (msg.sender == LIQUIDITY_TRANSFORMER),
-            'NLC:wrong transformer'
+            (msg.sender == _LIQUIDITY_TRANSFORMER),
+            'NLC: wrong transformer'
         );
 
         _mint(
@@ -392,8 +441,8 @@ contract NLC is Context {
         external
     {
         require(
-            (msg.sender == STAKE_TRANSFORMER),
-            'NLC:wrong transformer'
+            (msg.sender == _STAKE_TRANSFORMER),
+            'NLC: wrong transformer'
         );
 
         _mint(
@@ -415,8 +464,8 @@ contract NLC is Context {
         external
     {
         require(
-            msg.sender == STAKE_TRANSFORMER ,
-            'NLC:wrong transformer'
+            msg.sender == _STAKE_TRANSFORMER ,
+            'NLC: wrong transformer'
         );
 
         _burn(
