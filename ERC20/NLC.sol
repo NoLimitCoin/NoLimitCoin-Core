@@ -41,7 +41,7 @@ contract NLC is Context {
     /**
      * @dev Maximum supply 
      */
-    uint256 private maxSupply = 65000000000000000;
+    uint256 private maxSupply = 103437734400000000;
 
     event Transfer(
         address indexed from,
@@ -187,8 +187,8 @@ contract NLC is Context {
         returns (bool)
     {   
         require(
-            _account.length <= 25, 
-            'NLC: more than 25 transfers are not allowed in single transaction'
+            _account.length <= 10, 
+            'NLC: more than 10 transfers are not allowed in single transaction'
         );
 
         for (uint8 _i = 0; _i < _account.length; _i++) {
