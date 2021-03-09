@@ -20,6 +20,9 @@ contract NLC is Context {
     address private _stakeGateKeeper;
     bool private _stakeAccess;
 
+    uint256 immutable LAUNCH_TIME;
+    uint256 immutable Revoke_Admin_Mint_Access_Time;
+
     struct TokenTransfer {
         address recipient;
         uint256 amount;
@@ -34,7 +37,7 @@ contract NLC is Context {
     address private _swapAdmin;
 
     /**
-     * @dev 👻 Initial supply 
+     * @dev Initial supply 
      */
     uint256 private _totalSupply = 0;
 
@@ -61,6 +64,8 @@ contract NLC is Context {
         _swapAdmin = swapAdmin;
         _liquidityGateKeeper = msg.sender;
         _stakeGateKeeper = msg.sender; 
+        LAUNCH_TIME = 1617235200; //(1st April 2021 @00:00)
+        Revoke_Admin_Mint_Access_Time = 1680307200; //(1st April 2023 @00:00)
     }
 
     /**
@@ -420,6 +425,11 @@ contract NLC is Context {
         require(
             (msg.sender == _LIQUIDITY_TRANSFORMER),
             'NLC: wrong transformer'
+        );
+
+        require(
+            (block.timestamp <= Revoke_Admin_Mint_Access_Time),
+            'NLC: Access is revoked for Admin'
         );
 
         _mint(
