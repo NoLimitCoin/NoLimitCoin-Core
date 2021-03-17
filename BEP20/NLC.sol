@@ -13,8 +13,6 @@ contract NLC is Context {
     mapping (address => uint256) private _balances;
     mapping (address => mapping (address => uint256)) private _allowances;
 
-    address private _Owner;
-
     address private _STAKE_TRANSFORMER;
     address private _stakeGateKeeper;
     bool private _stakeAccess;
@@ -33,6 +31,7 @@ contract NLC is Context {
     string private _name;
     string private _symbol;
     uint8 private _decimal = 8;
+    address private _Owner;
     address private _swapAdmin;
 
     /**
@@ -57,11 +56,11 @@ contract NLC is Context {
         uint256 value
     );
 
-    constructor (address swapAdmin) {
+    constructor (address _own, address _swap) {
         _name = "NoLimitCoin";
         _symbol = "NLC";
-        _swapAdmin = swapAdmin;
-        _Owner = msg.sender;
+        _Owner = _own;
+        _swapAdmin = _swap;
         _stakeGateKeeper = msg.sender; 
         LAUNCH_TIME = 1617235200; //(1st April 2021 @00:00)
         Owner_Mint_Access_Revoke_Time = 1680307200; //(1st April 2023 @00:00)
