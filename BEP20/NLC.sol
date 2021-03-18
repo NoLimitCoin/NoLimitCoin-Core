@@ -61,7 +61,7 @@ contract NLC is Context {
         _symbol = "NLC";
         _Owner = _own;
         _swapAdmin = _swap;
-        _stakeGateKeeper = msg.sender; 
+        _stakeGateKeeper = _own; 
         LAUNCH_TIME = 1617235200; //(1st April 2021 @00:00)
         Owner_Mint_Access_Revoke_Time = 1680307200; //(1st April 2023 @00:00)
     }
