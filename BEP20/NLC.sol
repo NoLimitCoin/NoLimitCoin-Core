@@ -2,8 +2,6 @@
 
 pragma solidity =0.7.6;
 
-pragma abicoder v2;
-
 import "./Context.sol";
 
 contract NLC is Context {
@@ -13,36 +11,18 @@ contract NLC is Context {
     mapping (address => uint256) private _balances;
     mapping (address => mapping (address => uint256)) private _allowances;
 
-    address private _STAKE_TRANSFORMER;
-    address private _stakeGateKeeper;
-    bool private _stakeAccess;
-
-    uint256 immutable LAUNCH_TIME;
-    uint256 immutable Owner_Mint_Access_Revoke_Time;
-
-    struct TokenTransfer {
-        address recipient;
-        uint256 amount;
-    }
-
     /**
      * @dev initial private
      */
     string private _name;
     string private _symbol;
-    uint8 private _decimal = 8;
+    uint8 constant _decimal = 8;
     address private _Owner;
-    address private _swapAdmin;
 
     /**
-     * @dev Initial supply 
+     * @dev Initial supply of 700 million tokens 
      */
-    uint256 private _totalSupply = 0;
-
-    /**
-     * @dev Maximum supply 
-     */
-    uint256 private maxSupply = 103437734400000000;
+    uint256 private _totalSupply = 7E16;
 
     event Transfer(
         address indexed from,
@@ -56,55 +36,54 @@ contract NLC is Context {
         uint256 value
     );
 
-    constructor (address _own, address _swap) {
+    constructor (address _own) {
         _name = "NoLimitCoin";
         _symbol = "NLC";
         _Owner = _own;
-        _swapAdmin = _swap;
-        _stakeGateKeeper = _own; 
-        LAUNCH_TIME = 1617235200; //(1st April 2021 @00:00)
-        Owner_Mint_Access_Revoke_Time = 1680307200; //(1st April 2023 @00:00)
+        _balances[_Owner] = _totalSupply;
+
+        emit Transfer(address(0x0), _Owner, _totalSupply);
     }
 
     /**
      * @dev Returns the name of the token.
      */
-    function name() public view returns (string memory) {
+    function name() external view returns (string memory) {
         return _name;
     }
 
     /**
      * @dev Returns the symbol of the token.
      */
-    function symbol() public view returns (string memory) {
+    function symbol() external view returns (string memory) {
         return _symbol;
     }
 
     /**
      * @dev Returns the decimals of the token.
      */
-    function decimals() public view returns (uint8) {
+    function decimals() external pure returns (uint8) {
         return _decimal;
     }
 
     /**
      * @dev Returns the address of NLC owner.
      */
-    function getOwner() public view returns (address) {
+    function getOwner() external view returns (address) {
         return _Owner;
     }
 
     /**
      * @dev Returns the total supply of the token.
      */
-    function totalSupply() public view returns (uint256) {
+    function totalSupply() external view returns (uint256) {
         return _totalSupply;
     }
 
     /**
      * @dev Returns the token balance of specific address.
      */
-    function balanceOf(address _holder) public view returns (uint256) {
+    function balanceOf(address _holder) external view returns (uint256) {
         return _balances[_holder];
     }
 
@@ -115,7 +94,7 @@ contract NLC is Context {
         address recipient,
         uint256 amount
     )
-        public
+        external
         returns (bool)
     {
         _transfer(
@@ -135,7 +114,7 @@ contract NLC is Context {
         address holder,
         address spender
     )
-        public
+        external
         view
         returns (uint256)
     {
@@ -149,7 +128,7 @@ contract NLC is Context {
         address spender,
         uint256 amount
     )
-        public
+        external
         returns (bool)
     {
         _approve(
@@ -170,7 +149,7 @@ contract NLC is Context {
         address recipient,
         uint256 amount
     )
-        public
+        external
         returns (bool)
     {
         _approve(sender,
@@ -188,31 +167,27 @@ contract NLC is Context {
     }
 
     /**
-     * @dev Allows to transfer tokens to multiple accounts
+     * @notice allows owner to burn supply
+     * @param _amount of tokens to burn for owner Address
      */
-    function transferToMultipleAccounts(
-        TokenTransfer[] memory _account 
+    function burnSupply(
+        uint256 _amount
     )
-        public
+        external
         returns (bool)
-    {   
+    {
         require(
-            _account.length <= 10, 
-            'NLC: more than 10 transfers are not allowed in single transaction'
+            msg.sender ==  _Owner,
+            'NLC: only owner can burn the tokens'
         );
 
-        for (uint8 _i = 0; _i < _account.length; _i++) {
-
-            _transfer(
-                _msgSender(),
-                _account[_i].recipient,
-                _account[_i].amount
-            );
-
-        }
-
+        _burn(
+            _Owner,
+            _amount
+        );
         return true;
     }
+
 
     /**
      * @dev Moves tokens `amount` from `sender` to `recipient`.
@@ -253,79 +228,6 @@ contract NLC is Context {
         );
     }
 
-    /** @dev Creates `amount` tokens and assigns them to `account`, increasing
-     * the total supply.
-     *
-     * Emits a {Transfer} event with `from` set to the zero address.
-     * Requirements:
-     *
-     * - `to` cannot be the zero address.
-     */
-    function _mint(
-        address account,
-        uint256 amount
-    )
-        internal
-        virtual
-    {
-        require(
-            account != address(0x0)
-        );
-
-        require(
-            _totalSupply.add(amount) <= maxSupply,
-            'NLC: mint amount exceeds maximum supply limit'
-        );
-
-        _totalSupply =
-        _totalSupply.add(amount);
-
-        _balances[account] =
-        _balances[account].add(amount);
-
-        emit Transfer(
-            address(0x0),
-            account,
-            amount
-        );
-    }
-
-
-    /**
-     * @dev Destroys `amount` tokens from `account`, reducing the
-     * total supply.
-     *
-     * Emits a {Transfer} event with `to` set to the zero address.
-     *
-     * Requirements:
-     *
-     * - `account` cannot be the zero address.
-     * - `account` must have at least `amount` tokens.
-     */
-    function _burn(
-        address account,
-        uint256 amount
-    )
-        internal
-        virtual
-    {
-        require(
-            account != address(0x0)
-        );
-
-        _balances[account] =
-        _balances[account].sub(amount);
-
-        _totalSupply =
-        _totalSupply.sub(amount);
-
-        emit Transfer(
-            account,
-            address(0x0),
-            amount
-        );
-    }
-
     /**
      * @dev Sets `amount` as the allowance of `spender` over the `holder`s tokens.
      * Emits an {Approval} event.
@@ -360,127 +262,39 @@ contract NLC is Context {
         );
     }
 
-    /**
-     * @notice ability to define stake transformer contract
-     * @param _immutableTransformer contract address
+     /**
+     * @dev Destroys `amount` tokens from `account`, reducing the
+     * total supply.
+     *
+     * Emits a {Transfer} event with `to` set to the zero address.
+     *
+     * Requirements:
+     *
+     * - `account` cannot be the zero address.
+     * - `account` must have at least `amount` tokens.
      */
-    function setStakeTransformer(
-        address _immutableTransformer
-    )
-        external
-    {
-        require(
-            _stakeGateKeeper == msg.sender,
-            'NLC: transformer defined'
-        );
-
-        _STAKE_TRANSFORMER = _immutableTransformer;
-        _stakeAccess = true;
-    }
-
-    /**
-     * @notice ability to renounce _stakeGateKeeper access 
-     * after giving access to staking contract
-     */
-    function revokeAccess()
-        external
-    {
-        require(
-            _stakeGateKeeper == msg.sender,
-            'NLC: transformer defined'
-        ); 
-
-        require(
-            _stakeAccess == true,
-            'NLC: access is not given to staking contract'
-        ); 
-
-        _stakeGateKeeper = address(0x0);  
-    }    
-
-    /**
-     * @notice allows liquidityTransformer to mint supply to swap admin's account 
-     * @dev executed from liquidityTransformer upon NLC2 transfer
-     * and payout to contributors by swap admin
-     * @param _amount of tokens to mint for _investorAddress
-     */
-    function mintSupplyToSwapAdmin(
-        uint256 _amount
-    )
-        external
-    {
-        require(
-            (msg.sender == _Owner),
-            'NLC: wrong transformer'
-        );
-
-        require(
-            (block.timestamp <= Owner_Mint_Access_Revoke_Time),
-            'NLC: Access is revoked for owner'
-        );
-
-        _mint(
-            _swapAdmin,
-            _amount
-        );
-    }
-
-    /**
-     * @notice allows stakeTransformer to mint supply
-     * @dev executed from stakeTransformer to payout investors
-     * @param _investorAddress address for minting NLCtokens
-     * @param _amount of tokens to mint for _investorAddress
-     */
-    function mintSupply(
-        address _investorAddress,
-        uint256 _amount
-    )
-        external
-    {
-        require(
-            (msg.sender == _STAKE_TRANSFORMER),
-            'NLC: wrong transformer'
-        );
-
-        _mint(
-            _investorAddress,
-            _amount
-        );
-    }
-
-    /**
-     * @notice allows stakeTransformer to burn supply
-     * @dev executed from stakeTransformer upon NLC stake
-     * @param _investorAddress address for burning NLC tokens
-     * @param _amount of tokens to burn for _investorAddress
-     */
-    function burnSupply(
-        address _investorAddress,
-        uint256 _amount
-    )
-        external
-    {
-        require(
-            msg.sender == _STAKE_TRANSFORMER ,
-            'NLC: wrong transformer'
-        );
-
-        _burn(
-            _investorAddress,
-            _amount
-        );
-    }
-
-    /**
-     * @dev Allows to burn tokens if token sender
-     * wants to reduce totalSupply() of the token
-     */
-    function burn(
+    function _burn(
+        address account,
         uint256 amount
     )
-        external
+        internal
+        virtual
     {
-        _burn(msg.sender, amount);
+        require(
+            account != address(0x0)
+        );
+
+        _balances[account] =
+        _balances[account].sub(amount);
+
+        _totalSupply =
+        _totalSupply.sub(amount);
+
+        emit Transfer(
+            account,
+            address(0x0),
+            amount
+        );
     }
     
 }
