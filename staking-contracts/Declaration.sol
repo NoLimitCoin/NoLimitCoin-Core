@@ -22,7 +22,7 @@ abstract contract Declaration is Global {
     uint8 constant YEAR_4 = 4;
     uint8 constant YEAR_5 = 5;
   
-    address public reward_wallet = 0x7FF1F8C467114BfBbCC56E406c0Ec21E781bB959;
+    address public reward_wallet = 0x35DAF7182B0637Db15377B7C45b328d2Dec21400;
     address public _owner;
 
 
@@ -34,7 +34,7 @@ abstract contract Declaration is Global {
     {
         STAKING_TOKEN = IBEPToken(_tokenAddress);
         REWARD_TOKEN = IBEPToken(_tokenAddress);
-        LAUNCH_TIME = block.timestamp;// (10th November 2020 @00:00 GMT == day 0)
+        LAUNCH_TIME = 1627689600;// (31th JULY 2021 @00:00 GMT == day 0)
 
         interest[StakeType.SHORT_TERM][YEAR_0] = 5;
         interest[StakeType.SHORT_TERM][YEAR_1] = 5;
